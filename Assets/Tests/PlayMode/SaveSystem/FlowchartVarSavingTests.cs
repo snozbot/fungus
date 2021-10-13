@@ -5,8 +5,9 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public abstract class FlowchartVarSavingTests: SaveSysPlayModeTest
+    public abstract class FlowchartVarSavingTests<TSaver>: SaveSysPlayModeTest where TSaver: VarSaver
     {
+        protected abstract VarSaver.ContentType SaveContentAs { get; }
         protected override string PathToScene => "Prefabs/FlowchartSavingTests";
 
         #region Prep work
@@ -35,7 +36,7 @@ namespace SaveSystemTests
         protected virtual void GetSaverNeeded()
         {
             GetEncoderHolder();
-            varSaver = hasEncoders.GetComponent<VarSaver>();
+            varSaver = hasEncoders.GetComponent<TSaver>();
         }
 
         protected virtual void GetEncoderHolder()
@@ -45,7 +46,7 @@ namespace SaveSystemTests
 
         protected GameObject hasEncoders;
         protected string encoderContainerGOName = "FlowchartEncoders";
-        protected VarSaver varSaver;
+        protected TSaver varSaver;
 
         protected virtual void PrepareExpectedResults()
         {
@@ -53,7 +54,15 @@ namespace SaveSystemTests
 
             foreach (var varEl in variablesToEncode)
             {
-                var varAsString = varEl.GetValue().ToString();
+                var varAsString = "";
+                object varValue = varEl.GetValue();
+                bool weWantPrettyPrint = true; // For debugging
+
+                if (SaveContentAs == VarSaver.ContentType.regularString)
+                    varAsString = varValue.ToString();
+                else if (SaveContentAs == VarSaver.ContentType.jsonString)
+                    varAsString = JsonUtility.ToJson(varValue, weWantPrettyPrint);
+
                 ExpectedResults.Add(varAsString);
             }
         }

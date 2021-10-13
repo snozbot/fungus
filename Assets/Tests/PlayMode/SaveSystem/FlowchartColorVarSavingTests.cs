@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
-using Fungus;
+﻿using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartColorVarSavingTests : FlowchartVarSavingTests
+    public class FlowchartColorVarSavingTests : FlowchartVarSavingTests<ColorVarSaver>
     {
         protected override string VariableHolderName => "ColorFlowchart";
-
-
+        protected override VarSaver.ContentType SaveContentAs => VarSaver.ContentType.jsonString;
     }
 }

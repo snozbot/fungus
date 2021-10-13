@@ -64,6 +64,7 @@ namespace Fungus
             this.Type = Type.GetType(typeName);
         }
 
+
     }
 
 }

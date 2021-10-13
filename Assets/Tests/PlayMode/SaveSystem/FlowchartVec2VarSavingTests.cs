@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
-using Fungus;
+﻿using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartVec2VarSavingTests : FlowchartVarSavingTests
+    public class FlowchartVec2VarSavingTests : FlowchartVarSavingTests<VectorVarSaver>
     {
         protected override string VariableHolderName => "Vec_2_Flowchart";
+        protected override VarSaver.ContentType SaveContentAs
+        {
+            get { return VarSaver.ContentType.jsonString; }
+        }
 
     }
 }
