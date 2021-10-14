@@ -72,11 +72,16 @@ namespace Fungus
             }
             else if (SetContentAs == ContentType.jsonString)
             {
-                bool weWantItPrettyPrinted = true;
-                varValue = JsonUtility.ToJson(input.GetValue(), weWantItPrettyPrinted);
+                varValue = GetJsonStringOfValueIn(input);
             }
 
             return varValue;
+        }
+
+        protected virtual string GetJsonStringOfValueIn(Variable input)
+        {
+            bool weWantItPrettyPrinted = true;
+            return JsonUtility.ToJson(input.GetValue(), weWantItPrettyPrinted);
         }
 
         protected override bool IsValid(object input)
