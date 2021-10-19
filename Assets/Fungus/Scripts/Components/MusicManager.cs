@@ -153,12 +153,13 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Fades the game music volume to required level over a period of time.
+        /// Fades the game music and sound volume to required level over a period of time.
         /// </summary>
-        /// <param name="volume">The new music volume value [0..1]</param>
+        /// <param name="musicVolume">The new music volume value [0..1]</param>
+        /// <param name="soundVolume">The new sound volume value [0..1]</param>
         /// <param name="duration">The length of time in seconds needed to complete the volume change.</param>
         /// <param name="onComplete">Delegate function to call when fade completes.</param>
-        public virtual void SetAudioVolume(float volume, float duration, System.Action onComplete)
+        public virtual void SetAudioVolume(float musicVolume, float soundVolume, float duration, Action onComplete)
         {
             if (Mathf.Approximately(duration, 0f))
             {
@@ -166,23 +167,15 @@ namespace Fungus
                 {
                     onComplete();
                 }
-                audioSourceMusic.volume = volume;
-                audioSourceAmbiance.volume = volume;
-                return;
+                audioSourceMusic.volume = musicVolume;
+                audioSourceAmbiance.volume = musicVolume;
+                audioSourceSoundEffect.volume = soundVolume;
             }
-
-            LeanTween.value(gameObject,
-                audioSourceMusic.volume,
-                volume,
-                duration).setOnUpdate((v) => {
-                    audioSourceMusic.volume = v;
-                    audioSourceAmbiance.volume = v;
-                }).setOnComplete(() => {
-                    if (onComplete != null)
-                    {
-                        onComplete();
-                    }
-                });
+            else
+            {
+                SetSoundVolume(soundVolume, duration);
+                SetMusicVolume(musicVolume, duration, onComplete);
+            }
         }
 
         /// <summary>
@@ -203,6 +196,44 @@ namespace Fungus
             audioSourceAmbiance.clip = null;
         }
 
+        /// <summary>
+        /// Fades the game music volume to required level over a period of time.
+        /// </summary>
+        /// <param name="musicVolume">The new music volume value [0..1]</param>
+        /// <param name="duration">The length of time in seconds needed to complete the volume change.</param>
+        /// <param name="onComplete">Delegate function to call when fade completes.</param>
+        private void SetMusicVolume(float musicVolume, float duration, Action onComplete)
+        {
+            LeanTween.value(gameObject,
+                audioSourceMusic.volume,
+                musicVolume,
+                duration).setOnUpdate((v) => {
+                audioSourceMusic.volume = v;
+                audioSourceAmbiance.volume = v;
+            }).setOnComplete(() => {
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
+            });
+        }
+        
+        /// <summary>
+        /// Fades the game sound volume to required level over a period of time.
+        /// </summary>
+        /// <param name="soundVolume">The new sound volume value [0..1]</param>
+        /// <param name="duration">The length of time in seconds needed to complete the volume change.</param>
+        private void SetSoundVolume(float soundVolume, float duration)
+        {
+            LeanTween.value(gameObject,
+                audioSourceSoundEffect.volume,
+                soundVolume,
+                duration).setOnUpdate((v) =>
+            {
+                audioSourceSoundEffect.volume = v;
+            });
+        }
+        
         #endregion
     }
 }
