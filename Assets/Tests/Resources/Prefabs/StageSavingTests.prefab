@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3162663349441747710}
   - component: {fileID: 8364045520953853584}
   m_Layer: 0
-  m_Name: Left
+  m_Name: TestLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 7297114276210191881}
   - component: {fileID: 6581090877751548667}
   m_Layer: 0
-  m_Name: Stage (4)
+  m_Name: TestStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,7 +381,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 3050001972363868043}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 5645077989861479068}
   variables: []
   description: 
   stepPause: 0
@@ -407,8 +408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 242
-    y: 181
+    x: 240
+    y: 182
     width: 95
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -437,7 +438,7 @@ MonoBehaviour:
   itemId: 26
   indentLevel: 0
   display: 1
-  stage: {fileID: 0}
+  stage: {fileID: 6581090877751548667}
   character: {fileID: 3223981108841722869}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: a3710c5af5b436a46b8d0ff4235d1dfe, type: 3}
@@ -467,7 +468,7 @@ MonoBehaviour:
   itemId: 60
   indentLevel: 0
   display: 1
-  stage: {fileID: 0}
+  stage: {fileID: 6581090877751548667}
   character: {fileID: 7066739996686119588}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 59d7c816c1cfb9944b5a28dfbbfe2109, type: 3}
@@ -494,7 +495,7 @@ GameObject:
   - component: {fileID: 8518536358093222827}
   - component: {fileID: 2614403933432193095}
   m_Layer: 0
-  m_Name: Right
+  m_Name: TestRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
