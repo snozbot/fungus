@@ -47,14 +47,14 @@ namespace Fungus
         [SerializeField]
         bool dimmed;
 
-        public Vector3 Position
+        public string PositionName
         {
-            get { return position; }
-            set { position.Set(value.x, value.y, value.z); }
+            get { return positionName; }
+            set { positionName = value; }
         }
 
         [SerializeField]
-        Vector3 position;
+        string positionName = "[NullPosition]";
         
         public FacingDirection FacingDirection
         {
@@ -84,7 +84,7 @@ namespace Fungus
             newState.FacingDirection = charState.facing;
             newState.OnScreen = charState.onScreen;
             newState.PortraitName = charState.portrait.name;
-            newState.Position = charState.position.position;
+            newState.PositionName = charState.position.name;
 
             newState.stageName = FindStageNameFor(charState);
 
@@ -110,7 +110,7 @@ namespace Fungus
                 this.FacingDirection == other.FacingDirection &&
                 this.OnScreen == other.OnScreen &&
                 this.PortraitName == other.PortraitName &&
-                this.Position == other.Position &&
+                this.PositionName == other.PositionName &&
                 this.StageName == other.StageName;
         }
 

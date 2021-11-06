@@ -17,6 +17,7 @@ namespace SaveSystemTests
             base.SetUp();
             GetPortraitsPrepped();
             RegisterStageAndPositions();
+            RegisterCharacters();
         }
 
         protected virtual void GetPortraitsPrepped()
@@ -28,12 +29,20 @@ namespace SaveSystemTests
         protected virtual void RegisterStageAndPositions()
         {
             stageForPortraits = GameObject.Find("TestStage").GetComponent<Stage>();
-            onTheRight = GameObject.Find("TestRight").transform.position;
-            onTheLeft = GameObject.Find("TestLeft").transform.position;
+            onTheRight = GameObject.Find("TestRight").transform.name;
+            onTheLeft = GameObject.Find("TestLeft").transform.name;
         }
 
         protected Stage stageForPortraits;
-        protected Vector3 onTheRight, onTheLeft;
+        protected string onTheRight, onTheLeft;
+
+        protected virtual void RegisterCharacters()
+        {
+            sherlock = GameObject.Find("Sherlock Holmes").GetComponent<Character>();
+            watson = GameObject.Find("John Watson").GetComponent<Character>();
+        }
+
+        protected Character sherlock, watson;
 
         [UnityTest]
         public virtual IEnumerator PortraitPositionsSaved()
@@ -51,8 +60,9 @@ namespace SaveSystemTests
         protected IEnumerator PostSetUp()
         {
             yield return WaitForPortraitPrep();
+            DimAsNeeded();
             savedPortraitStates = GetStatesOfAllPortraits();
-            yield return null;
+            yield return new WaitForSeconds(1f); // Need to wait a little more for the dim effect
         }
 
         protected virtual IEnumerator WaitForPortraitPrep()
@@ -61,6 +71,11 @@ namespace SaveSystemTests
         }
 
         protected float portraitPrepTime = 1.5f;
+
+        protected virtual void DimAsNeeded()
+        {
+            stageForPortraits.SetDimmed(watson, true);
+        }
 
         protected virtual IList<PortraitSaveState> GetStatesOfAllPortraits()
         {
@@ -81,7 +96,7 @@ namespace SaveSystemTests
         protected virtual bool SherlockSavedAsOnTheRight()
         {
             var sherlockState = GetStateFor("Sherlock Holmes");
-            return sherlockState.Position == onTheRight;
+            return sherlockState.PositionName == onTheRight;
         }
 
         protected virtual PortraitSaveState GetStateFor(string charName)
@@ -96,7 +111,7 @@ namespace SaveSystemTests
         protected virtual bool WatsonSavedAsOnTheLeft()
         {
             var watsonState = GetStateFor("John Watson");
-            return watsonState.Position == onTheLeft;
+            return watsonState.PositionName == onTheLeft;
         }
 
 
