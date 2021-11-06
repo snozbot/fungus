@@ -139,29 +139,39 @@ namespace SaveSystemTests
         protected virtual IEnumerator HavePortraitsReady()
         {
             // Execute the block that prepares the portraits
+
             
             throw new System.NotImplementedException();
         }
 
         [Test]
+        public virtual void PortraitsStageNamesSaved()
+        {
+            // All the states have the stage name as the right one
+            bool foundStateWithWrongStageName = false;
+
+            foreach (var savedState in savedPortraitStates)
+                if (savedState.StageName != testStageName)
+                {
+                    foundStateWithWrongStageName = true;
+                    break;
+                }
+
+            bool thingsWereSavedProperly = !foundStateWithWrongStageName;
+            Assert.IsTrue(thingsWereSavedProperly);
+
+        }
+
+        protected string testStageName = "TestStage";
+
+        [Test]
         [Ignore("")]
         public virtual void PortraitsHaveCorrectCharacters()
         {
-
+            
         }
 
-        [Test]
-        [Ignore("")]
-        public virtual void PortraitsStageNamesSaved()
-        {
+        
 
-        }
-
-        [Test]
-        [Ignore("")]
-        public virtual void PortraitsAtRightSiblingIndexes()
-        {
-
-        }
     }
 }
