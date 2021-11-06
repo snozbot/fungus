@@ -95,9 +95,11 @@ namespace SaveSystemTests
 
         protected virtual bool SherlockSavedAsOnTheRight()
         {
-            var sherlockState = GetStateFor("Sherlock Holmes");
+            var sherlockState = GetStateFor(sherlockName);
             return sherlockState.PositionName == onTheRight;
         }
+
+        protected string sherlockName = "Sherlock Holmes";
 
         protected virtual PortraitSaveState GetStateFor(string charName)
         {
@@ -105,14 +107,16 @@ namespace SaveSystemTests
                 if (savedState.CharacterName == charName)
                     return savedState;
 
-            throw new System.InvalidOperationException("There is no state registered with " + charName);
+            return null;
         }
 
         protected virtual bool WatsonSavedAsOnTheLeft()
         {
-            var watsonState = GetStateFor("John Watson");
+            var watsonState = GetStateFor(watsonName);
             return watsonState.PositionName == onTheLeft;
         }
+
+        protected string watsonName = "John Watson";
 
 
         protected virtual bool StateListsAreTheSame(IList<PortraitSaveState> firstStates, IList<PortraitSaveState> secondStates)
@@ -144,10 +148,11 @@ namespace SaveSystemTests
             throw new System.NotImplementedException();
         }
 
-        [Test]
-        public virtual void PortraitsStageNamesSaved()
+        [UnityTest]
+        public virtual IEnumerator PortraitsStageNamesSaved()
         {
-            // All the states have the stage name as the right one
+            yield return PostSetUp();
+            
             bool foundStateWithWrongStageName = false;
 
             foreach (var savedState in savedPortraitStates)
@@ -164,11 +169,17 @@ namespace SaveSystemTests
 
         protected string testStageName = "TestStage";
 
-        [Test]
-        [Ignore("")]
-        public virtual void PortraitsHaveCorrectCharacters()
+        [UnityTest]
+        public virtual IEnumerator PortraitsHaveCorrectCharacters()
         {
-            
+            yield return PostSetUp();
+
+            bool onlyTwoStates = savedPortraitStates.Count == 2;
+            bool oneForSherlock = GetStateFor(sherlockName) != null;
+            bool oneForWatson = GetStateFor(watsonName) != null;
+
+            bool thingsWentWell = onlyTwoStates && oneForSherlock && oneForWatson;
+            Assert.IsTrue(thingsWentWell);
         }
 
         
