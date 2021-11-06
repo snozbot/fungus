@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Fungus;
+using UnityEngine.UI;
 
 namespace SaveSystemTests
 {
@@ -62,8 +63,8 @@ namespace SaveSystemTests
             yield return WaitForPortraitPrep();
             DimAsNeeded();
             savedPortraitStates = GetStatesOfAllPortraits();
-            sherlockState = GetStateFor(sherlockName);
-            watsonState = GetStateFor(watsonName);
+            sherlockSaveState = GetStateFor(sherlockName);
+            watsonSaveState = GetStateFor(watsonName);
             yield return new WaitForSeconds(1f); // Need to wait a little more for the dim effect
         }
 
@@ -95,11 +96,11 @@ namespace SaveSystemTests
 
         protected IList<PortraitSaveState> savedPortraitStates = new List<PortraitSaveState>();
 
-        protected PortraitSaveState sherlockState, watsonState;
+        protected PortraitSaveState sherlockSaveState, watsonSaveState;
 
         protected virtual bool SherlockSavedAsOnTheRight()
         {
-            return sherlockState.PositionName == onTheRight;
+            return sherlockSaveState.PositionName == onTheRight;
         }
 
         protected string sherlockName = "Sherlock Holmes";
@@ -115,7 +116,7 @@ namespace SaveSystemTests
 
         protected virtual bool WatsonSavedAsOnTheLeft()
         {
-            return watsonState.PositionName == onTheLeft;
+            return watsonSaveState.PositionName == onTheLeft;
         }
 
         protected string watsonName = "John Watson";
@@ -189,8 +190,8 @@ namespace SaveSystemTests
         {
             yield return PostSetUp();
 
-            bool sherlockNotDimmed = sherlockState.Dimmed == false;
-            bool watsonDimmed = watsonState.Dimmed == true;
+            bool sherlockNotDimmed = sherlockSaveState.Dimmed == false;
+            bool watsonDimmed = watsonSaveState.Dimmed == true;
 
             bool savedCorrectly = sherlockNotDimmed && watsonDimmed;
 
@@ -202,12 +203,32 @@ namespace SaveSystemTests
         {
             yield return PostSetUp();
 
-            bool sherlockFacingLeft = sherlockState.FacingDirection == FacingDirection.Left;
-            bool watsonFacingRight = watsonState.FacingDirection == FacingDirection.Right;
+            bool sherlockFacingLeft = sherlockSaveState.FacingDirection == FacingDirection.Left;
+            bool watsonFacingRight = watsonSaveState.FacingDirection == FacingDirection.Right;
 
             bool thingsAreAsIntended = sherlockFacingLeft && watsonFacingRight;
             Assert.IsTrue(thingsAreAsIntended);
         }
+
+        [UnityTest]
+        public virtual IEnumerator PortraitIndexesSaved()
+        {
+            yield return PostSetUp();
+
+            Image sherlockPortrait = sherlock.State.portraitImage;
+            int sherlockPortraitIndex = sherlock.State.allPortraits.IndexOf(sherlockPortrait);
+            bool sherlockCorrectIndex = sherlockSaveState.PortraitIndex == sherlockPortraitIndex;
+
+            Image watsonPortrait = watson.State.portraitImage;
+            int watsonPortraitIndex = watson.State.allPortraits.IndexOf(watsonPortrait);
+            bool watsonCorrectIndex = watsonSaveState.PortraitIndex == watsonPortraitIndex;
+
+            bool correctlySaved = sherlockCorrectIndex && watsonCorrectIndex;
+            Assert.IsTrue(correctlySaved);
+
+        }
+
+        protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious";
 
     }
 }

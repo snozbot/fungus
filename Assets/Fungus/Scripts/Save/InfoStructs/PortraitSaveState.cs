@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus
 {
@@ -65,14 +64,15 @@ namespace Fungus
         [SerializeField]
         FacingDirection facingDirection;
 
-        public string PortraitName
+        public int PortraitIndex
         {
-            get { return portraitName; }
-            set { portraitName = value; }
+            get { return portraitIndex; }
+            set { portraitIndex = value; }
         }
 
         [SerializeField]
-        string portraitName = "[NullPortraitName]"; 
+        int portraitIndex = -1;
+
 
         public static PortraitSaveState From(Character character)
         {
@@ -83,7 +83,10 @@ namespace Fungus
             newState.Dimmed = charState.dimmed;
             newState.FacingDirection = charState.facing;
             newState.OnScreen = charState.onScreen;
-            newState.PortraitName = charState.portrait.name;
+
+            Image currentPortrait = charState.portraitImage;
+
+            newState.PortraitIndex = charState.allPortraits.IndexOf(currentPortrait);
             newState.PositionName = charState.position.name;
 
             newState.stageName = FindStageNameFor(charState);
@@ -109,7 +112,7 @@ namespace Fungus
                 this.Dimmed == other.Dimmed &&
                 this.FacingDirection == other.FacingDirection &&
                 this.OnScreen == other.OnScreen &&
-                this.PortraitName == other.PortraitName &&
+                this.PortraitIndex == other.PortraitIndex &&
                 this.PositionName == other.PositionName &&
                 this.StageName == other.StageName;
         }
