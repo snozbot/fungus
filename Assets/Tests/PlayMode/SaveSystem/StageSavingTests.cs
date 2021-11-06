@@ -197,5 +197,17 @@ namespace SaveSystemTests
             Assert.IsTrue(savedCorrectly);
         }
 
+        [UnityTest]
+        public virtual IEnumerator FacingDirectionsSaved()
+        {
+            yield return PostSetUp();
+
+            bool sherlockFacingLeft = sherlockState.FacingDirection == FacingDirection.Left;
+            bool watsonFacingRight = watsonState.FacingDirection == FacingDirection.Right;
+
+            bool thingsAreAsIntended = sherlockFacingLeft && watsonFacingRight;
+            Assert.IsTrue(thingsAreAsIntended);
+        }
+
     }
 }
