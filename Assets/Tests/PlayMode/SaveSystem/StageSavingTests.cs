@@ -62,6 +62,8 @@ namespace SaveSystemTests
             yield return WaitForPortraitPrep();
             DimAsNeeded();
             savedPortraitStates = GetStatesOfAllPortraits();
+            sherlockState = GetStateFor(sherlockName);
+            watsonState = GetStateFor(watsonName);
             yield return new WaitForSeconds(1f); // Need to wait a little more for the dim effect
         }
 
@@ -93,9 +95,10 @@ namespace SaveSystemTests
 
         protected IList<PortraitSaveState> savedPortraitStates = new List<PortraitSaveState>();
 
+        protected PortraitSaveState sherlockState, watsonState;
+
         protected virtual bool SherlockSavedAsOnTheRight()
         {
-            var sherlockState = GetStateFor(sherlockName);
             return sherlockState.PositionName == onTheRight;
         }
 
@@ -112,7 +115,6 @@ namespace SaveSystemTests
 
         protected virtual bool WatsonSavedAsOnTheLeft()
         {
-            var watsonState = GetStateFor(watsonName);
             return watsonState.PositionName == onTheLeft;
         }
 
@@ -182,7 +184,18 @@ namespace SaveSystemTests
             Assert.IsTrue(thingsWentWell);
         }
 
-        
+        [UnityTest]
+        public virtual IEnumerator PortraitDimStatesSaved()
+        {
+            yield return PostSetUp();
+
+            bool sherlockNotDimmed = sherlockState.Dimmed == false;
+            bool watsonDimmed = watsonState.Dimmed == true;
+
+            bool savedCorrectly = sherlockNotDimmed && watsonDimmed;
+
+            Assert.IsTrue(savedCorrectly);
+        }
 
     }
 }
