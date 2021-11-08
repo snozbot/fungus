@@ -8,9 +8,9 @@ namespace Fungus
     /// to be able to restore portraits to what they should be upon load.
     /// </summary>
     [System.Serializable]
-    public struct PortraitSaveState : System.IEquatable<PortraitSaveState>, ISaveUnit<PortraitSaveState>
+    public struct PortraitSaveUnit : System.IEquatable<PortraitSaveUnit>, ISaveUnit<PortraitSaveUnit>
     {
-        public PortraitSaveState Contents => this;
+        public PortraitSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
 
         public string CharacterName
@@ -88,15 +88,15 @@ namespace Fungus
         [SerializeField]
         private string portraitName;
 
-        public static PortraitSaveState From(Character character)
+        public static PortraitSaveUnit From(Character character)
         {
-            PortraitSaveState newState = new PortraitSaveState();
+            PortraitSaveUnit newState = new PortraitSaveUnit();
             newState.SetFrom(character);
 
             return newState;
         }
         
-        public PortraitSaveState(Character character)
+        public PortraitSaveUnit(Character character)
         {
             PortraitState charState = character.State;
 
@@ -167,7 +167,7 @@ namespace Fungus
 
         }
 
-        public bool Equals(PortraitSaveState other)
+        public bool Equals(PortraitSaveUnit other)
         {
             return this.CharacterName == other.CharacterName &&
                 this.Dimmed == other.Dimmed &&
@@ -179,7 +179,7 @@ namespace Fungus
                 this.StageName == other.StageName;
         }
 
-        public static PortraitSaveState Null = new PortraitSaveState();
+        public static PortraitSaveUnit Null = new PortraitSaveUnit();
 
     }
 }

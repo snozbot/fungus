@@ -33,14 +33,14 @@ namespace Fungus
             }
         }
 
-        public virtual IList<ISaveUnit<VariableInfo>> CreateSavesFrom(IList<Variable> inputs)
+        public virtual IList<ISaveUnit<VariableSaveUnit>> CreateSavesFrom(IList<Variable> inputs)
         {
-            IList<ISaveUnit<VariableInfo>> result = new ISaveUnit<VariableInfo>[inputs.Count];
+            IList<ISaveUnit<VariableSaveUnit>> result = new ISaveUnit<VariableSaveUnit>[inputs.Count];
 
             for (int i = 0; i < inputs.Count; i++)
             {
                 Variable currentVar = inputs[i];
-                ISaveUnit<VariableInfo> newSaveUnit = CreateSaveFrom(currentVar);
+                ISaveUnit<VariableSaveUnit> newSaveUnit = CreateSaveFrom(currentVar);
                 result[i] = newSaveUnit;
             }
 
@@ -48,18 +48,16 @@ namespace Fungus
 
         }
 
-        public virtual ISaveUnit<VariableInfo> CreateSaveFrom(Variable input)
+        public virtual ISaveUnit<VariableSaveUnit> CreateSaveFrom(Variable input)
         {
-            VariableSaveUnit newSaveUnit = new VariableSaveUnit(input);
-            newSaveUnit.Contents = SetUpContentsFor(newSaveUnit, input);
+            var newSaveUnit = new VariableSaveUnit(input);
+            SetUpContentsFor(input, ref newSaveUnit);
             return newSaveUnit;
         }
 
-        protected virtual VariableInfo SetUpContentsFor(VariableSaveUnit saveUnit, Variable hasValue)
+        protected virtual void SetUpContentsFor(Variable varInput, ref VariableSaveUnit info)
         {
-            VariableInfo contents = saveUnit.Contents;
-            contents.Value = GetValueInRightFormatFrom(hasValue);
-            return contents;
+            info.Value = GetValueInRightFormatFrom(varInput);
         }
 
         protected virtual string GetValueInRightFormatFrom(Variable input)

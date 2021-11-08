@@ -1,25 +1,70 @@
-﻿namespace Fungus
+﻿using UnityEngine;
+using Object = System.Object;
+using Type = System.Type;
+
+namespace Fungus
 {
-    /// <summary>
-    /// Base class for save units that contain the state of Fungus Flowchart variables.
-    /// </summary>
-    public class VariableSaveUnit : SaveUnit<VariableInfo> 
+    public struct VariableSaveUnit : ISaveUnit<VariableSaveUnit>
     {
-        public VariableSaveUnit()
+        public VariableSaveUnit Contents => this;
+        object ISaveUnit.Contents => this;
+
+        /// <summary>
+        /// Name of the Flowchart variable
+        /// </summary>
+        public string Name
         {
-            contents = new VariableInfo();
+            get { return name; }
+            set { name = value; }
         }
 
-        public VariableSaveUnit(Variable toSetFrom) : this()
+        [SerializeField]
+        private string name;
+
+        /// <summary>
+        /// Name of the Flowchart variable's type
+        /// </summary>
+        public string TypeName
         {
-            SetFrom(toSetFrom);
+            get { return typeName; }
+            private set { typeName = value; }
         }
 
-        public virtual void SetFrom(Variable variable)
+        [SerializeField]
+        private string typeName;
+        // ^ We need this to restore the Type field upon deserialization
+
+        public Type Type
         {
-            contents.Name = variable.Key;
-            contents.Type = variable.GetType();
-            contents.Value = variable.GetValue().ToString();
+            get { return type; }
+            set
+            {
+                type = value;
+                TypeName = type.Name;
+            }
+        }
+
+        private Type type;
+
+        public string Value
+        {
+            get { return varValue; }
+            set { varValue = value; }
+        }
+
+        private string varValue;
+
+        public VariableSaveUnit(Variable varInput)
+        {
+            this.name = varInput.Key;
+            this.varValue = varInput.GetValue().ToString();
+            this.type = varInput.GetType();
+            this.typeName = this.type.Name;
+        }
+
+        public void OnDeserialize()
+        {
+            this.Type = Type.GetType(typeName);
         }
 
     }

@@ -13,7 +13,7 @@ namespace Fungus
             // We can't simply json-stringify a Transform and expect to be able to use the result
             // to properly load the transform var, so...
             Transform trans = (Transform) input.GetValue();
-            TransformState state = new TransformState(trans);
+            TransformSaveUnit state = new TransformSaveUnit(trans);
             bool weWantPrettyPrint = true;
             string stringified = JsonUtility.ToJson(state, weWantPrettyPrint);
             return stringified;

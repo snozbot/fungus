@@ -3,9 +3,9 @@
 namespace Fungus
 {
     [System.Serializable]
-    public struct TransformState : ISaveUnit<TransformState>
+    public struct TransformSaveUnit : ISaveUnit<TransformSaveUnit>
     {
-        public TransformState Contents => this;
+        public TransformSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
 
         public string Name
@@ -44,7 +44,7 @@ namespace Fungus
         [SerializeField]
         private Quaternion rotation;
 
-        public TransformState(Transform trans)
+        public TransformSaveUnit(Transform trans)
         {
             this.name = trans.name;
             this.position = trans.position;

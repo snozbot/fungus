@@ -23,7 +23,7 @@ namespace SaveSystemTests
             {
                 var toEncode = variablesToEncode[i];
                 Transform transformVal = (Transform) toEncode.GetValue();
-                TransformState state = new TransformState(transformVal);
+                TransformSaveUnit state = new TransformSaveUnit(transformVal);
                 var weWantPrettyPrint = true;
                 var result = JsonUtility.ToJson(state, weWantPrettyPrint);
                 

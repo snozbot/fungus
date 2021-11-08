@@ -82,11 +82,11 @@ namespace SaveSystemTests
             AssertEncodingSuccess();
         }
 
-        protected IList<ISaveUnit<VariableInfo>> encodingResults;
+        protected IList<ISaveUnit<VariableSaveUnit>> encodingResults;
 
-        protected virtual IList<ISaveUnit<VariableInfo>> VarsEncodedWithMultipleEncodeCalls()
+        protected virtual IList<ISaveUnit<VariableSaveUnit>> VarsEncodedWithMultipleEncodeCalls()
         {
-            IList<ISaveUnit<VariableInfo>> savedVars = new List<ISaveUnit<VariableInfo>>();
+            IList<ISaveUnit<VariableSaveUnit>> savedVars = new List<ISaveUnit<VariableSaveUnit>>();
 
             foreach (var varEl in variablesToEncode)
             {
@@ -104,7 +104,7 @@ namespace SaveSystemTests
             Assert.IsTrue(success);
         }
 
-        protected virtual IList<string> GetValuesIn(IList<ISaveUnit<VariableInfo>> saveUnits)
+        protected virtual IList<string> GetValuesIn(IList<ISaveUnit<VariableSaveUnit>> saveUnits)
         {
             IList<string> results = new string[saveUnits.Count];
 
@@ -127,7 +127,7 @@ namespace SaveSystemTests
             AssertEncodingSuccess();
         }
 
-        protected virtual IList<ISaveUnit<VariableInfo>> VarsEncodedWithOneEncodeCall()
+        protected virtual IList<ISaveUnit<VariableSaveUnit>> VarsEncodedWithOneEncodeCall()
         {
             // One that involves passing multiple vars at once to the encoder
             return varSaver.CreateSavesFrom(variablesToEncode);

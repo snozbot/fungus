@@ -81,23 +81,23 @@ namespace SaveSystemTests
             stageForPortraits.SetDimmed(watson, true);
         }
 
-        protected virtual IList<PortraitSaveState> GetStatesOfAllPortraits()
+        protected virtual IList<PortraitSaveUnit> GetStatesOfAllPortraits()
         {
             IList<Character> allChars = GameObject.FindObjectsOfType<Character>();
-            IList<PortraitSaveState> states = new List<PortraitSaveState>();
+            IList<PortraitSaveUnit> states = new List<PortraitSaveUnit>();
 
             foreach (var character in allChars)
             {
-                PortraitSaveState saveState = PortraitSaveState.From(character);
+                PortraitSaveUnit saveState = PortraitSaveUnit.From(character);
                 states.Add(saveState);
             }
 
             return states;
         }
 
-        protected IList<PortraitSaveState> savedPortraitStates = new List<PortraitSaveState>();
+        protected IList<PortraitSaveUnit> savedPortraitStates = new List<PortraitSaveUnit>();
 
-        protected PortraitSaveState sherlockSaveState, watsonSaveState, dudeSaveState;
+        protected PortraitSaveUnit sherlockSaveState, watsonSaveState, dudeSaveState;
 
         protected virtual bool SherlockSavedAsOnTheRight()
         {
@@ -106,13 +106,13 @@ namespace SaveSystemTests
 
         protected string sherlockName = "Sherlock Holmes";
 
-        protected virtual PortraitSaveState GetStateFor(string charName)
+        protected virtual PortraitSaveUnit GetStateFor(string charName)
         {
             foreach (var savedState in savedPortraitStates)
                 if (savedState.CharacterName == charName)
                     return savedState;
 
-            return PortraitSaveState.Null;
+            return PortraitSaveUnit.Null;
         }
 
         protected virtual bool WatsonSavedAsOnTheLeft()
@@ -123,7 +123,7 @@ namespace SaveSystemTests
         protected string watsonName = "John Watson";
         protected string dudeName = "Dude";
 
-        protected virtual bool StateListsAreTheSame(IList<PortraitSaveState> firstStates, IList<PortraitSaveState> secondStates)
+        protected virtual bool StateListsAreTheSame(IList<PortraitSaveUnit> firstStates, IList<PortraitSaveUnit> secondStates)
         {
             bool differentContentAmounts = firstStates.Count != secondStates.Count;
             if (differentContentAmounts)
@@ -150,7 +150,7 @@ namespace SaveSystemTests
             
             bool foundStateWithWrongStageName = false;
             
-            IList<PortraitSaveState> onScreenPortraitStates = new List<PortraitSaveState>()
+            IList<PortraitSaveUnit> onScreenPortraitStates = new List<PortraitSaveUnit>()
             { 
                 sherlockSaveState, 
                 watsonSaveState 
@@ -178,8 +178,8 @@ namespace SaveSystemTests
             yield return PostSetUp();
 
             bool onlyThreeStates = savedPortraitStates.Count == 3;
-            bool oneForSherlock = !GetStateFor(sherlockName).Equals(PortraitSaveState.Null);
-            bool oneForWatson = !GetStateFor(watsonName).Equals(PortraitSaveState.Null);
+            bool oneForSherlock = !GetStateFor(sherlockName).Equals(PortraitSaveUnit.Null);
+            bool oneForWatson = !GetStateFor(watsonName).Equals(PortraitSaveUnit.Null);
 
             bool thingsWentWell = onlyThreeStates && oneForSherlock && oneForWatson;
             Assert.IsTrue(thingsWentWell);
