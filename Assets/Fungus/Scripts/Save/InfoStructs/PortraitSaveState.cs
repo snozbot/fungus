@@ -17,7 +17,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string characterName = "[NullCharacterName]";
+        string characterName = "[Null]";
 
         public string StageName
         {
@@ -26,7 +26,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string stageName = "[NullStageName]";
+        string stageName = "[Null]";
 
         /// <summary>
         /// Whether or not the portrait should be hidden
@@ -56,7 +56,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string positionName = "[NullPosition]";
+        string positionName = "[Null]";
         
         public FacingDirection FacingDirection
         {
@@ -76,6 +76,15 @@ namespace Fungus
         [SerializeField]
         int portraitIndex = -1;
 
+        public string PortraitName
+        {
+            get { return portraitName; }
+            set { portraitName = value; }
+        }
+
+        [SerializeField]
+        string portraitName = "[Null]";
+
         public static PortraitSaveState From(Character character)
         {
             PortraitState charState = character.State;
@@ -90,7 +99,10 @@ namespace Fungus
 
             newState.PortraitIndex = charState.allPortraits.IndexOf(currentPortrait);
             if (charState.onScreen)
+            {
                 newState.PositionName = charState.position.name;
+                newState.portraitName = charState.portrait.name;
+            }
 
             newState.stageName = FindStageNameFor(charState);
 
@@ -125,6 +137,7 @@ namespace Fungus
                 this.OnScreen == other.OnScreen &&
                 this.PortraitIndex == other.PortraitIndex &&
                 this.PositionName == other.PositionName &&
+                this.portraitName == other.PortraitName &&
                 this.StageName == other.StageName;
         }
 

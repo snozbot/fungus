@@ -150,8 +150,16 @@ namespace SaveSystemTests
             yield return PostSetUp();
             
             bool foundStateWithWrongStageName = false;
+            
+            IList<PortraitSaveState> onScreenPortraitStates = new List<PortraitSaveState>()
+            { 
+                sherlockSaveState, 
+                watsonSaveState 
+            };
+            // Char states with onScreen set to false don't even have their portraits existing in the
+            // inspector, hence why we need to check only sherlock's and dude's here
 
-            foreach (var savedState in savedPortraitStates)
+            foreach (var savedState in onScreenPortraitStates) 
                 if (savedState.StageName != testStageName)
                 {
                     foundStateWithWrongStageName = true;
@@ -222,8 +230,6 @@ namespace SaveSystemTests
 
         }
 
-        protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious";
-
         [UnityTest]
         public virtual IEnumerator OnScreenStatesSaved()
         {
@@ -236,6 +242,21 @@ namespace SaveSystemTests
             bool savedProperly = sherlockOnScreen && watsonOnScreen && dudeNotOnScreen;
             Assert.IsTrue(savedProperly);
         }
+
+        [UnityTest]
+        public virtual IEnumerator PortraitNamesSaved()
+        {
+            yield return PostSetUp();
+            bool sherlockCorrectPortraitName = sherlockSaveState.PortraitName == sherlockPleased;
+            bool watsonCorrectPortraitName = watsonSaveState.PortraitName == watsonSuspicious;
+            bool dudeCorrectPortraitName = dudeSaveState.PortraitName == dudeNull;
+
+            bool savedCorrectly = sherlockCorrectPortraitName && watsonCorrectPortraitName && dudeCorrectPortraitName;
+            Assert.IsTrue(savedCorrectly);
+
+        }
+
+        protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious", dudeNull = "[Null]";
 
     }
 }
