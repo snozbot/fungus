@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus
 {
     [System.Serializable]
-    public struct TransformState
+    public struct TransformState : ISaveUnit<TransformState>
     {
+        public TransformState Contents => this;
+        object ISaveUnit.Contents => this;
+
         public string Name
         {
             get { return name; }

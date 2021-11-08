@@ -112,7 +112,7 @@ namespace SaveSystemTests
                 if (savedState.CharacterName == charName)
                     return savedState;
 
-            return null;
+            return PortraitSaveState.Null;
         }
 
         protected virtual bool WatsonSavedAsOnTheLeft()
@@ -122,7 +122,6 @@ namespace SaveSystemTests
 
         protected string watsonName = "John Watson";
         protected string dudeName = "Dude";
-
 
         protected virtual bool StateListsAreTheSame(IList<PortraitSaveState> firstStates, IList<PortraitSaveState> secondStates)
         {
@@ -179,8 +178,8 @@ namespace SaveSystemTests
             yield return PostSetUp();
 
             bool onlyThreeStates = savedPortraitStates.Count == 3;
-            bool oneForSherlock = GetStateFor(sherlockName) != null;
-            bool oneForWatson = GetStateFor(watsonName) != null;
+            bool oneForSherlock = !GetStateFor(sherlockName).Equals(PortraitSaveState.Null);
+            bool oneForWatson = !GetStateFor(watsonName).Equals(PortraitSaveState.Null);
 
             bool thingsWentWell = onlyThreeStates && oneForSherlock && oneForWatson;
             Assert.IsTrue(thingsWentWell);
@@ -256,7 +255,7 @@ namespace SaveSystemTests
 
         }
 
-        protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious", dudeNull = "[Null]";
+        protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious", dudeNull = "Null";
 
     }
 }

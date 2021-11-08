@@ -8,8 +8,11 @@ namespace Fungus
     /// to be able to restore portraits to what they should be upon load.
     /// </summary>
     [System.Serializable]
-    public class PortraitSaveState : System.IEquatable<PortraitSaveState>
+    public struct PortraitSaveState : System.IEquatable<PortraitSaveState>, ISaveUnit<PortraitSaveState>
     {
+        public PortraitSaveState Contents => this;
+        object ISaveUnit.Contents => this;
+
         public string CharacterName
         {
             get { return characterName; }
@@ -17,7 +20,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string characterName = "[Null]";
+        private string characterName;
 
         public string StageName
         {
@@ -26,7 +29,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string stageName = "[Null]";
+        private string stageName;
 
         /// <summary>
         /// Whether or not the portrait should be hidden
@@ -56,7 +59,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        string positionName = "[Null]";
+        private string positionName;
         
         public FacingDirection FacingDirection
         {
@@ -74,7 +77,7 @@ namespace Fungus
         }
 
         [SerializeField]
-        int portraitIndex = -1;
+        private int portraitIndex;
 
         public string PortraitName
         {
@@ -83,34 +86,69 @@ namespace Fungus
         }
 
         [SerializeField]
-        string portraitName = "[Null]";
+        private string portraitName;
 
         public static PortraitSaveState From(Character character)
         {
-            PortraitState charState = character.State;
             PortraitSaveState newState = new PortraitSaveState();
-
-            newState.characterName = character.name;
-            newState.Dimmed = charState.dimmed;
-            newState.FacingDirection = charState.facing;
-            newState.OnScreen = charState.onScreen;
-
-            Image currentPortrait = charState.portraitImage;
-
-            newState.PortraitIndex = charState.allPortraits.IndexOf(currentPortrait);
-            if (charState.onScreen)
-            {
-                newState.PositionName = charState.position.name;
-                newState.portraitName = charState.portrait.name;
-            }
-
-            newState.stageName = FindStageNameFor(charState);
+            newState.SetFrom(character);
 
             return newState;
         }
-            
+        
+        public PortraitSaveState(Character character)
+        {
+            PortraitState charState = character.State;
 
-        protected static string FindStageNameFor(PortraitState state)
+            this.characterName = character.name;
+            this.dimmed = charState.dimmed;
+            this.facingDirection = charState.facing;
+            this.onScreen = charState.onScreen;
+
+            Image currentPortrait = charState.portraitImage;
+
+            this.portraitIndex = charState.allPortraits.IndexOf(currentPortrait);
+            if (charState.onScreen)
+            {
+                this.positionName = charState.position.name;
+                this.portraitName = charState.portrait.name;
+            }
+            else
+            {
+                this.positionName = "Null";
+                this.portraitName = "Null";
+            }
+
+            this.stageName = FindStageNameFor(charState);
+        }
+
+        public void SetFrom(Character character)
+        {
+            PortraitState charState = character.State;
+
+            this.CharacterName = character.name;
+            this.Dimmed = charState.dimmed;
+            this.FacingDirection = charState.facing;
+            this.OnScreen = charState.onScreen;
+
+            Image currentPortrait = charState.portraitImage;
+
+            this.PortraitIndex = charState.allPortraits.IndexOf(currentPortrait);
+            if (charState.onScreen)
+            {
+                this.positionName = charState.position.name;
+                this.portraitName = charState.portrait.name;
+            }
+            else
+            {
+                this.PositionName = "Null";
+                this.PortraitName = "Null";
+            }
+
+            this.StageName = FindStageNameFor(charState);
+        }
+            
+        private static string FindStageNameFor(PortraitState state)
         {
             // The Stage is the portrait holder's grandparent, so we need to hop up two spots
             // in the Hierarchy
@@ -129,7 +167,7 @@ namespace Fungus
 
         }
 
-        public virtual bool Equals(PortraitSaveState other)
+        public bool Equals(PortraitSaveState other)
         {
             return this.CharacterName == other.CharacterName &&
                 this.Dimmed == other.Dimmed &&
@@ -140,6 +178,8 @@ namespace Fungus
                 this.portraitName == other.PortraitName &&
                 this.StageName == other.StageName;
         }
+
+        public static PortraitSaveState Null = new PortraitSaveState();
 
     }
 }

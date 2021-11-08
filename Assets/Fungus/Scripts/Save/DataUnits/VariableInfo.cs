@@ -4,8 +4,11 @@ using Type = System.Type;
 
 namespace Fungus
 {
-    public struct VariableInfo
+    public struct VariableInfo : ISaveUnit<VariableInfo>
     {
+        public VariableInfo Contents => this;
+        object ISaveUnit.Contents => this;
+
         /// <summary>
         /// Name of the Flowchart variable
         /// </summary>
@@ -63,7 +66,6 @@ namespace Fungus
         {
             this.Type = Type.GetType(typeName);
         }
-
 
     }
 
