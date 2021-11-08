@@ -65,6 +65,7 @@ namespace SaveSystemTests
             savedPortraitStates = GetStatesOfAllPortraits();
             sherlockSaveState = GetStateFor(sherlockName);
             watsonSaveState = GetStateFor(watsonName);
+            dudeSaveState = GetStateFor(dudeName);
             yield return new WaitForSeconds(1f); // Need to wait a little more for the dim effect
         }
 
@@ -96,7 +97,7 @@ namespace SaveSystemTests
 
         protected IList<PortraitSaveState> savedPortraitStates = new List<PortraitSaveState>();
 
-        protected PortraitSaveState sherlockSaveState, watsonSaveState;
+        protected PortraitSaveState sherlockSaveState, watsonSaveState, dudeSaveState;
 
         protected virtual bool SherlockSavedAsOnTheRight()
         {
@@ -120,6 +121,7 @@ namespace SaveSystemTests
         }
 
         protected string watsonName = "John Watson";
+        protected string dudeName = "Dude";
 
 
         protected virtual bool StateListsAreTheSame(IList<PortraitSaveState> firstStates, IList<PortraitSaveState> secondStates)
@@ -140,15 +142,6 @@ namespace SaveSystemTests
             }
 
             return true;
-        }
-        
-
-        protected virtual IEnumerator HavePortraitsReady()
-        {
-            // Execute the block that prepares the portraits
-
-            
-            throw new System.NotImplementedException();
         }
 
         [UnityTest]
@@ -177,11 +170,11 @@ namespace SaveSystemTests
         {
             yield return PostSetUp();
 
-            bool onlyTwoStates = savedPortraitStates.Count == 2;
+            bool onlyThreeStates = savedPortraitStates.Count == 3;
             bool oneForSherlock = GetStateFor(sherlockName) != null;
             bool oneForWatson = GetStateFor(watsonName) != null;
 
-            bool thingsWentWell = onlyTwoStates && oneForSherlock && oneForWatson;
+            bool thingsWentWell = onlyThreeStates && oneForSherlock && oneForWatson;
             Assert.IsTrue(thingsWentWell);
         }
 
@@ -205,6 +198,7 @@ namespace SaveSystemTests
 
             bool sherlockFacingLeft = sherlockSaveState.FacingDirection == FacingDirection.Left;
             bool watsonFacingRight = watsonSaveState.FacingDirection == FacingDirection.Right;
+            bool dudeNotFacingAtAll = dudeSaveState.FacingDirection == FacingDirection.None;
 
             bool thingsAreAsIntended = sherlockFacingLeft && watsonFacingRight;
             Assert.IsTrue(thingsAreAsIntended);
@@ -229,6 +223,19 @@ namespace SaveSystemTests
         }
 
         protected string sherlockPleased = "pleased", watsonSuspicious = "suspicious";
+
+        [UnityTest]
+        public virtual IEnumerator OnScreenStatesSaved()
+        {
+            yield return PostSetUp();
+
+            bool sherlockOnScreen = sherlockSaveState.OnScreen == true;
+            bool watsonOnScreen = watsonSaveState.OnScreen == true;
+            bool dudeNotOnScreen = dudeSaveState.OnScreen == false;
+
+            bool savedProperly = sherlockOnScreen && watsonOnScreen && dudeNotOnScreen;
+            Assert.IsTrue(savedProperly);
+        }
 
     }
 }

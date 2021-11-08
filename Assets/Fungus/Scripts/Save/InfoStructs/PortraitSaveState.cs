@@ -28,6 +28,9 @@ namespace Fungus
         [SerializeField]
         string stageName = "[NullStageName]";
 
+        /// <summary>
+        /// Whether or not the portrait should be hidden
+        /// </summary>
         public bool OnScreen
         {
             get { return onScreen; }
@@ -73,7 +76,6 @@ namespace Fungus
         [SerializeField]
         int portraitIndex = -1;
 
-
         public static PortraitSaveState From(Character character)
         {
             PortraitState charState = character.State;
@@ -87,7 +89,8 @@ namespace Fungus
             Image currentPortrait = charState.portraitImage;
 
             newState.PortraitIndex = charState.allPortraits.IndexOf(currentPortrait);
-            newState.PositionName = charState.position.name;
+            if (charState.onScreen)
+                newState.PositionName = charState.position.name;
 
             newState.stageName = FindStageNameFor(charState);
 
@@ -100,9 +103,17 @@ namespace Fungus
             // The Stage is the portrait holder's grandparent, so we need to hop up two spots
             // in the Hierarchy
             Transform portraitHolder = state.holder;
+            bool thereIsNoHolder = portraitHolder == null;
+            if (thereIsNoHolder)
+                return "";
+
             Transform canvasHoldingTheHolder = portraitHolder.parent.transform;
             Stage stage = canvasHoldingTheHolder.parent.GetComponent<Stage>();
-            return stage.name;
+            bool thereIsNoStage = stage == null;
+            if (thereIsNoStage)
+                return "";
+            else
+                return stage.name;
 
         }
 
