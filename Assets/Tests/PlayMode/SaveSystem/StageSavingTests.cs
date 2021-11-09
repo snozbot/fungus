@@ -91,14 +91,6 @@ namespace SaveSystemTests
    
             IList<PortraitSaveUnit> states = portraitSaver.CreateSavesFrom(allChars);
             return states;
-
-            foreach (var character in allChars)
-            {
-                PortraitSaveUnit saveState = PortraitSaveUnit.From(character);
-                states.Add(saveState);
-            }
-
-            return states;
         }
 
         protected IList<PortraitSaveUnit> savedPortraitStates = new List<PortraitSaveUnit>();
