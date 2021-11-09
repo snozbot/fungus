@@ -5,12 +5,15 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Fungus;
 using UnityEngine.UI;
+using Object = System.Object;
 
 namespace SaveSystemTests
 {
     public class StageSavingTests : SaveSysPlayModeTest
     {
         protected override string PathToScene => "Prefabs/StageSavingTests";
+
+        protected PortraitSaver portraitSaver;
 
         [SetUp]
         public override void SetUp()
@@ -19,6 +22,7 @@ namespace SaveSystemTests
             GetPortraitsPrepped();
             RegisterStageAndPositions();
             RegisterCharacters();
+            portraitSaver = GameObject.FindObjectOfType<PortraitSaver>();
         }
 
         protected virtual void GetPortraitsPrepped()
@@ -84,7 +88,9 @@ namespace SaveSystemTests
         protected virtual IList<PortraitSaveUnit> GetStatesOfAllPortraits()
         {
             IList<Character> allChars = GameObject.FindObjectsOfType<Character>();
-            IList<PortraitSaveUnit> states = new List<PortraitSaveUnit>();
+   
+            IList<PortraitSaveUnit> states = portraitSaver.CreateSavesFrom(allChars);
+            return states;
 
             foreach (var character in allChars)
             {

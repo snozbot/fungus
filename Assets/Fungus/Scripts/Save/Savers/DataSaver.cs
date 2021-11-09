@@ -42,4 +42,28 @@ namespace Fungus
             throw new System.InvalidOperationException(errorMessage);
         }
     }
+
+    public abstract class DataSaver<TSaveUnit, TInput> : DataSaver, ISaveCreator<TSaveUnit, TInput>
+        where TSaveUnit: ISaveUnit
+    {
+
+        public virtual TSaveUnit CreateSaveFrom(TInput input)
+        {
+            return (TSaveUnit)CreateSaveFrom(input as Object);
+        }
+
+        public virtual IList<TSaveUnit> CreateSavesFrom(IList<TInput> inputs)
+        {
+            IList<TSaveUnit> saves = new TSaveUnit[inputs.Count];
+
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                var currentInput = inputs[i];
+                TSaveUnit newSave = (TSaveUnit) CreateSaveFrom(currentInput);
+                saves[i] = newSave;
+            }
+
+            return saves;
+        }
+    }
 }
