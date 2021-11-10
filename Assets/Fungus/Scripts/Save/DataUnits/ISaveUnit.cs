@@ -1,6 +1,6 @@
 ﻿using Object = System.Object;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     /// <summary>
     /// Interface for classes that represent units of save data, be they for a specific system, gameplay mechanic, etc.

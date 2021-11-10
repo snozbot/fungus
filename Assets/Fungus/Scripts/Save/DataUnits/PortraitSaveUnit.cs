@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     /// <summary>
     /// Groups together the parts of the PortraitStates that the save system needs to use

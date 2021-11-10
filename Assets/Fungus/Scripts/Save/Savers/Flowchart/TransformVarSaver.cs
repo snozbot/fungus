@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     public class TransformVarSaver : VarSaver
     {

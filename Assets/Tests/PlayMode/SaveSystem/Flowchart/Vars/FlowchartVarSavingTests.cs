@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using Fungus;
+using Fungus.LionManeSaveSys;
 
 namespace SaveSystemTests
 {

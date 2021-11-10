@@ -1,4 +1,4 @@
-﻿namespace Fungus
+﻿namespace Fungus.LionManeSaveSys
 {
     /// <summary>
     /// Created Save Units for Fungus variables that hold primitive values (bools, numerics, strings)

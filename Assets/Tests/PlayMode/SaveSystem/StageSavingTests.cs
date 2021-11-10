@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Fungus;
 using UnityEngine.UI;
-using Object = System.Object;
+using Fungus.LionManeSaveSys;
 
 namespace SaveSystemTests
 {

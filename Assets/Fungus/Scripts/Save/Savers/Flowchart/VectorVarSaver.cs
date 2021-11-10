@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Fungus
+﻿namespace Fungus.LionManeSaveSys
 {
     public class VectorVarSaver : VarSaver
     {

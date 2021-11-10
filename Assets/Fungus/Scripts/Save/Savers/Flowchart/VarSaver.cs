@@ -2,7 +2,7 @@
 using Object = System.Object;
 using JsonUtility = UnityEngine.JsonUtility;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     /// <summary>
     /// Base class for savers that make Save Units for Fungus variables

@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine; 
 using UnityEngine.TestTools; 
-using Fungus; 
 
 namespace SaveSystemTests
 {
@@ -19,13 +17,23 @@ namespace SaveSystemTests
         [Ignore("")]
         public virtual IEnumerator CommandIndexesSaved()
         {
+            yield return PostSetUp();
+
             throw new System.NotImplementedException();
+        }
+
+        protected virtual IEnumerator PostSetUp()
+        {
+            yield return new WaitForSeconds(1f);
         }
 
         [UnityTest]
         [Ignore("")]
         public virtual IEnumerator CommandTypeSaved()
         {
+            yield return PostSetUp();
+
+
             throw new System.NotImplementedException();
         }
     }

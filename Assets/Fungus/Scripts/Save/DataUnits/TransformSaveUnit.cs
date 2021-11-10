@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
     public struct TransformSaveUnit : ISaveUnit<TransformSaveUnit>

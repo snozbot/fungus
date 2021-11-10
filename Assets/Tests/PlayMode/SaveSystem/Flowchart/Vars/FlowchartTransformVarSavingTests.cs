@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
-using Fungus;
+﻿using UnityEngine;
+using Fungus.LionManeSaveSys;
 
 namespace SaveSystemTests
 {

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using Object = System.Object;
 using Type = System.Type;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     public struct VariableSaveUnit : ISaveUnit<VariableSaveUnit>
     {

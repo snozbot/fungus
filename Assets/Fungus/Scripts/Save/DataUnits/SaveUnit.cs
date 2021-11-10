@@ -1,6 +1,6 @@
 ﻿using Object = System.Object;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     public abstract class SaveUnit: ISaveUnit
     {

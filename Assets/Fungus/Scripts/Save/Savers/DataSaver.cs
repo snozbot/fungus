@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Object = System.Object;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     /// <summary>
     /// For classes that handle making some particular type of save unit to be stored in RAM as opposed

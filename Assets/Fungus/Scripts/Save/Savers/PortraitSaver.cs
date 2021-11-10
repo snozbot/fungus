@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fungus
+﻿namespace Fungus.LionManeSaveSys
 {
     public class PortraitSaver : DataSaver<PortraitSaveUnit, Character>
     {

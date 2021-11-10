@@ -1,4 +1,4 @@
-﻿using Fungus;
+﻿using Fungus.LionManeSaveSys;
 
 namespace SaveSystemTests
 {
