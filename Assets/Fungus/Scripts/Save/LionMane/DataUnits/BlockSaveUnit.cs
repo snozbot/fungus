@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus.LionManeSaveSys
@@ -12,9 +11,40 @@ namespace Fungus.LionManeSaveSys
         public BlockSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
 
-        [SerializeField]
-        List<int> executingCommandIndexes;
+        /// <summary>
+        /// Unique identifier for the Block this stores the state of.
+        /// </summary>
+        public int ItemId
+        {
+            get { return itemId; }
+            set { itemId = value; }
+        }
 
-        
+        [SerializeField]
+        int itemId;
+
+        /// <summary>
+        /// Name of the Block this unit was storing the state of.
+        /// </summary>
+        public string BlockName
+        {
+            get { return blockName; }
+            set { blockName = value; }
+        }
+
+        [SerializeField]
+        string blockName;
+
+        /// <summary>
+        /// States of the Commands that were executing at the time this Save Unit was made.
+        /// </summary>
+        public IList<CommandSaveUnit> ExecutingCommands
+        {
+            get { return executingCommands; }
+        }
+
+        [SerializeField]
+        List<CommandSaveUnit> executingCommands;
+
     }
 }
