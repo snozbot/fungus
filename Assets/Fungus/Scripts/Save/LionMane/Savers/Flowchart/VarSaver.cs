@@ -33,21 +33,6 @@ namespace Fungus.LionManeSaveSys
             }
         }
 
-        public virtual IList<ISaveUnit<VariableSaveUnit>> CreateSavesFrom(IList<Variable> inputs)
-        {
-            IList<ISaveUnit<VariableSaveUnit>> result = new ISaveUnit<VariableSaveUnit>[inputs.Count];
-
-            for (int i = 0; i < inputs.Count; i++)
-            {
-                Variable currentVar = inputs[i];
-                ISaveUnit<VariableSaveUnit> newSaveUnit = CreateSaveFrom(currentVar);
-                result[i] = newSaveUnit;
-            }
-
-            return result;
-
-        }
-
         public virtual ISaveUnit<VariableSaveUnit> CreateSaveFrom(Variable input)
         {
             var newSaveUnit = new VariableSaveUnit(input);
@@ -85,6 +70,20 @@ namespace Fungus.LionManeSaveSys
         protected override bool IsValid(object input)
         {
             return input is Variable;
+        }
+
+        public virtual IList<ISaveUnit<VariableSaveUnit>> CreateSavesFrom(IList<Variable> inputs)
+        {
+            IList<ISaveUnit<VariableSaveUnit>> result = new ISaveUnit<VariableSaveUnit>[inputs.Count];
+
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                Variable currentVar = inputs[i];
+                ISaveUnit<VariableSaveUnit> newSaveUnit = CreateSaveFrom(currentVar);
+                result[i] = newSaveUnit;
+            }
+
+            return result;
         }
     }
 }
