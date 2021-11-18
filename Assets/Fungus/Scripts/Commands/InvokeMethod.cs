@@ -308,6 +308,14 @@ namespace Fungus
         {
             return new Color32(235, 191, 217, 255);
         }
+		
+		public override List<string> GetReturnValueName() 
+		{
+			List<string> returnVariables = new List<string> {};
+			returnVariables.Add(returnValueVariableKey);
+
+			return returnVariables;
+		}
 
         public override string GetSummary()
         {
