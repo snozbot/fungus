@@ -1,16 +1,16 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using UnityEditor;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
+using UnityEngine;
 
 namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Flowchart))]
-    public class FlowchartEditor : Editor 
+    public class FlowchartEditor : Editor
     {
         protected SerializedProperty descriptionProp;
         protected SerializedProperty colorCommandsProp;
@@ -23,6 +23,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty hideCommandsProp;
         protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty luaBindingNameProp;
+        protected SerializedProperty removeFoundUnusedVariablesProp;
 
         protected Texture2D addTexture;
 
@@ -47,13 +48,14 @@ namespace Fungus.EditorUtils
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
+            removeFoundUnusedVariablesProp = serializedObject.FindProperty("removeFoundUnusedVariables");
 
             addTexture = FungusEditorResources.AddSmall;
 
             variableListAdaptor = new VariableListAdaptor(variablesProp, target as Flowchart);
         }
 
-        public override void OnInspectorGUI() 
+        public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
@@ -72,6 +74,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(showLineNumbersProp);
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(luaBindingNameProp);
+            EditorGUILayout.PropertyField(removeFoundUnusedVariablesProp);
 
             // Show list of commands to hide in Add Command menu
             //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
@@ -99,6 +102,20 @@ namespace Fungus.EditorUtils
 
             //Show the variables in the flowchart inspector
             GUILayout.Space(20);
+
+            if (GUILayout.Button(new GUIContent("Check for Unused Variables", "Checks for unused variables and removes them if 'remove unused variables' is enabled."))) {
+                Undo.RecordObject(flowchart, "Check for Unused Variables " + flowchart.name);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                flowchart.CheckForUnusedVariables();
+                EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+            }
+
+            if (GUILayout.Button(new GUIContent("Error Check", "Checks for mistakes in the flowchart."))) {
+                Undo.RecordObject(flowchart, "Error Check " + flowchart.name);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                flowchart.ErrorCheck();
+                EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+            }
 
             DrawVariablesGUI(false, Mathf.FloorToInt(EditorGUIUtility.currentViewWidth) - VariableListAdaptor.ReorderListSkirts);
 
@@ -157,7 +174,7 @@ namespace Fungus.EditorUtils
         {
             return FindAllDerivedTypes<T>(Assembly.GetAssembly(typeof(T)));
         }
-        
+
         public static List<System.Type> FindAllDerivedTypes<T>(Assembly assembly)
         {
             var derivedType = typeof(T);
@@ -167,14 +184,14 @@ namespace Fungus.EditorUtils
                            t != derivedType &&
                            derivedType.IsAssignableFrom(t)
                            ).ToList();
-            
+
         }
 
         /// <summary>
         /// When modifying custom editor code you can occasionally end up with orphaned editor instances.
         /// When this happens, you'll get a null exception error every time the scene serializes / deserialized.
         /// Once this situation occurs, the only way to fix it is to restart the Unity editor.
-        /// As a workaround, this function detects if this editor is an orphan and deletes it. 
+        /// As a workaround, this function detects if this editor is an orphan and deletes it.
         /// </summary>
         protected virtual bool NullTargetCheck()
         {
@@ -190,7 +207,7 @@ namespace Fungus.EditorUtils
                 DestroyImmediate(this);
                 return true;
             }
-            
+
             return false;
         }
     }

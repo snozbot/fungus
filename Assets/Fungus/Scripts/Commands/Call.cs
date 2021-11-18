@@ -134,7 +134,7 @@ namespace Fungus
 
             if (targetBlock == null)
             {
-                summary = "<None>";
+                summary = "Error: targetBlock null!";
             }
             else
             {

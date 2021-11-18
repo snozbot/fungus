@@ -7,16 +7,16 @@ using System;
 using System.Collections.Generic;
 
 namespace Fungus
-{   
+{
     /// <summary>
     /// Attribute class for Fungus commands.
     /// </summary>
-    /// 
+    ///
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class CommandInfoAttribute : Attribute
     {
         /// <summary>
-        /// Metadata atribute for the Command class. 
+        /// Metadata atribute for the Command class.
         /// </summary>
         /// <param name="category">The category to place this command in.</param>
         /// <param name="commandName">The display name of the command.</param>
@@ -55,7 +55,7 @@ namespace Fungus
         //
         protected List<Variable> referencedVariables = new List<Variable>();
 
-        //used by var list adapter to highlight variables 
+        //used by var list adapter to highlight variables
         public bool IsVariableReferenced(Variable variable)
         {
             return referencedVariables.Contains(variable) || HasReference(variable);
@@ -63,7 +63,7 @@ namespace Fungus
 
         /// <summary>
         /// Called by OnValidate
-        /// 
+        ///
         /// Child classes to specialise to add variable references to referencedVariables, either directly or
         /// via the use of Flowchart.DetermineSubstituteVariables
         /// </summary>
@@ -110,7 +110,7 @@ namespace Fungus
 
         /// <summary>
         /// Reference to the Block object that this command belongs to.
-        /// This reference is only populated at runtime and in the editor when the 
+        /// This reference is only populated at runtime and in the editor when the
         /// block is selected.
         /// </summary>
         public virtual Block ParentBlock { get; set; }
@@ -177,7 +177,7 @@ namespace Fungus
         /// <summary>
         /// Called when the parent block has been requested to stop executing, and
         /// this command is the currently executing command.
-        /// Use this callback to terminate any asynchronous operations and 
+        /// Use this callback to terminate any asynchronous operations and
         /// cleanup state so that the command is ready to execute again later on.
         /// </summary>
         public virtual void OnStopExecuting()
@@ -230,7 +230,7 @@ namespace Fungus
 
         public virtual string GetLocationIdentifier()
         {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + "." + this.GetType().Name + "#" + CommandIndex.ToString(); 
+            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + "." + this.GetType().Name + "#" + CommandIndex.ToString();
         }
 
         /// <summary>
@@ -249,6 +249,14 @@ namespace Fungus
         public virtual string GetSummary()
         {
             return "";
+        }
+
+        public virtual void ErrorCheck()
+        {}
+
+        public virtual List<string> GetReturnValueName()
+        {
+            return null;
         }
 
         /// <summary>
@@ -293,7 +301,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Returns true if the specified property should be displayed in the inspector. 
+        /// Returns true if the specified property should be displayed in the inspector.
         /// This is useful for hiding certain properties based on the value of another property.
         /// </summary>
         public virtual bool IsPropertyVisible(string propertyName)
@@ -325,11 +333,11 @@ namespace Fungus
             string localizationId = GetFlowchart().LocalizationId;
             if (localizationId.Length == 0)
             {
-                localizationId = flowchart.GetName();            
+                localizationId = flowchart.GetName();
             }
 
             return localizationId;
-        }        
+        }
 
         #endregion
     }

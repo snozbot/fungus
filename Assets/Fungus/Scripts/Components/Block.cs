@@ -15,7 +15,7 @@ namespace Fungus
     public enum ExecutionState
     {
         /// <summary> No command executing </summary>
-        Idle,       
+        Idle,
         /// <summary> Executing a command </summary>
         Executing,
     }
@@ -70,7 +70,7 @@ namespace Fungus
         public bool SuppressNextAutoSelection { get; set; }
 
         [SerializeField] bool suppressAllAutoSelections = false;
-        
+
 
         protected virtual void Awake()
         {
@@ -115,7 +115,7 @@ namespace Fungus
             {
                 var command = commandList[i];
                 if (command == null)// Null entry will be deleted automatically later
-                
+
                 {
                     continue;
                 }
@@ -271,7 +271,7 @@ namespace Fungus
 
                 // Skip disabled commands, comments and labels
                 while (i < commandList.Count &&
-                      (!commandList[i].enabled || 
+                      (!commandList[i].enabled ||
                         commandList[i].GetType() == typeof(Comment) ||
                         commandList[i].GetType() == typeof(Label)))
                 {
@@ -490,6 +490,27 @@ namespace Fungus
             }
 
             return -1;
+        }
+
+        public void ColourBlocks() {
+			for (int i = 0; i < commandList.Count; i++) {
+				Command command = commandList[i];
+				try {
+
+					if (command.GetSummary().Contains("Error"))
+                    {
+						useCustomTint = true;
+						tint = Color.red;
+                        break;
+					}
+                    else
+                    {
+                        useCustomTint = false;
+                    }
+
+                } catch
+                { }
+			}
         }
 
         #endregion

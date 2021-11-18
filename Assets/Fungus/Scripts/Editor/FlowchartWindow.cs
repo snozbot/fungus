@@ -79,7 +79,7 @@ namespace Fungus.EditorUtils
                     var newEventHandler = Undo.AddComponent(flowchart.gameObject, eventHandler.type) as EventHandler;
                     CopyProperties(eventHandler.serializedObject, newEventHandler);
                     newEventHandler.ParentBlock = newBlock;
-                    newBlock._EventHandler = newEventHandler;     
+                    newBlock._EventHandler = newEventHandler;
                 }
 
                 // Copy block properties, but do not copy references because those were just assigned
@@ -184,7 +184,7 @@ namespace Fungus.EditorUtils
         public const int HorizontalPad = 20;
         public const int VerticalPad = 5;
         //defines the distance between a down and up for a right click to be a click rather than a drag
-        public const float RightClickTolerance = 5f;   
+        public const float RightClickTolerance = 5f;
         public const string SearchFieldName = "search";
 
 
@@ -266,7 +266,7 @@ namespace Fungus.EditorUtils
 
             copyList.Clear();
 
-            wantsMouseMove = true; // For hover selection in block search popup  
+            wantsMouseMove = true; // For hover selection in block search popup
 
             UpdateBlockCollection();
 
@@ -480,7 +480,7 @@ namespace Fungus.EditorUtils
 
         public static Flowchart GetFlowchart()
         {
-            // Using a temp hidden object to track the active Flowchart across 
+            // Using a temp hidden object to track the active Flowchart across
             // serialization / deserialization when playing the game in the editor.
             if (fungusState == null)
             {
@@ -536,7 +536,7 @@ namespace Fungus.EditorUtils
                 }
 
                 filteredBlocks.Clear();
-                
+
                 for (int i = 0; i < blocks.Length; i++)
                 {
                     var item = blocks[i];
@@ -573,10 +573,10 @@ namespace Fungus.EditorUtils
             catch (Exception)
             {
                 return false;
-            }           
+            }
         }
 
-        protected virtual void HandleEarlyEvents(Event e) 
+        protected virtual void HandleEarlyEvents(Event e)
         {
             switch (e.type)
             {
@@ -624,7 +624,7 @@ namespace Fungus.EditorUtils
                         closePopup = true;
                         useEvent = true;
                         break;
-                        
+
                     case KeyCode.Escape:
                         closePopup = true;
                         useEvent = true;
@@ -783,7 +783,7 @@ namespace Fungus.EditorUtils
             }
 
             InitStyles();
-            
+
             DeleteBlocks();
 
             UpdateFilteredBlocks();
@@ -812,7 +812,7 @@ namespace Fungus.EditorUtils
 
             // Draw toolbar, search popup, and variables window
             //  need try catch here as we are now invalidating the drawer if the target flowchart
-            //      has changed which makes unity GUILayouts upset and this function appears to 
+            //      has changed which makes unity GUILayouts upset and this function appears to
             //      actually get called partially outside our control
             try
             {
@@ -871,7 +871,18 @@ namespace Fungus.EditorUtils
                     CenterFlowchart();
                 }
 
-                GUILayout.FlexibleSpace();
+				if (GUILayout.Button("Check for Unused Variables", EditorStyles.toolbarButton))
+                {
+					flowchart.CheckForUnusedVariables();
+				}
+
+				if (GUILayout.Button("Check for Errors", EditorStyles.toolbarButton))
+                {
+					flowchart.ErrorCheck();
+                }
+
+
+				GUILayout.FlexibleSpace();
 
                 // Draw search bar
                 GUI.SetNextControlName(SearchFieldName);
@@ -998,7 +1009,7 @@ namespace Fungus.EditorUtils
         }
 
         protected virtual void DrawBlockPopup(Event e)
-        {            
+        {
             blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, Mathf.Max(filteredBlocks.Count - 1,0));
 
             GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
@@ -1156,7 +1167,7 @@ namespace Fungus.EditorUtils
             case MouseButton.Right:
                 rightClickDown = e.mousePosition;
                 e.Use();
-                break;    
+                break;
             }
         }
 
@@ -1195,7 +1206,7 @@ namespace Fungus.EditorUtils
                 {
                     if (Mathf.Approximately(e.delta.magnitude, 0))
                         break;
-                    
+
                     var topLeft = Vector2.Min(startSelectionBoxPosition, e.mousePosition);
                     var bottomRight = Vector2.Max(startSelectionBoxPosition, e.mousePosition);
                     selectionBox = Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
@@ -1215,7 +1226,7 @@ namespace Fungus.EditorUtils
                             flowchart.AddSelectedBlock(block);
                         }
                         else
-                        { 
+                        {
                             flowchart.DeselectBlockNoCheck(block);
                         }
                     }
@@ -1387,7 +1398,7 @@ namespace Fungus.EditorUtils
                     var menuRect = new Rect();
                     menuRect.position = new Vector2(mousePosition.x, mousePosition.y - 12f);
                     menu.DropDown(menuRect);
-                    e.Use();               
+                    e.Use();
                 }
                 break;
             }
@@ -1430,7 +1441,7 @@ namespace Fungus.EditorUtils
                     if(!block.IsSelected && ! block.IsControlSelected)
                         DrawBlock(block, scriptViewRect);
                 }
-                
+
                 //draw all held
                 for (int i = 0; i < blocks.Length; ++i)
                 {
@@ -1556,14 +1567,14 @@ namespace Fungus.EditorUtils
 
             Handles.color = gridLineColor;
 
-            
+
             float x = flowchart.ScrollPos.x % GridLineSpacingSize;
             while (x < width)
             {
                 Handles.DrawLine(new Vector2(x, 0), new Vector2(x, height));
                 x += GridLineSpacingSize;
             }
-            
+
             float y = (flowchart.ScrollPos.y % GridLineSpacingSize);
             while (y < height)
             {
@@ -1592,7 +1603,7 @@ namespace Fungus.EditorUtils
             flowchart.ClearSelectedBlocks();
             Selection.activeGameObject = flowchart.gameObject;
         }
-        
+
         public Block CreateBlock(Flowchart flowchart, Vector2 position)
         {
             Block newBlock = flowchart.CreateBlock(position);
@@ -1753,7 +1764,7 @@ namespace Fungus.EditorUtils
             var directionA = (rectA.center - pointA).normalized;
             var directionB = (rectB.center - pointB).normalized;
             var controlA = pointA - directionA * mod * 0.67f;
-            var controlB = pointB - directionB * mod * 0.67f;            
+            var controlB = pointB - directionB * mod * 0.67f;
             Handles.DrawBezier(pointA, pointB, controlA, controlB, color, null, 3f);
 
             // Draw arrow on curve
@@ -1827,7 +1838,7 @@ namespace Fungus.EditorUtils
                 {
                     Undo.DestroyObjectImmediate(deleteBlock._EventHandler);
                 }
-                
+
                 if (deleteBlock.IsSelected)
                 {
                     // Deselect
@@ -1848,7 +1859,7 @@ namespace Fungus.EditorUtils
 
             deleteList.Clear();
         }
-        
+
         protected static void ShowBlockInspector(Flowchart flowchart)
         {
             if (blockInspector == null)
@@ -1924,7 +1935,7 @@ namespace Fungus.EditorUtils
 
             var copiedCenter = GetBlockCenter(pasteList.ToArray()) + flowchart.ScrollPos;
             var delta = relative ? center : (center / flowchart.Zoom - copiedCenter);
-            
+
             foreach (var block in pasteList)
             {
                 var tempRect = block._NodeRect;
@@ -1977,7 +1988,7 @@ namespace Fungus.EditorUtils
                 Copy();
                 e.Use();
                 break;
-            
+
             case "Cut":
                 Cut();
                 e.Use();
@@ -2090,7 +2101,7 @@ namespace Fungus.EditorUtils
         private void DrawBlock(Block block, Rect scriptViewRect)
         {
             float nodeWidthA = nodeStyle.CalcSize(new GUIContent(block.BlockName)).x + 10;
-            
+
             Rect tempRect = block._NodeRect;
             tempRect.width = Mathf.Clamp(nodeWidthA, BlockMinWidth, BlockMaxWidth);
             tempRect.height = DefaultBlockHeight;
