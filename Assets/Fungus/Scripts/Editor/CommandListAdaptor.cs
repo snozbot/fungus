@@ -147,7 +147,7 @@ namespace Fungus.EditorUtils
             }
             if (summary.StartsWith("Error:"))
             {
-                summary = "<color=red> " + summary + "</color>";
+                summary = "<color=white> " + summary + "</color>";
             }
 
             if (isComment || isLabel)
@@ -339,6 +339,14 @@ namespace Fungus.EditorUtils
             {
                 commandLabelColor = Color.grey;
             }
+			
+			try 
+			{
+                if (command.GetSummary().Contains("Error"))
+                {
+                    commandLabelColor = Color.red;
+                }
+            } catch { }
 
             GUI.backgroundColor = commandLabelColor;
 

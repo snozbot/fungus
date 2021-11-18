@@ -491,6 +491,29 @@ namespace Fungus
 
             return -1;
         }
+		
+		public void ColourBlocks() 
+		{
+			for (int i = 0; i < commandList.Count; i++) 
+			{
+				Command command = commandList[i];
+				try 
+				{
+
+					if (command.GetSummary().Contains("Error"))
+                    {
+						useCustomTint = true;
+						tint = Color.red;
+                        break;
+					}
+                    else
+                    {
+                        useCustomTint = false;
+                    }
+
+                } catch
+                { }
+			}
 
         #endregion
     }

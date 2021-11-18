@@ -112,7 +112,7 @@ namespace Fungus
     {
         [SerializeField] protected VariableScope scope;
 
-        [SerializeField] protected string key = "";
+        [SerializeField] public string key = "";
 
         #region Public members
 

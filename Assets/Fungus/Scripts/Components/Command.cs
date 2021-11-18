@@ -250,6 +250,20 @@ namespace Fungus
         {
             return "";
         }
+		
+		/// <summary>
+        /// Checks for mistakes in the given flowchart.
+        /// </summary>
+		public virtual void ErrorCheck()
+        {}
+
+		/// <summary>
+        /// Fetches the return variables names of IF and ELSEIF commands to check for unused variables.
+        /// </summary>
+        public virtual List<string> GetReturnValueName()
+        {
+            return null;
+        }
 
         /// <summary>
         /// Returns the searchable content for searches on the flowchart window.

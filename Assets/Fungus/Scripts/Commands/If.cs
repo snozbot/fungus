@@ -14,5 +14,24 @@ namespace Fungus
     [AddComponentMenu("")]
     public class If : VariableCondition
     {
+		public override void ErrorCheck() 
+		{
+            if (!HasNeededProperties()) 
+			{
+                Debug.LogError("Return value empty for IF in block " + ParentBlock.BlockName);
+            }
+        }
+
+        public override List<string> GetReturnValueName() 
+		{
+            List<string> _listOfVariableNames = new List<string>();
+
+            for (int i = 0; i < conditions.Count; i++) 
+			{
+                _listOfVariableNames.Add(conditions[i].AnyVar.variable.key);
+            }
+
+            return _listOfVariableNames;
+        }
     }
 }
