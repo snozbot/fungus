@@ -69,7 +69,7 @@ namespace Fungus
             this.Order = order;
             this.IsPreviewedOnly = isPreviewedOnly;
         }
-
+        
         public string Category { get; set; }
         public string VariableType { get; set; }
         public int Order { get; set; }
@@ -79,9 +79,9 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variable properties.
     /// </summary>
-    public sealed class VariablePropertyAttribute : PropertyAttribute
+    public sealed class VariablePropertyAttribute : PropertyAttribute 
     {
-        public VariablePropertyAttribute (params System.Type[] variableTypes)
+        public VariablePropertyAttribute (params System.Type[] variableTypes) 
         {
             this.VariableTypes = variableTypes;
         }
@@ -91,7 +91,7 @@ namespace Fungus
             VariableTypes = AllVariableTypes.AllFungusVarTypes;
         }
 
-        public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes)
+        public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes) 
         {
             this.defaultText = defaultText;
             this.VariableTypes = variableTypes;
@@ -112,7 +112,7 @@ namespace Fungus
     {
         [SerializeField] protected VariableScope scope;
 
-        [SerializeField] public string key = "";
+        [SerializeField] protected string key = "";
 
         #region Public members
 
@@ -155,7 +155,7 @@ namespace Fungus
         /// Does the underlying type provide support for < <= > >=
         /// </summary>
         public virtual bool IsComparisonSupported() { return false; }
-
+        
         /// <summary>
         /// Boxed or referenced value of type defined within inherited types.
         /// Not recommended for direct use, primarily intended for use in editor code.
@@ -206,7 +206,7 @@ namespace Fungus
                     return this.value;
                 }
                 else
-                {
+                { 
                     return globalStaicRef.value;
                 }
             }
@@ -234,7 +234,7 @@ namespace Fungus
         {
             Value = startValue;
         }
-
+        
         public override string ToString()
         {
             if (Value != null)
@@ -242,7 +242,7 @@ namespace Fungus
             else
                 return "Null";
         }
-
+        
         protected virtual void Start()
         {
             // Remember the initial value so we can reset later on

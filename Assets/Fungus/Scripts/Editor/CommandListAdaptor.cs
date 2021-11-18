@@ -147,7 +147,7 @@ namespace Fungus.EditorUtils
             }
             if (summary.StartsWith("Error:"))
             {
-                summary = "<color=white> " + summary + "</color>";
+                summary = "<color=red> " + summary + "</color>";
             }
 
             if (isComment || isLabel)
@@ -175,7 +175,7 @@ namespace Fungus.EditorUtils
             }
 
             string commandName = commandInfoAttr.CommandName;
-
+            
             float indentSize = 20;
             for (int i = 0; i < command.IndentLevel; ++i)
             {
@@ -197,7 +197,7 @@ namespace Fungus.EditorUtils
             commandLabelRect.width -= (indentSize * command.IndentLevel);// - 22);
             commandLabelRect.height += 5;
 
-            // There's a weird incompatibility between the Reorderable list control used for the command list and
+            // There's a weird incompatibility between the Reorderable list control used for the command list and 
             // the UnityEvent list control used in some commands. In play mode, if you click on the reordering grabber
             // for a command in the list it causes the UnityEvent list to spew null exception errors.
             // The workaround for now is to hide the reordering grabber from mouse clicks by extending the command
@@ -340,13 +340,6 @@ namespace Fungus.EditorUtils
                 commandLabelColor = Color.grey;
             }
 
-            try {
-                if (command.GetSummary().Contains("Error"))
-                {
-                    commandLabelColor = Color.red;
-                }
-            } catch { }
-
             GUI.backgroundColor = commandLabelColor;
 
             if (isComment)
@@ -398,7 +391,7 @@ namespace Fungus.EditorUtils
             }
 
             GUI.Label(summaryRect, summary, summaryStyle);
-
+            
             GUI.backgroundColor = Color.white;
         }
     }

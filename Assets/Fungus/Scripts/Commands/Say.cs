@@ -132,23 +132,15 @@ namespace Fungus
 
         public override string GetSummary()
         {
-
             string namePrefix = "";
-
             if (character != null) 
             {
                 namePrefix = character.NameText + ": ";
             }
-            else 
-            {
-                return "Error: character null!";
-            }
-
             if (extendPrevious)
             {
                 namePrefix = "EXTEND" + ": ";
             }
-
             return namePrefix + "\"" + storyText + "\"";
         }
 
@@ -175,7 +167,7 @@ namespace Fungus
 
         #endregion
 
-                #region ILocalizable implementation
+        #region ILocalizable implementation
 
         public virtual string GetStandardText()
         {
