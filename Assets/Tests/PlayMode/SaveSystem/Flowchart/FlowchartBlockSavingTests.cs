@@ -10,8 +10,15 @@ namespace SaveSystemTests
         public override void SetUp()
         {
             base.SetUp();
+            SetUpExpectedFields();
+        }
+
+        protected virtual void SetUpExpectedFields()
+        {
 
         }
+
+        protected int dialogueBlockIndex = 3, menuBlockIndex = 2;
 
         [UnityTest]
         [Ignore("")]
