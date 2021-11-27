@@ -118,7 +118,8 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragExited(Draggable2D draggableObject, Collider2D targetObject)
         {
-            if (this.targetObjects != null && this.draggableObjects != null &&
+            if (draggableObject.BeingDragged &&
+                this.targetObjects != null && this.draggableObjects != null &&
                 this.draggableObjects.Contains(draggableObject) &&
                 this.targetObjects.Contains(targetObject))
             {

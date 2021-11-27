@@ -36,6 +36,14 @@ namespace Fungus
         [Tooltip("Use the UI Event System to check for drag events. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
         [SerializeField] protected bool useEventSystem;
 
+        [SerializeField] protected bool beingDragged;
+
+        public virtual bool BeingDragged
+        {
+            get { return beingDragged; }
+            set { beingDragged = value; }
+        }
+
         protected Vector3 startingPosition;
         protected bool updatePosition = false;
         protected Vector3 newPosition;
@@ -95,10 +103,16 @@ namespace Fungus
 
         protected virtual void DoBeginDrag()
         {
+            beingDragged = true;
+
             // Offset the object so that the drag is anchored to the exact point where the user clicked it
-            float x = Input.mousePosition.x;
-            float y = Input.mousePosition.y;
-            delta = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - transform.position;
+
+#if ENABLE_INPUT_SYSTEM
+            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
+#else
+            var mousePos = Input.mousePosition;
+#endif
+            delta = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f)) - transform.position;
             delta.z = 0f;
 
             startingPosition = transform.position;
@@ -115,8 +129,13 @@ namespace Fungus
                 return;
             }
 
-            float x = Input.mousePosition.x;
-            float y = Input.mousePosition.y;
+#if ENABLE_INPUT_SYSTEM
+            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
+#else
+            var mousePos = Input.mousePosition;
+#endif
+            float x = mousePos.x;
+            float y = mousePos.y;
             float z = transform.position.z;
 
             newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - delta;
@@ -161,6 +180,8 @@ namespace Fungus
             {
                 LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
             }
+
+            beingDragged = false;
         }
 
         protected virtual void DoPointerEnter()
