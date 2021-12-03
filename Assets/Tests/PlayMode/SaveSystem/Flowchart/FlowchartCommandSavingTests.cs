@@ -56,14 +56,13 @@ namespace SaveSystemTests
             Assert.IsTrue(savedCorrectly);
         }
 
-
-
         protected virtual IEnumerator SetUpForEachTest()
         {
             // Try saving the states of the commands involved in this suite; they will have
             // their fields checked to see if they were saved correctly or not
             yield return new WaitForSeconds(0.1f);
             PrepareSayStates();
+            PrepareBlockStates();
 
             SetUpExpectedFields();
         }
@@ -71,11 +70,20 @@ namespace SaveSystemTests
         protected virtual void PrepareSayStates()
         {
             List<Say> sayCommands = new List<Say>(GameObject.FindObjectsOfType<Say>());
-            sayCommands.Sort((a, b) => a.CommandIndex.CompareTo(b.CommandIndex));
+            sayCommands.Sort((firstSay, secondSay) => firstSay.CommandIndex.CompareTo(secondSay.CommandIndex));
             sayStates = SaySaveUnit.From(sayCommands);
         }
 
         protected IList<SaySaveUnit> sayStates;
+
+        protected virtual void PrepareBlockStates()
+        {
+            List<Block> blocks = new List<Block>(GameObject.FindObjectsOfType<Block>());
+            blocks.Sort((firstBlock, secondBlock) => firstBlock.BlockName.CompareTo(secondBlock.BlockName));
+            blockStates = BlockSaveUnit.From(blocks);
+        }
+
+        protected IList<BlockSaveUnit> blockStates;
 
         protected virtual void SetUpExpectedFields()
         {
@@ -85,9 +93,16 @@ namespace SaveSystemTests
             {
                 expectedSayExecutionCount[i] = 1; // Each Say should be executed just once
             }
+
+            expectedBlockExecutionCount = new int[blockStates.Count];
+
+            for (int i = 0; i < blockStates.Count; i++)
+            {
+                expectedBlockExecutionCount[i] = 2;
+            }
         }
 
-        protected int[] expectedSayExecutionCount;
+        protected int[] expectedSayExecutionCount, expectedBlockExecutionCount;
 
         protected virtual bool ExactSameNums(IList<int> firstList, IList<int> secondList)
         {
@@ -105,6 +120,32 @@ namespace SaveSystemTests
             }
 
             return true;
+        }
+
+        [UnityTest]
+        public virtual IEnumerator BlockExecutionCountsSaved()
+        {
+            yield return SetUpForEachTest();
+
+            var allBlocks = GameObject.FindObjectsOfType<Block>();
+
+            foreach (var block in allBlocks)
+            {
+                block.SetExecutionCount(2);
+            }
+
+            PrepareBlockStates();
+
+            int[] executionCounts = new int[blockStates.Count];
+
+            for (int i = 0; i < blockStates.Count; i++)
+            {
+                var currentState = blockStates[i];
+                executionCounts[i] = currentState.ExecutionCount;
+            }
+
+            bool savedCorrectly = ExactSameNums(executionCounts, expectedBlockExecutionCount);
+            Assert.IsTrue(savedCorrectly);
         }
     }
 }

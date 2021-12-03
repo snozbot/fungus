@@ -46,5 +46,38 @@ namespace Fungus.LionManeSaveSys
         [SerializeField]
         List<CommandSaveUnit> executingCommands;
 
+        public int ExecutionCount
+        {
+            get { return executionCount; }
+        }
+
+        [SerializeField]
+        int executionCount;
+
+        public static IList<BlockSaveUnit> From(IList<Block> blocks)
+        {
+            BlockSaveUnit[] results = new BlockSaveUnit[blocks.Count];
+
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                Block currentBlock = blocks[i];
+                BlockSaveUnit newUnit = From(currentBlock);
+                results[i] = newUnit;
+            }
+
+            return results;
+        }
+
+        public static BlockSaveUnit From(Block block)
+        {
+            BlockSaveUnit newUnit = new BlockSaveUnit();
+            newUnit.executionCount = block.GetExecutionCount();
+            newUnit.BlockName = block.BlockName;
+
+            // TODO: set up executing commands
+
+            return newUnit;
+        }
+
     }
 }
