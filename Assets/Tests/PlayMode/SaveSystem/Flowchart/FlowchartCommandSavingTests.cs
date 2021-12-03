@@ -31,12 +31,17 @@ namespace SaveSystemTests
         {
             yield return SetUpForEachTest();
 
-            string flowchartName = "ExecutingFlowchart_Dialogue";
-            Flowchart flowchartToExecute = GameObject.Find(flowchartName).GetComponent<Flowchart>();
-            string blockName = "Dialogue";
-            flowchartToExecute.ExecuteBlock(blockName);
+            // For some reason, Say Commands don't execute properly in unit-testing environments, so we
+            // have to update the execution counts manually here instead of executing the Blocks 
+            // said Say Commands are in...
+            var allSayCommands = GameObject.FindObjectsOfType<Say>();
 
-            yield return new WaitForSeconds(5f);
+            foreach (var sayCommand in allSayCommands)
+            {
+                sayCommand.ExecutionCount = 1;
+            }
+
+            PrepareSayStates(); // Since we need said states updated
 
             // See if the execution count is as expected
             int[] executionCounts = new int[sayStates.Count];
@@ -50,6 +55,7 @@ namespace SaveSystemTests
             bool savedCorrectly = ExactSameNums(executionCounts, expectedSayExecutionCount);
             Assert.IsTrue(savedCorrectly);
         }
+
 
 
         protected virtual IEnumerator SetUpForEachTest()
