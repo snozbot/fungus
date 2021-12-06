@@ -1,7 +1,7 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -17,6 +17,11 @@ namespace Fungus
     /// </summary>
     public class Localization : MonoBehaviour, ISubstitutionHandler
     {
+        protected bool initialized;
+        
+        protected string notificationText = "";
+
+#if !UNITY_LOCALIZATION
         /// <summary>
         /// Temp storage for a single item of standard text and its localizations.
         /// </summary>
@@ -32,12 +37,8 @@ namespace Fungus
 
         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
-
+        
         protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
-
-        protected string notificationText = "";
-
-        protected bool initialized;
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
@@ -51,23 +52,26 @@ namespace Fungus
 
         protected virtual void LevelWasLoaded()
         {
+            #if !UNITY_LOCALIZATION
             // Check if a language has been selected using the Set Language command in a previous scene.
             if (SetLanguage.mostRecentLanguage != "")
             {
                 // This language will be used when Start() is called
                 activeLanguage = SetLanguage.mostRecentLanguage;
             }
+            #endif
         }
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
         {
             LevelWasLoaded();
         }
+#endif
 
         protected virtual void OnEnable()
         {
             StringSubstituter.RegisterHandler(this);
-            #if UNITY_5_4_OR_NEWER
+            #if UNITY_5_4_OR_NEWER && !UNITY_LOCALIZATION
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             #endif
         }
@@ -75,7 +79,7 @@ namespace Fungus
         protected virtual void OnDisable()
         {
             StringSubstituter.UnregisterHandler(this);
-            #if UNITY_5_4_OR_NEWER
+            #if UNITY_5_4_OR_NEWER && !UNITY_LOCALIZATION
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             #endif
         }
@@ -96,6 +100,7 @@ namespace Fungus
                 return;
             }
 
+#if !UNITY_LOCALIZATION
             CacheLocalizeableObjects();
 
             if (localizationFile != null &&
@@ -103,10 +108,11 @@ namespace Fungus
             {
                 SetActiveLanguage(activeLanguage);
             }
-
+#endif
             initialized = true;
         }
 
+#if !UNITY_LOCALIZATION
         // Build a cache of all the localizeable objects in the scene
         protected virtual void CacheLocalizeableObjects()
         {
@@ -247,8 +253,11 @@ namespace Fungus
             }
         }
 
+#endif
+
         #region Public members
 
+#if !UNITY_LOCALIZATION
         /// <summary>
         /// Looks up the specified string in the localized strings table.
         /// For this to work, a localization file and active language must have been set previously.
@@ -548,13 +557,15 @@ namespace Fungus
 
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
-
+#endif
+        
         #endregion
 
         #region StringSubstituter.ISubstitutionHandler imlpementation
 
         public virtual bool SubstituteStrings(StringBuilder input)
         {
+#if !UNITY_LOCALIZATION
             // This method could be called from the Start method of another component, so we
             // may need to initilize the localization system.
             Init();
@@ -580,8 +591,11 @@ namespace Fungus
             }
 
             return modified;
+#else
+            return false;
+#endif
         }
-
+        
         #endregion
     }
 }

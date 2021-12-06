@@ -4,6 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -19,7 +22,12 @@ namespace Fungus
         [Tooltip("Text to display on the menu button")]
         [TextArea()]
         [SerializeField] protected string text = "Option Text";
-
+        
+#if UNITY_LOCALIZATION
+        [Tooltip("Menu button's localization entry")]
+        [SerializeField] protected LocalizedString textString;
+#endif
+        
         [Tooltip("Notes about the option text for other authors, localization, etc.")]
         [SerializeField] protected string description = "";
 

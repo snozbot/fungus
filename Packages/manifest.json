@@ -2,7 +2,9 @@
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ext.nunit": "1.0.6",
+    "com.unity.ide.rider": "3.0.7",
     "com.unity.ide.visualstudio": "2.0.11",
+    "com.unity.localization": "1.0.5",
     "com.unity.test-framework": "1.1.29",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.2",

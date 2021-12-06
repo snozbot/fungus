@@ -1,7 +1,11 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+#endif
 using UnityEngine.Serialization;
 
 namespace Fungus
@@ -9,9 +13,12 @@ namespace Fungus
     /// <summary>
     /// Set the active language for the scene. A Localization object with a localization file must be present in the scene.
     /// </summary>
+#if UNITY_LOCALIZATION
+#else
     [CommandInfo("Narrative", 
                  "Set Language", 
                  "Set the active language for the scene. A Localization object with a localization file must be present in the scene.")]
+#endif
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class SetLanguage : Command
@@ -25,6 +32,10 @@ namespace Fungus
 
         public override void OnEnter()
         {
+#if UNITY_LOCALIZATION
+            var locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(_languageCode));
+            LocalizationSettings.SelectedLocale = locale; 
+#else
             Localization localization = GameObject.FindObjectOfType<Localization>();
             if (localization != null)
             {
@@ -34,7 +45,8 @@ namespace Fungus
                 // use the same language in subsequent scenes.
                 mostRecentLanguage = _languageCode.Value;
             }
-
+#endif
+            
             Continue();
         }
 

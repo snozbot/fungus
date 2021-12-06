@@ -10,13 +10,17 @@ namespace Fungus.EditorUtils
     [CustomEditor(typeof(Localization))]
     public class LocalizationEditor : Editor 
     {
+#if !UNITY_LOCALIZATION
         protected SerializedProperty activeLanguageProp;
         protected SerializedProperty localizationFileProp;
-
+#endif
+        
         protected virtual void OnEnable()
         {
+#if !UNITY_LOCALIZATION
             activeLanguageProp = serializedObject.FindProperty("activeLanguage");
             localizationFileProp = serializedObject.FindProperty("localizationFile");
+#endif
         }
 
         public override void OnInspectorGUI()
@@ -25,9 +29,9 @@ namespace Fungus.EditorUtils
 
             Localization localization = target as Localization;
 
+#if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(activeLanguageProp);
             EditorGUILayout.PropertyField(localizationFileProp);
-
             GUILayout.Space(10);
 
             EditorGUILayout.HelpBox("Exports a localization csv file to disk. You should save this file in your project assets and then set the Localization File property above to use it.", MessageType.Info);
@@ -50,10 +54,12 @@ namespace Fungus.EditorUtils
             {
                 ImportStandardText(localization);
             }
+#endif
 
             serializedObject.ApplyModifiedProperties();
         }
 
+#if !UNITY_LOCALIZATION
         public virtual void ExportLocalizationFile(Localization localization)
         {
             string path = EditorUtility.SaveFilePanelInProject("Export Localization File",
@@ -116,5 +122,6 @@ namespace Fungus.EditorUtils
             FlowchartWindow.ShowNotification(localization.NotificationText);
             localization.NotificationText = "";
         }
+#endif
     }
 }

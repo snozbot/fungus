@@ -2,6 +2,9 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -34,6 +37,11 @@ namespace Fungus
 
         [Tooltip("String value to assign to the text object")]
         [SerializeField] protected StringDataMulti text;
+
+#if UNITY_LOCALIZATION
+        [Tooltip("Story text's localization entry")]
+        [SerializeField] protected LocalizedString textString;
+#endif
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
         [SerializeField] protected string description;
