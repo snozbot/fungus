@@ -39,7 +39,11 @@ namespace Fungus
         public override void OnEnter()
         {
             var flowchart = GetFlowchart();
+#if UNITY_LOCALIZATION
+            string newText = flowchart.SubstituteVariables(textString.IsEmpty ? text.Value : textString.GetLocalizedString());
+#else
             string newText = flowchart.SubstituteVariables(text.Value);
+#endif
             
             if (targetTextObject == null)
             {

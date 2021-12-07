@@ -1,7 +1,8 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
- using UnityEngine;
+using System.Collections;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,6 +10,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
 using Ideafixxxer.CsvParser;
+ using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 namespace Fungus
 {
@@ -20,6 +23,13 @@ namespace Fungus
         protected bool initialized;
         
         protected string notificationText = "";
+        
+#if UNITY_LOCALIZATION
+        [SerializeField] protected LocalizedStringTable stringTable;
+        [SerializeField] protected string defaultLanguageCode = "en";
+#endif
+
+        public LocalizedStringTable StringTable => stringTable;
 
 #if !UNITY_LOCALIZATION
         /// <summary>
@@ -31,7 +41,7 @@ namespace Fungus
             public string standardText = "";
             public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
         }
-
+        
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";
 
@@ -251,6 +261,59 @@ namespace Fungus
                     }
                 }
             }
+        }
+#else
+          /// <summary>
+        /// Builds a dictionary of localizable text items in the scene.
+        /// </summary>
+        protected Dictionary<string, string> FindTextItems()
+        {
+            Dictionary<string, string> textItems = new Dictionary<string, string>();
+
+            // Add localizable commands in same order as command list to make it
+            // easier to localise / edit standard text.
+            var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
+            for (int i = 0; i < flowcharts.Length; i++)
+            {
+                var flowchart = flowcharts[i];
+                var blocks = flowchart.GetComponents<Block>();
+
+                for (int j = 0; j < blocks.Length; j++)
+                {
+                    var block = blocks[j];
+                    var commandList = block.CommandList;
+                    for (int k = 0; k < commandList.Count; k++)
+                    {
+                        var command = commandList[k];
+                        ILocalizable localizable = command as ILocalizable;
+                        if (localizable != null)
+                        {
+                            textItems[localizable.GetStringId()] = localizable.GetStandardText();
+                        }
+                    }
+                }
+            }
+
+            // Add everything else that's localizable (including inactive objects)
+            UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
+            for (int i = 0; i < objects.Length; i++)
+            {
+                var o = objects[i];
+                ILocalizable localizable = o as ILocalizable;
+                if (localizable != null)
+                {
+                    string stringId = localizable.GetStringId();
+                    if (textItems.ContainsKey(stringId))
+                    {
+                        // Already added
+                        continue;
+                    }
+                    
+                    textItems[localizable.GetStringId()] = localizable.GetStandardText();
+                }
+            }
+
+            return textItems;
         }
 
 #endif
@@ -556,6 +619,28 @@ namespace Fungus
             }
 
             notificationText = "Updated " + updatedCount + " standard text items.";
+        }
+#else
+
+        public IEnumerator ExportDataRoutine()
+        {
+            if (stringTable.IsEmpty) yield break;
+
+            var data = FindTextItems();
+            foreach (var kvp in data)
+            {
+                // set locale we want to export the data to so getting the table actually works.
+                var locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(defaultLanguageCode));
+                LocalizationSettings.SelectedLocale = locale; 
+                
+                var st = stringTable.GetTableAsync();
+                while (!st.IsDone) yield return null;
+                if (st.Result == null) break; 
+
+                var entry = st.Result.CreateTableEntry();
+                entry.Key = kvp.Key;
+                entry.Value = kvp.Value;
+            }
         }
 #endif
         

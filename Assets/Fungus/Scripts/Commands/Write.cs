@@ -103,8 +103,12 @@ namespace Fungus
             }
 
             var flowchart = GetFlowchart();
+#if UNITY_LOCALIZATION
+            string newText = flowchart.SubstituteVariables(textString.IsEmpty ? text.Value : textString.GetLocalizedString());
+#else
             string newText = flowchart.SubstituteVariables(text.Value);
-
+#endif
+            
             if (!waitUntilFinished)
             {
                 StartCoroutine(writer.Write(newText, clearText, false, true, false, null, null));

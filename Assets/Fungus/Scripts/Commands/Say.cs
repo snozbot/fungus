@@ -118,8 +118,11 @@ namespace Fungus
             sayDialog.SetCharacter(character);
             sayDialog.SetCharacterImage(portrait);
 
+#if UNITY_LOCALIZATION
+            string displayText = storyTextString.IsEmpty ? storyText : storyTextString.GetLocalizedString();
+#else
             string displayText = storyText;
-
+#endif
             var activeCustomTags = CustomTag.activeCustomTags;
             for (int i = 0; i < activeCustomTags.Count; i++)
             {
@@ -194,12 +197,18 @@ namespace Fungus
         
         public virtual string GetStringId()
         {
+#if UNITY_LOCALIZATION
+            // String id for Say commands is SAY.<Localization Id>.<Command id>
+            // dec 6 2021: removed character name from id to prevent issues when changing the character name
+            string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId;
+#else
             // String id for Say commands is SAY.<Localization Id>.<Command id>.[Character Name]
             string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId + ".";
             if (character != null)
             {
                 stringId += character.NameText;
             }
+#endif
 
             return stringId;
         }

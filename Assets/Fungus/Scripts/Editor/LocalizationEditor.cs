@@ -4,15 +4,21 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using Unity.EditorCoroutines.Editor;
 
 namespace Fungus.EditorUtils
 {
     [CustomEditor(typeof(Localization))]
     public class LocalizationEditor : Editor 
     {
+        
+        
 #if !UNITY_LOCALIZATION
         protected SerializedProperty activeLanguageProp;
         protected SerializedProperty localizationFileProp;
+#else
+        protected SerializedProperty stringTableProp;
+        protected SerializedProperty defaultLanguageCodeProp;
 #endif
         
         protected virtual void OnEnable()
@@ -20,6 +26,9 @@ namespace Fungus.EditorUtils
 #if !UNITY_LOCALIZATION
             activeLanguageProp = serializedObject.FindProperty("activeLanguage");
             localizationFileProp = serializedObject.FindProperty("localizationFile");
+#else
+            stringTableProp = serializedObject.FindProperty("stringTable");
+            defaultLanguageCodeProp = serializedObject.FindProperty("defaultLanguageCode");
 #endif
         }
 
@@ -29,6 +38,8 @@ namespace Fungus.EditorUtils
 
             Localization localization = target as Localization;
 
+            if (localization == null) return;
+            
 #if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(activeLanguageProp);
             EditorGUILayout.PropertyField(localizationFileProp);
@@ -53,6 +64,24 @@ namespace Fungus.EditorUtils
             if (GUILayout.Button(new GUIContent("Import Standard Text")))
             {
                 ImportStandardText(localization);
+            }
+#else
+            EditorGUILayout.PropertyField(stringTableProp);
+            EditorGUILayout.PropertyField(defaultLanguageCodeProp);
+            
+            if (!localization.StringTable.IsEmpty || string.IsNullOrWhiteSpace(stringTableProp.stringValue))
+            {
+                EditorGUILayout.Space();
+                
+                if (GUILayout.Button(new GUIContent("Commands -> String Table (Export)")))
+                {
+                    ExportText(localization);
+                }
+
+                if (GUILayout.Button(new GUIContent("String Table  -> Commands (Import)")))
+                {
+                    ImportText(localization);
+                }
             }
 #endif
 
@@ -121,6 +150,15 @@ namespace Fungus.EditorUtils
         {
             FlowchartWindow.ShowNotification(localization.NotificationText);
             localization.NotificationText = "";
+        }
+#else
+        private void ImportText(Localization localization)
+        {
+        }
+
+        private void ExportText(Localization localization)
+        {
+            EditorCoroutineUtility.StartCoroutine(localization.ExportDataRoutine(), this); 
         }
 #endif
     }

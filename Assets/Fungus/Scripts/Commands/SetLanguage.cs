@@ -10,11 +10,18 @@ using UnityEngine.Serialization;
 
 namespace Fungus
 {
+ 
+#if UNITY_LOCALIZATION
+    /// <summary>
+    /// Set the active language.
+    /// </summary>
+    [CommandInfo("Narrative", 
+        "Set Language", 
+        "Set the active language.")]
+#else
     /// <summary>
     /// Set the active language for the scene. A Localization object with a localization file must be present in the scene.
     /// </summary>
-#if UNITY_LOCALIZATION
-#else
     [CommandInfo("Narrative", 
                  "Set Language", 
                  "Set the active language for the scene. A Localization object with a localization file must be present in the scene.")]
