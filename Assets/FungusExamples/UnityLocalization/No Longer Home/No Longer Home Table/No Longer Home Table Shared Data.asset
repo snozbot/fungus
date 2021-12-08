@@ -222,11 +222,11 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 6614457626822967341
+    rid: 6614457640319713280
   references:
     version: 2
     RefIds:
-    - rid: 6614457626822967341
+    - rid: 6614457640319713280
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
         asm: Unity.Localization}
       data:
