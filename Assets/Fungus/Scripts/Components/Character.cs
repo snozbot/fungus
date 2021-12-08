@@ -72,7 +72,7 @@ namespace Fungus
         /// <summary>
         /// Character name as displayed in Say Dialog.
         /// </summary>
-        public virtual string NameText { get { return GetNameText(); } }
+        public virtual string NameText { get { return nameText; } }
 
         /// <summary>
         /// Color to display the character name in Say Dialog.
@@ -222,8 +222,8 @@ namespace Fungus
                 portraits.Sort(PortraitUtil.PortraitCompareTo);
             }
         }
-        
-        private string GetNameText()
+
+        public string GetNameText()
         {
 #if UNITY_LOCALIZATION
             return nameString.IsEmpty ? nameText : nameString.GetLocalizedString();
