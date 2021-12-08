@@ -17,7 +17,225 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: abef67b4b76b84c25a1793a9fd122590, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 34522259456
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230976
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230977
+    m_Localized: Japanese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230978
+    m_Localized: Bo?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425280
+    m_Localized: Fell asleep at your laptop again?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425281
+    m_Localized: (Dazed)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425282
+    m_Localized: (Defensive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425283
+    m_Localized: (Embarrassed)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425284
+    m_Localized: N-No.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425285
+    m_Localized: Sure... Just resting your eyes?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425286
+    m_Localized: (Side eyes) Something like that, yeah...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425287
+    m_Localized: Uh, what?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425288
+    m_Localized: Maybe you should take your naps in the bedroom, instead of in front
+      of a screen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425289
+    m_Localized: Dang. How does this keep happening?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425290
+    m_Localized: Wellll, maybe if you got some rest...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425291
+    m_Localized: Oh geez, how long was I out for?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425292
+    m_Localized: "I\u2019m not sure, I was focused on my own work. An hour? Maybe
+      two?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425293
+    m_Localized: Dang, I thought I would have gotten this finished by now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425294
+    m_Localized: What were you working on?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425295
+    m_Localized: Trying to get this damn job application sent off.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425296
+    m_Localized: "I\u2019ve been trying to tie up these closing bills."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425297
+    m_Localized: I was thinking about making some riso prints of my old art.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425298
+    m_Localized: "Four years university down the drain and I have no idea how I\u2019m
+      supposed to market myself."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425299
+    m_Localized: "I\u2019m completely worthless. I don\u2019t even feel like a person
+      anymore."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425300
+    m_Localized: "You\u2019ve been staring at this screen for too long."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425301
+    m_Localized: "I thought it\u2019d get easier once we\u2019d graduated university."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425302
+    m_Localized: "But I haven\u2019t had any time to process it... Paying all these
+      bills, then we pack up and go..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425303
+    m_Localized: "Take a break. You\u2019ve been at it for too long."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425304
+    m_Localized: "Now that we've graduated university I don\u2019t have any projects
+      to keep me going."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425305
+    m_Localized: "I\u2019ve been trying to get back to finishing my bestiary, but
+      keep getting distracted. How are you getting on?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425306
+    m_Localized: "Eh, I\u2019m not sure I even like any of this art anymore..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425307
+    m_Localized: You probably just need space from it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425308
+    m_Localized: "I don\u2019t know. It\u2019s hard to focus knowing we have to move
+      out soon."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619584
+    m_Localized: Everything just feels really flat right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619585
+    m_Localized: "I don\u2019t-"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619586
+    m_Localized: "-It\u2019s not just that."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619587
+    m_Localized: What?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619588
+    m_Localized: "I don\u2019t know. It\u2019s hard to explain, but I feel disoriented."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619589
+    m_Localized: "I\u2019m not sure I\u2013Why?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619590
+    m_Localized: "It\u2019s like I\u2019ve been following this winding path through
+      the forest and..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619591
+    m_Localized: You got stuck at a fork in the road?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619592
+    m_Localized: And the path disappeared?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619593
+    m_Localized: "Kind of? But I don\u2019t know where any of the paths might take
+      me, if they take me anywhere! So I\u2019ve just stopped proceeding."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619594
+    m_Localized: "I guess you could say that. There are so many paths and they\u2019re
+      all overlapping, and it isn\u2019t clear where they lead at all!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619595
+    m_Localized: "At this point it\u2019s impossible to distinguish one path from
+      another."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619596
+    m_Localized: ... Hm. I definitely think you should take a break. You have been
+      sitting there all day, after all.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619597
+    m_Localized: "I know, I just don\u2019t know what to do with myself."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619598
+    m_Localized: "I know you don\u2019t feel like going out right now, but maybe
+      stretch your legs a little at the very least."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619599
+    m_Localized: "I suppose you\u2019re right..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619600
+    m_Localized: Ao
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619601
+    m_Localized: Bo
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -411,8 +411,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Character Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2015,10 +2016,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2154,8 +2158,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Story Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2307,10 +2312,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2553,7 +2561,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 66.06748
     y: 58.190605
-    width: 152.76071
+    width: 158
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2582,11 +2590,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 76.16045, y: 259.5202}
+  scrollPos: {x: 415.3916, y: 418.74866}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 416
-  zoom: 0.3260001
+  zoom: 0.25
   scrollViewRect:
     serializedVersion: 2
     x: -350
@@ -2594,9 +2602,9 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216148}
+  - {fileID: 1369216217}
   selectedCommands:
-  - {fileID: 1369216163}
+  - {fileID: 1369216234}
   variables: []
   description: 
   stepPause: 0
@@ -2660,7 +2668,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 549.8603
     y: 50.2287
-    width: 135.88956
+    width: 140
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2723,9 +2731,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 247.58064
-    y: 201
-    width: 108.282196
+    x: 258.43054
+    y: 114.20068
+    width: 112
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2844,9 +2852,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 241.41936
-    y: 114
-    width: 92.94478
+    x: 266.7358
+    y: 27.20079
+    width: 96
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3143,7 +3151,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 555.1636
     y: 233.51605
-    width: 119.01839
+    width: 124
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3173,7 +3181,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 674.6173
     y: 133.96878
-    width: 117.48464
+    width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3203,7 +3211,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 471.546
     y: 139.08823
-    width: 80.674835
+    width: 82
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3234,7 +3242,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 580.89594
     y: 139.22336
-    width: 66.87116
+    width: 68
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4630,7 +4638,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 559.3977
     y: 641.49274
-    width: 85.27606
+    width: 86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4661,7 +4669,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 627.5376
     y: 560.4617
-    width: 126.687096
+    width: 130
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4690,7 +4698,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 476.52496
     y: 560.4616
-    width: 77.60735
+    width: 78
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4718,7 +4726,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 570.4474
     y: 486.79706
-    width: 73.00613
+    width: 74
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4753,7 +4761,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 564.92255
     y: 402.0826
-    width: 86.80981
+    width: 88
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4781,7 +4789,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 666.2115
     y: 322.89307
-    width: 74.53987
+    width: 76
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4812,7 +4820,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 570.44745
     y: 322.8931
-    width: 73.00613
+    width: 76
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -4842,7 +4850,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 434.1678
     y: 326.57632
-    width: 117.48464
+    width: 122
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5170,8 +5178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 86
   indentLevel: 0
-  storyText: ... Hm. I definitely think you should take a break. You {i}have{/i}
-    been sitting there all day, after all.
+  storyText: ... Hm. I definitely think you should take a break. You have been sitting
+    there all day, after all.
   storyTextString:
     m_TableReference:
       m_TableCollectionName: No Longer Home Table
@@ -5402,10 +5410,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5634,10 +5645,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5913,10 +5927,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6048,10 +6065,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Button Text
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eed780518ea9f48be95d269fd5f3e4d9, type: 2}
+  m_sharedMaterial: {fileID: -2873844037417792934, guid: eed780518ea9f48be95d269fd5f3e4d9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

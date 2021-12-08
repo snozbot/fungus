@@ -10,6 +10,9 @@ namespace Fungus.EditorUtils
     public class CharacterEditor : Editor
     {
         protected SerializedProperty nameTextProp;
+#if UNITY_LOCALIZATION
+        protected SerializedProperty nameStringProp;
+#endif
         protected SerializedProperty nameColorProp;
         protected SerializedProperty soundEffectProp;
         protected SerializedProperty portraitsProp;
@@ -20,6 +23,9 @@ namespace Fungus.EditorUtils
         protected virtual void OnEnable()
         {
             nameTextProp = serializedObject.FindProperty ("nameText");
+#if UNITY_LOCALIZATION
+            nameStringProp = serializedObject.FindProperty ("nameString");
+#endif
             nameColorProp = serializedObject.FindProperty ("nameColor");
             soundEffectProp = serializedObject.FindProperty ("soundEffect");
             portraitsProp = serializedObject.FindProperty ("portraits");
@@ -36,6 +42,9 @@ namespace Fungus.EditorUtils
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
+#if UNITY_LOCALIZATION
+            EditorGUILayout.PropertyField(nameStringProp);
+#endif
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
             EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
             EditorGUILayout.PropertyField(setSayDialogProp);

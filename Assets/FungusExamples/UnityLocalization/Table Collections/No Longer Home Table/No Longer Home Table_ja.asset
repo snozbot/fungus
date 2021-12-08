@@ -218,6 +218,10 @@ MonoBehaviour:
     m_Localized: "\u30DC\u30FC"
     m_Metadata:
       m_Items: []
+  - m_Id: 34522259456
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
