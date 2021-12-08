@@ -120,6 +120,12 @@ namespace Fungus
             // String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
             return "SETTEXT." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+        public void SetLocalizedString(string tableRef, string entryRef)
+        {
+            textString.TableReference = tableRef;
+            textString.TableEntryReference = entryRef;
+        }
 
         #endregion
 

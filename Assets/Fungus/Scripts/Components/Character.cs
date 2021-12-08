@@ -198,6 +198,12 @@ namespace Fungus
             return "CHARACTER." + nameText;
         }
 
+        public void SetLocalizedString(string tableRef, string entryRef)
+        {
+            nameString.TableReference = tableRef;
+            nameString.TableEntryReference = entryRef;
+        }
+
         #endregion
 
         protected virtual void OnValidate()

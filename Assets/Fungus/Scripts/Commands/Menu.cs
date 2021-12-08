@@ -143,6 +143,12 @@ namespace Fungus
             return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
         }
 
+        public void SetLocalizedString(string tableRef, string entryRef)
+        {
+            textString.TableReference = tableRef;
+            textString.TableEntryReference = entryRef;
+        }
+
         #endregion
 
         #region Editor caches

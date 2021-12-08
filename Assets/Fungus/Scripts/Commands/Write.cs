@@ -166,6 +166,12 @@ namespace Fungus
             // String id for Write commands is WRITE.<Localization Id>.<Command id>
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+        public void SetLocalizedString(string tableRef, string entryRef)
+        {
+            textString.TableReference = tableRef;
+            textString.TableEntryReference = entryRef;
+        }
 
         public override bool HasReference(Variable variable)
         {

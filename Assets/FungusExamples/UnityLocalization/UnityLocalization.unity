@@ -2376,10 +2376,10 @@ MonoBehaviour:
   storyText: Select Language
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: Simple Example Table
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: 
+      m_Key: SAY.LocalizationDemo.1
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2391,7 +2391,7 @@ MonoBehaviour:
   showCount: 1
   extendPrevious: 0
   fadeWhenDone: 1
-  waitForClick: 0
+  waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
@@ -2428,7 +2428,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 63
-    y: 69
+    y: 63.838726
     width: 137.74167
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   scrollPos: {x: 17.1941, y: 439.7649}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 280
+  blockViewHeight: 411
   zoom: 0.3875012
   scrollViewRect:
     serializedVersion: 2
@@ -2471,9 +2471,8 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216156}
-  selectedCommands:
-  - {fileID: 1369216155}
+  - {fileID: 1369216148}
+  selectedCommands: []
   variables: []
   description: This scene shows how to use the Fungus unity localization system.
     Requires the Localization package and UNITY_LOCALIZATION to be specified in custom
@@ -2519,10 +2518,10 @@ MonoBehaviour:
   text: French
   textString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: Simple Example Table
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: 
+      m_Key: MENU.LocalizationDemo.15
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2598,10 +2597,10 @@ MonoBehaviour:
   storyText: This text is in English
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: GUID:e9c2c1b1b494e4dc38b898188216a719
+      m_TableCollectionName: Simple Example Table
     m_TableEntryReference:
-      m_KeyId: 22929203200
-      m_Key: 
+      m_KeyId: 0
+      m_Key: SAY.LocalizationDemo.12
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2791,10 +2790,10 @@ MonoBehaviour:
   text: Spanish
   textString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: Simple Example Table
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: 
+      m_Key: MENU.LocalizationDemo.3
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2828,10 +2827,10 @@ MonoBehaviour:
   text: English
   textString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: Simple Example Table
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: 
+      m_Key: MENU.LocalizationDemo.2
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2901,7 +2900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 244
+    x: 241.41936
     y: 114
     width: 87.419235
     height: 40

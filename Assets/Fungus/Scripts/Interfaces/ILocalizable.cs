@@ -31,5 +31,7 @@ namespace Fungus
         /// Gets the unique string identifier.
         /// </summary>
         string GetStringId();
+
+        void SetLocalizedString(string tableRef, string entryRef);
     }
 }

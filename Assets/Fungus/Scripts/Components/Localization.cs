@@ -7,11 +7,18 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Text;
+#if UNITY_LOCALIZATION
+#if UNITY_EDITOR
+using UnityEditor.Localization;
+using UnityEditor.Localization.UI;
+#endif
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+#else
 using Ideafixxxer.CsvParser;
- using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
+using System.Text.RegularExpressions;
+#endif
 
 namespace Fungus
 {
@@ -27,6 +34,12 @@ namespace Fungus
 #if UNITY_LOCALIZATION
         [SerializeField] protected LocalizedStringTable stringTable;
         [SerializeField] protected string defaultLanguageCode = "en";
+
+        protected class TextItem
+        {
+            public string text;
+            public ILocalizable localizable;
+        }
 #endif
 
         public LocalizedStringTable StringTable => stringTable;
@@ -266,9 +279,9 @@ namespace Fungus
           /// <summary>
         /// Builds a dictionary of localizable text items in the scene.
         /// </summary>
-        protected Dictionary<string, string> FindTextItems()
+        protected Dictionary<string, TextItem> FindTextItems()
         {
-            Dictionary<string, string> textItems = new Dictionary<string, string>();
+            Dictionary<string, TextItem> textItems = new Dictionary<string, TextItem>();
 
             // Add localizable commands in same order as command list to make it
             // easier to localise / edit standard text.
@@ -288,7 +301,11 @@ namespace Fungus
                         ILocalizable localizable = command as ILocalizable;
                         if (localizable != null)
                         {
-                            textItems[localizable.GetStringId()] = localizable.GetStandardText();
+                            textItems[localizable.GetStringId()] = new TextItem
+                            {
+                                text = localizable.GetStandardText(),
+                                localizable = localizable
+                            };
                         }
                     }
                 }
@@ -309,7 +326,11 @@ namespace Fungus
                         continue;
                     }
                     
-                    textItems[localizable.GetStringId()] = localizable.GetStandardText();
+                    textItems[localizable.GetStringId()] = new TextItem
+                    {
+                        text = localizable.GetStandardText(),
+                        localizable = localizable
+                    };
                 }
             }
 
@@ -624,23 +645,26 @@ namespace Fungus
 
         public IEnumerator ExportDataRoutine()
         {
+#if UNITY_EDITOR
             if (stringTable.IsEmpty) yield break;
+            
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) yield break;
 
-            var data = FindTextItems();
-            foreach (var kvp in data)
+            foreach (var kvp in FindTextItems())
             {
-                // set locale we want to export the data to so getting the table actually works.
-                var locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(defaultLanguageCode));
-                LocalizationSettings.SelectedLocale = locale; 
-                
-                var st = stringTable.GetTableAsync();
-                while (!st.IsDone) yield return null;
-                if (st.Result == null) break; 
-
-                var entry = st.Result.CreateTableEntry();
-                entry.Key = kvp.Key;
-                entry.Value = kvp.Value;
+                table.AddEntry(kvp.Key, kvp.Value.text);
+                kvp.Value.localizable.SetLocalizedString(stringTable.TableReference, kvp.Key);
             }
+
+            // close window because we need to reopen it to see the changes made (shrug)
+            var ltw = EditorWindow.GetWindow<LocalizationTablesWindow>();
+            if (ltw)
+            {
+                ltw.Close();
+            }
+#endif
         }
 #endif
         
