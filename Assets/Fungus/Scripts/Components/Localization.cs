@@ -664,6 +664,11 @@ namespace Fungus
                 if (kvp.Key.Contains("CommandCopyBuffer") || kvp.Key.Equals("CHARACTER.Character Name")) continue;
                 
                 table.AddEntry(kvp.Key, kvp.Value.text);
+                
+                // var entry = table.AddEntry(kvp.Key, kvp.Value.text);
+                // ignoring this for now because there is no easy way to remove it afterwards for another export or import without having the original text we set :(
+                // entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                
                 kvp.Value.localizable.SetLocalizedString(stringTable.TableReference, kvp.Key);
                 exportCount++;
             }
