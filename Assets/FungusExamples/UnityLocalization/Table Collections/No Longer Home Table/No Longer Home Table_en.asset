@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: No Longer Home Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: abef67b4b76b84c25a1793a9fd122590, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1314825166896
+    m_Localized: Bo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166895
+    m_Localized: Ao
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166894
+    m_Localized: "I suppose you\u2019re right..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166893
+    m_Localized: "I know you don\u2019t feel like going out right now, but maybe
+      stretch your legs a little at the very least."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166892
+    m_Localized: "I know, I just don\u2019t know what to do with myself."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166891
+    m_Localized: ... Hm. I definitely think you should take a break. You {i}have{/i}
+      been sitting there all day, after all.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166890
+    m_Localized: "At this point it\u2019s impossible to distinguish one path from
+      another."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166889
+    m_Localized: "I guess you could say that. There are so many paths and they\u2019re
+      all overlapping, and it isn\u2019t clear where they lead at all!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166888
+    m_Localized: "Kind of? But I don\u2019t know where any of the paths might take
+      me, if they take me anywhere! So I\u2019ve just stopped proceeding."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166887
+    m_Localized: And the path disappeared?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166886
+    m_Localized: You got stuck at a fork in the road?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166885
+    m_Localized: "It\u2019s like I\u2019ve been following this winding path through
+      the forest and..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166884
+    m_Localized: "I\u2019m not sure I\u2013Why?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166883
+    m_Localized: "I don\u2019t know. It\u2019s hard to explain, but I feel disoriented."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166882
+    m_Localized: What?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166881
+    m_Localized: "-It\u2019s not just that."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166880
+    m_Localized: "I don\u2019t-"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166879
+    m_Localized: Everything just feels really flat right now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166878
+    m_Localized: "I don\u2019t know. It\u2019s hard to focus knowing we have to move
+      out soon."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166877
+    m_Localized: You probably just need space from it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166876
+    m_Localized: "Eh, I\u2019m not sure I even like any of this art anymore..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166875
+    m_Localized: "I\u2019ve been trying to get back to finishing my bestiary, but
+      keep getting distracted. How are you getting on?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166874
+    m_Localized: "Now that we've graduated university I don\u2019t have any projects
+      to keep me going."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166873
+    m_Localized: "Take a break. You\u2019ve been at it for too long."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166872
+    m_Localized: "But I haven\u2019t had any time to process it... Paying all these
+      bills, then we pack up and go..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166871
+    m_Localized: "I thought it\u2019d get easier once we\u2019d graduated university."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166870
+    m_Localized: "You\u2019ve been staring at this screen for too long."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166869
+    m_Localized: "I\u2019m completely worthless. I don\u2019t even feel like a person
+      anymore."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166868
+    m_Localized: "Four years university down the drain and I have no idea how I\u2019m
+      supposed to market myself."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166867
+    m_Localized: I was thinking about making some riso prints of my old art.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166866
+    m_Localized: "I\u2019ve been trying to tie up these closing bills."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166865
+    m_Localized: Trying to get this damn job application sent off.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166864
+    m_Localized: What were you working on?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166863
+    m_Localized: Dang, I thought I would have gotten this finished by now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166862
+    m_Localized: "I\u2019m not sure, I was focused on my own work. An hour? Maybe
+      two?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166861
+    m_Localized: Oh geez, how long was I out for?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166860
+    m_Localized: Wellll, maybe if you got some rest...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166859
+    m_Localized: Dang. How does this keep happening?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166858
+    m_Localized: Maybe you should take your naps in the bedroom, instead of in front
+      of a screen?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166857
+    m_Localized: Uh, what?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166856
+    m_Localized: (Side eyes) Something like that, yeah...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166855
+    m_Localized: Sure... Just resting your eyes?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166854
+    m_Localized: N-No.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166853
+    m_Localized: (Embarrassed)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166852
+    m_Localized: (Defensive)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166851
+    m_Localized: (Dazed)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166850
+    m_Localized: Fell asleep at your laptop again?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166849
+    m_Localized: Bo?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166848
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314820972544
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314808389632
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

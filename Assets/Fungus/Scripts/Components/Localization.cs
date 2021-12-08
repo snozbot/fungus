@@ -33,6 +33,7 @@ namespace Fungus
         protected string notificationText = "";
         
 #if UNITY_LOCALIZATION
+        [Tooltip("String table to export to.")]
         [SerializeField] protected LocalizedStringTable stringTable;
         [SerializeField] protected string defaultLanguageCode = "en";
 
@@ -659,6 +660,9 @@ namespace Fungus
 
             foreach (var kvp in FindTextItems())
             {
+                // prevent adding the CommandCopyBuffer or a bug where a extra character name is added despite there not being one (ik this code could be problematic)
+                if (kvp.Key.Contains("CommandCopyBuffer") || kvp.Key.Equals("CHARACTER.Character Name")) continue;
+                
                 table.AddEntry(kvp.Key, kvp.Value.text);
                 kvp.Value.localizable.SetLocalizedString(stringTable.TableReference, kvp.Key);
                 exportCount++;

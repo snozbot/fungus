@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: No Longer Home Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: No Longer Home Table
+  m_TableCollectionNameGuidString: abef67b4b76b84c25a1793a9fd122590
+  m_Entries:
+  - m_Id: 1314808389632
+    m_Key: SAY.LocalizationDemo.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314820972544
+    m_Key: MENU.LocalizationDemo.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166848
+    m_Key: MENU.LocalizationDemo.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166849
+    m_Key: SAY.LocalizationDemo.23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166850
+    m_Key: SAY.LocalizationDemo.24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166851
+    m_Key: MENU.LocalizationDemo.25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166852
+    m_Key: MENU.LocalizationDemo.31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166853
+    m_Key: MENU.LocalizationDemo.30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166854
+    m_Key: SAY.LocalizationDemo.36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166855
+    m_Key: SAY.LocalizationDemo.38
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166856
+    m_Key: SAY.LocalizationDemo.37
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166857
+    m_Key: SAY.LocalizationDemo.32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166858
+    m_Key: SAY.LocalizationDemo.33
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166859
+    m_Key: SAY.LocalizationDemo.34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166860
+    m_Key: SAY.LocalizationDemo.35
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166861
+    m_Key: SAY.LocalizationDemo.39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166862
+    m_Key: SAY.LocalizationDemo.40
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166863
+    m_Key: SAY.LocalizationDemo.41
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166864
+    m_Key: SAY.LocalizationDemo.53
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166865
+    m_Key: MENU.LocalizationDemo.54
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166866
+    m_Key: MENU.LocalizationDemo.56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166867
+    m_Key: MENU.LocalizationDemo.55
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166868
+    m_Key: SAY.LocalizationDemo.57
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166869
+    m_Key: SAY.LocalizationDemo.59
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166870
+    m_Key: SAY.LocalizationDemo.58
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166871
+    m_Key: SAY.LocalizationDemo.60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166872
+    m_Key: SAY.LocalizationDemo.61
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166873
+    m_Key: SAY.LocalizationDemo.62
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166874
+    m_Key: SAY.LocalizationDemo.63
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166875
+    m_Key: SAY.LocalizationDemo.66
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166876
+    m_Key: SAY.LocalizationDemo.65
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166877
+    m_Key: SAY.LocalizationDemo.64
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166878
+    m_Key: SAY.LocalizationDemo.70
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166879
+    m_Key: SAY.LocalizationDemo.72
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166880
+    m_Key: SAY.LocalizationDemo.75
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166881
+    m_Key: SAY.LocalizationDemo.74
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166882
+    m_Key: SAY.LocalizationDemo.73
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166883
+    m_Key: SAY.LocalizationDemo.76
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166884
+    m_Key: SAY.LocalizationDemo.77
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166885
+    m_Key: SAY.LocalizationDemo.78
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166886
+    m_Key: MENU.LocalizationDemo.79
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166887
+    m_Key: MENU.LocalizationDemo.80
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166888
+    m_Key: SAY.LocalizationDemo.81
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166889
+    m_Key: SAY.LocalizationDemo.82
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166890
+    m_Key: SAY.LocalizationDemo.83
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166891
+    m_Key: SAY.LocalizationDemo.86
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166892
+    m_Key: SAY.LocalizationDemo.87
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166893
+    m_Key: SAY.LocalizationDemo.88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166894
+    m_Key: SAY.LocalizationDemo.89
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166895
+    m_Key: CHARACTER.Ao
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1314825166896
+    m_Key: CHARACTER.Bo
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 6614457626822967302
+  references:
+    version: 2
+    RefIds:
+    - rid: 6614457626822967302
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1638941772804
