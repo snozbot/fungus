@@ -167,11 +167,20 @@ namespace Fungus
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
         
+#if UNITY_LOCALIZATION
+
         public void SetLocalizedString(string tableRef, string entryRef)
         {
             textString.TableReference = tableRef;
             textString.TableEntryReference = entryRef;
         }
+
+        public LocalizedString GetLocalizedString()
+        {
+            return textString;
+        }
+        
+#endif
 
         public override bool HasReference(Variable variable)
         {

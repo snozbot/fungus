@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Fungus
 {
@@ -31,7 +32,13 @@ namespace Fungus
         /// Gets the unique string identifier.
         /// </summary>
         string GetStringId();
-
+        
+#if UNITY_LOCALIZATION
+        
         void SetLocalizedString(string tableRef, string entryRef);
+
+        LocalizedString GetLocalizedString();
+        
+#endif
     }
 }

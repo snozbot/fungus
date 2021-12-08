@@ -40,7 +40,7 @@ namespace Fungus
         public override void OnEnter()
         {
 #if UNITY_LOCALIZATION
-            var locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(_languageCode));
+            var locale = LocalizationSettings.AvailableLocales.GetLocale((string)_languageCode);
             LocalizationSettings.SelectedLocale = locale; 
 #else
             Localization localization = GameObject.FindObjectOfType<Localization>();

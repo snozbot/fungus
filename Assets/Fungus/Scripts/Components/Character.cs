@@ -197,6 +197,8 @@ namespace Fungus
             // String id for character names is CHARACTER.<Character Name>
             return "CHARACTER." + nameText;
         }
+        
+#if UNITY_LOCALIZATION
 
         public void SetLocalizedString(string tableRef, string entryRef)
         {
@@ -204,6 +206,13 @@ namespace Fungus
             nameString.TableEntryReference = entryRef;
         }
 
+        public LocalizedString GetLocalizedString()
+        {
+            return nameString;
+        }
+
+#endif
+        
         #endregion
 
         protected virtual void OnValidate()

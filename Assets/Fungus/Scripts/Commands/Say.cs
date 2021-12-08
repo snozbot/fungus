@@ -212,12 +212,21 @@ namespace Fungus
 
             return stringId;
         }
+        
+#if UNITY_LOCALIZATION
 
         public void SetLocalizedString(string tableRef, string entryRef)
         {
             storyTextString.TableReference = tableRef;
             storyTextString.TableEntryReference = entryRef;
         }
+
+        public LocalizedString GetLocalizedString()
+        {
+            return storyTextString;
+        }
+        
+#endif
 
         #endregion
     }

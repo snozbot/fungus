@@ -18,24 +18,24 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 444443617386499
-    m_Localized: This text is in English
+  - m_Id: 457837393207296
+    m_Localized: Select Language
     m_Metadata:
       m_Items: []
-  - m_Id: 444443617386498
-    m_Localized: French
-    m_Metadata:
-      m_Items: []
-  - m_Id: 444443617386497
-    m_Localized: Spanish
-    m_Metadata:
-      m_Items: []
-  - m_Id: 444443617386496
+  - m_Id: 457837409984512
     m_Localized: English
     m_Metadata:
       m_Items: []
-  - m_Id: 444443613192192
-    m_Localized: Select Language
+  - m_Id: 457837414178816
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457837414178817
+    m_Localized: French
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457837414178818
+    m_Localized: This text is in English
     m_Metadata:
       m_Items: []
   references:

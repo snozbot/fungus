@@ -142,12 +142,21 @@ namespace Fungus
             // String id for Menu commands is MENU.<Localization Id>.<Command id>
             return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+#if UNITY_LOCALIZATION
 
         public void SetLocalizedString(string tableRef, string entryRef)
         {
             textString.TableReference = tableRef;
             textString.TableEntryReference = entryRef;
         }
+
+        public LocalizedString GetLocalizedString()
+        {
+            return textString;
+        }
+        
+#endif
 
         #endregion
 

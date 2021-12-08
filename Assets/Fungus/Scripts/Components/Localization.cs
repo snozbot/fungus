@@ -1,7 +1,6 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System.Collections;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,12 +11,14 @@ using System.Text;
 #if UNITY_EDITOR
 using UnityEditor.Localization;
 using UnityEditor.Localization.UI;
+using UnityEngine.Localization.Settings;
 #endif
 using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 #else
 using Ideafixxxer.CsvParser;
 using System.Text.RegularExpressions;
+using System.Collections;
 #endif
 
 namespace Fungus
@@ -43,7 +44,7 @@ namespace Fungus
 #endif
 
         public LocalizedStringTable StringTable => stringTable;
-
+        
 #if !UNITY_LOCALIZATION
         /// <summary>
         /// Temp storage for a single item of standard text and its localizations.
@@ -367,15 +368,18 @@ namespace Fungus
         /// </summary>
         public virtual string ActiveLanguage { get { return activeLanguage; } }
 
-        /// <summary>
-        /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
-        /// </summary>
-        public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
-
+#endif
+        
         /// <summary>
         /// Stores any notification message from export / import methods.
         /// </summary>
         public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
+
+#if !UNITY_LOCALIZATION
+        /// <summary>
+        /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
+        /// </summary>
+        public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
         /// <summary>
         /// Clears the cache of localizeable objects.
@@ -643,29 +647,64 @@ namespace Fungus
         }
 #else
 
-        public IEnumerator ExportDataRoutine()
+        public void ExportDataRoutine()
         {
 #if UNITY_EDITOR
-            if (stringTable.IsEmpty) yield break;
+            int exportCount = 0;
+            if (stringTable.IsEmpty) return;
             
             var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
             var table = collection.GetTable(defaultLanguageCode) as StringTable;
-            if (table == null) yield break;
+            if (table == null) return;
 
             foreach (var kvp in FindTextItems())
             {
                 table.AddEntry(kvp.Key, kvp.Value.text);
                 kvp.Value.localizable.SetLocalizedString(stringTable.TableReference, kvp.Key);
+                exportCount++;
             }
 
-            // close window because we need to reopen it to see the changes made (shrug)
+            // close and reopen the window to see the changes we made (shrug)
+            // bug: get window creates a new instance if one doesn't exist so it ALWAYS makes the localization table
+            // window pop up after export. i can't fix this because its part of the localization package.
             var ltw = EditorWindow.GetWindow<LocalizationTablesWindow>();
             if (ltw)
             {
                 ltw.Close();
+                EditorApplication.ExecuteMenuItem("Window/Asset Management/Localization Tables");
             }
+
+            notificationText = $"Exported {exportCount} text items";
 #endif
         }
+
+        public void ImportDataRoutine()
+        {
+#if UNITY_EDITOR
+            int importCount = 0;
+
+            var locale = LocalizationSettings.AvailableLocales.GetLocale(defaultLanguageCode);
+            LocalizationSettings.SelectedLocale = locale; 
+            
+            foreach (var kvp in FindTextItems())
+            {
+                var localizedString = kvp.Value.localizable.GetLocalizedString();
+
+                if (localizedString.IsEmpty) continue;
+                var collection = LocalizationEditorSettings.GetStringTableCollection(localizedString.TableReference);
+                var table = collection.GetTable(defaultLanguageCode) as StringTable;
+                if (table == null) continue;
+                var entry = table.GetEntry(localizedString.TableEntryReference.Key);
+                if (entry == null) continue;
+                
+                kvp.Value.localizable.SetStandardText(entry.GetLocalizedString());
+                importCount++;
+            }
+
+            notificationText = $"Imported {importCount} text items";
+#endif
+        }
+        
 #endif
         
         #endregion
@@ -674,6 +713,7 @@ namespace Fungus
 
         public virtual bool SubstituteStrings(StringBuilder input)
         {
+            // ok im gonna be honest i dont how to work the code below.
 #if !UNITY_LOCALIZATION
             // This method could be called from the Start method of another component, so we
             // may need to initilize the localization system.

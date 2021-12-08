@@ -15,23 +15,23 @@ MonoBehaviour:
   m_TableCollectionName: Simple Example Table
   m_TableCollectionNameGuidString: e9c2c1b1b494e4dc38b898188216a719
   m_Entries:
-  - m_Id: 444443613192192
+  - m_Id: 457837393207296
     m_Key: SAY.LocalizationDemo.1
     m_Metadata:
       m_Items: []
-  - m_Id: 444443617386496
+  - m_Id: 457837409984512
     m_Key: MENU.LocalizationDemo.2
     m_Metadata:
       m_Items: []
-  - m_Id: 444443617386497
+  - m_Id: 457837414178816
     m_Key: MENU.LocalizationDemo.3
     m_Metadata:
       m_Items: []
-  - m_Id: 444443617386498
+  - m_Id: 457837414178817
     m_Key: MENU.LocalizationDemo.15
     m_Metadata:
       m_Items: []
-  - m_Id: 444443617386499
+  - m_Id: 457837414178818
     m_Key: SAY.LocalizationDemo.12
     m_Metadata:
       m_Items: []

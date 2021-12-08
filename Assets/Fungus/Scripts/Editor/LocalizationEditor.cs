@@ -3,16 +3,12 @@
 
 using UnityEditor;
 using UnityEngine;
-using System.IO;
-using Unity.EditorCoroutines.Editor;
 
 namespace Fungus.EditorUtils
 {
     [CustomEditor(typeof(Localization))]
     public class LocalizationEditor : Editor 
     {
-        
-        
 #if !UNITY_LOCALIZATION
         protected SerializedProperty activeLanguageProp;
         protected SerializedProperty localizationFileProp;
@@ -77,6 +73,8 @@ namespace Fungus.EditorUtils
                 {
                     ExportText(localization);
                 }
+                
+                EditorGUILayout.HelpBox("The Localization Tables window close and reopen on export to refresh the UI.", MessageType.Info);
 
                 if (GUILayout.Button(new GUIContent("String Table  -> Commands (Import)")))
                 {
@@ -145,20 +143,22 @@ namespace Fungus.EditorUtils
 
             ShowNotification(localization);
         }
-
+#else
         protected virtual void ShowNotification(Localization localization)
         {
             FlowchartWindow.ShowNotification(localization.NotificationText);
             localization.NotificationText = "";
         }
-#else
         private void ImportText(Localization localization)
         {
+            localization.ImportDataRoutine();
+            ShowNotification(localization);
         }
 
         private void ExportText(Localization localization)
         {
-            EditorCoroutineUtility.StartCoroutine(localization.ExportDataRoutine(), this); 
+            localization.ExportDataRoutine();
+            ShowNotification(localization);
         }
 #endif
     }
