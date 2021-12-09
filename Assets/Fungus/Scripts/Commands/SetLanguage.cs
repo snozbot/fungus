@@ -35,13 +35,23 @@ namespace Fungus
 
         #region Public members
 
+#if !UNITY_LOCALIZATION
         public static string mostRecentLanguage = "";
-
+#endif
+        
         public override void OnEnter()
         {
 #if UNITY_LOCALIZATION
+            if (string.IsNullOrWhiteSpace(_languageCode))
+            {
+                Debug.LogWarning($"SetLanguage's ({gameObject.name}.{itemId}) LanguageCode cannot be blank, skipping.");
+                Continue();
+                return;
+            }
+            
             var locale = LocalizationSettings.AvailableLocales.GetLocale((string)_languageCode);
-            LocalizationSettings.SelectedLocale = locale; 
+            if (locale != LocalizationSettings.SelectedLocale) // don't set locale if its already set to prevent errors
+                LocalizationSettings.SelectedLocale = locale; 
 #else
             Localization localization = GameObject.FindObjectOfType<Localization>();
             if (localization != null)
@@ -59,6 +69,11 @@ namespace Fungus
 
         public override string GetSummary()
         {
+#if UNITY_LOCALIZATION
+            if (string.IsNullOrWhiteSpace(_languageCode))
+                return "Error: No LanguageCode specified";
+#endif
+            
             return _languageCode.Value;
         }
 

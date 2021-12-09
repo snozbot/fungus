@@ -663,13 +663,26 @@ namespace Fungus
                 // prevent adding the CommandCopyBuffer or a bug where a extra character name is added despite there not being one (ik this code could be problematic)
                 if (kvp.Key.Contains("CommandCopyBuffer") || kvp.Key.Equals("CHARACTER.Character Name")) continue;
                 
-                table.AddEntry(kvp.Key, kvp.Value.text);
+                if (!collection.SharedData.Contains(kvp.Key))
+                {
+                    // create new entry
+                    table.AddEntry(kvp.Key, kvp.Value.text);
+                    
+                    // var entry = table.AddEntry(kvp.Key, kvp.Value.text);
+                    // ignoring this for now because there is no easy way to remove it afterwards for another export or import without having the original text we set :(
+                    // entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                }
+                else
+                {
+                    // modify existing entry
+                    var entry = table.GetEntry(kvp.Key);
+                    entry.Value = kvp.Value.text;
+                }
+
+                var localizedString = kvp.Value.localizable.GetLocalizedString();
+                localizedString.TableReference = stringTable.TableReference;
+                localizedString.TableEntryReference = kvp.Key;
                 
-                // var entry = table.AddEntry(kvp.Key, kvp.Value.text);
-                // ignoring this for now because there is no easy way to remove it afterwards for another export or import without having the original text we set :(
-                // entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
-                
-                kvp.Value.localizable.SetLocalizedString(stringTable.TableReference, kvp.Key);
                 exportCount++;
             }
 

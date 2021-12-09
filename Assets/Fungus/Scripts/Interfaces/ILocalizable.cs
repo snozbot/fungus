@@ -35,8 +35,6 @@ namespace Fungus
         
 #if UNITY_LOCALIZATION
         
-        void SetLocalizedString(string tableRef, string entryRef);
-
         LocalizedString GetLocalizedString();
         
 #endif

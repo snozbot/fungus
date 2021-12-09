@@ -200,12 +200,6 @@ namespace Fungus
         
 #if UNITY_LOCALIZATION
 
-        public void SetLocalizedString(string tableRef, string entryRef)
-        {
-            nameString.TableReference = tableRef;
-            nameString.TableEntryReference = entryRef;
-        }
-
         public LocalizedString GetLocalizedString()
         {
             return nameString;
