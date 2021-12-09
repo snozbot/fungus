@@ -75,6 +75,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty storyTextStringProp;
         protected SerializedProperty descriptionProp;
         protected SerializedProperty voiceOverClipProp;
+        protected SerializedProperty localizedVoiceOverClipProp;
         protected SerializedProperty showAlwaysProp;
         protected SerializedProperty showCountProp;
         protected SerializedProperty extendPreviousProp;
@@ -94,6 +95,7 @@ namespace Fungus.EditorUtils
             storyTextStringProp = serializedObject.FindProperty("storyTextString");
             descriptionProp = serializedObject.FindProperty("description");
             voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
+            localizedVoiceOverClipProp = serializedObject.FindProperty("localizedVoiceOverClip");
             showAlwaysProp = serializedObject.FindProperty("showAlways");
             showCountProp = serializedObject.FindProperty("showCount");
             extendPreviousProp = serializedObject.FindProperty("extendPrevious");
@@ -177,9 +179,15 @@ namespace Fungus.EditorUtils
             }
             
             EditorGUILayout.Separator();
+
+            if (t.LocalizedVoiceOverClip.IsEmpty)
+            {
+                EditorGUILayout.PropertyField(voiceOverClipProp, 
+                    new GUIContent("Voice Over Clip", "Voice over audio to play when the text is displayed"));
+            }
+            EditorGUILayout.PropertyField(localizedVoiceOverClipProp);
             
-            EditorGUILayout.PropertyField(voiceOverClipProp, 
-                                          new GUIContent("Voice Over Clip", "Voice over audio to play when the text is displayed"));
+            EditorGUILayout.Separator();
 
             EditorGUILayout.PropertyField(showAlwaysProp);
             

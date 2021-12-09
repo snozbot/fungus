@@ -35,8 +35,15 @@ namespace Fungus
         [Tooltip("Portrait that represents speaking character")]
         [SerializeField] protected Sprite portrait;
 
+#if UNITY_LOCALIZATION
+        [Tooltip("Voiceover audio to play when writing the text. Ignored if localizedVoiceOverClip not empty.")]
+#else
         [Tooltip("Voiceover audio to play when writing the text")]
+#endif
         [SerializeField] protected AudioClip voiceOverClip;
+        
+        [Tooltip("Localization entry for voice over clip")]
+        [SerializeField] protected LocalizedAsset<AudioClip> localizedVoiceOverClip;
 
         [Tooltip("Always show this Say text when the command is executed multiple times")]
         [SerializeField] protected bool showAlways = true;
@@ -77,6 +84,10 @@ namespace Fungus
         /// Portrait that represents speaking character.
         /// </summary>
         public virtual Sprite Portrait { get { return portrait; } set { portrait = value; } }
+        
+#if UNITY_LOCALIZATION
+        public virtual LocalizedAsset<AudioClip> LocalizedVoiceOverClip { get { return localizedVoiceOverClip;} }
+#endif
 
         /// <summary>
         /// Type this text in the previous dialog box.
@@ -120,9 +131,13 @@ namespace Fungus
 
 #if UNITY_LOCALIZATION
             string displayText = storyTextString.IsEmpty ? storyText : storyTextString.GetLocalizedString();
+            AudioClip audioClip = localizedVoiceOverClip.IsEmpty ? voiceOverClip : localizedVoiceOverClip.LoadAsset();
 #else
             string displayText = storyText;
+            AudioClip audioClip = voiceOverClip;
 #endif
+            
+            
             var activeCustomTags = CustomTag.activeCustomTags;
             for (int i = 0; i < activeCustomTags.Count; i++)
             {
@@ -136,7 +151,7 @@ namespace Fungus
 
             string subbedText = flowchart.SubstituteVariables(displayText);
 
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
+            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, audioClip, delegate {
                 Continue();
             });
         }
