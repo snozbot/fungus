@@ -22,12 +22,16 @@ namespace Fungus
         [Tooltip("Text object to set text on. Can be a UI Text, Text Field or Text Mesh object.")]
         [SerializeField] protected GameObject targetTextObject;
         
+#if UNITY_LOCALIZATION
+        [Tooltip("String value to assign to the text object. Ignored if textString is not empty.")]
+#else
         [Tooltip("String value to assign to the text object")]
+#endif
         [FormerlySerializedAs("stringData")]
         [SerializeField] protected StringDataMulti text;
         
 #if UNITY_LOCALIZATION
-        [Tooltip("Story text's localization entry")]
+        [Tooltip("Localization entry for text")]
         [SerializeField] protected LocalizedString textString;
 #endif
 

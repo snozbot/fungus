@@ -17,11 +17,15 @@ namespace Fungus
     [ExecuteInEditMode]
     public class Character : MonoBehaviour, ILocalizable, IComparer<Character>
     {
+#if UNITY_LOCALIZATION
+        [Tooltip("Character name as displayed in Say Dialog. Ignored if nameString is not empty.")]
+#else
         [Tooltip("Character name as displayed in Say Dialog.")]
+#endif
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 
 #if UNITY_LOCALIZATION
-        [Tooltip("Character name's localization entry")]
+        [Tooltip("Localization entry for the Character name.")]
         [SerializeField] protected LocalizedString nameString;
 #endif
         

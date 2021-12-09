@@ -19,12 +19,16 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Menu : Command, ILocalizable, IBlockCaller
     {
+#if UNITY_LOCALIZATION
+        [Tooltip("Text to display on the menu button. Ignored if textString is not empty.")]
+#else
         [Tooltip("Text to display on the menu button")]
+#endif
         [TextArea()]
         [SerializeField] protected string text = "Option Text";
         
 #if UNITY_LOCALIZATION
-        [Tooltip("Menu button's localization entry")]
+        [Tooltip("Localization entry for the menu button.")]
         [SerializeField] protected LocalizedString textString;
 #endif
         
