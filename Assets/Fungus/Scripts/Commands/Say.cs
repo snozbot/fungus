@@ -42,8 +42,10 @@ namespace Fungus
 #endif
         [SerializeField] protected AudioClip voiceOverClip;
         
+#if UNITY_LOCALIZATION
         [Tooltip("Localization entry for voice over clip")]
         [SerializeField] protected LocalizedAsset<AudioClip> localizedVoiceOverClip;
+#endif
 
         [Tooltip("Always show this Say text when the command is executed multiple times")]
         [SerializeField] protected bool showAlways = true;

@@ -1,6 +1,9 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+#if !UNITY_LOCALIZATION
+using System.IO;
+#endif
 using UnityEditor;
 using UnityEngine;
 
@@ -144,11 +147,6 @@ namespace Fungus.EditorUtils
             ShowNotification(localization);
         }
 #else
-        protected virtual void ShowNotification(Localization localization)
-        {
-            FlowchartWindow.ShowNotification(localization.NotificationText);
-            localization.NotificationText = "";
-        }
         private void ImportText(Localization localization)
         {
             localization.ImportDataRoutine();
@@ -161,5 +159,11 @@ namespace Fungus.EditorUtils
             ShowNotification(localization);
         }
 #endif
+        
+        protected virtual void ShowNotification(Localization localization)
+        {
+            FlowchartWindow.ShowNotification(localization.NotificationText);
+            localization.NotificationText = "";
+        }
     }
 }

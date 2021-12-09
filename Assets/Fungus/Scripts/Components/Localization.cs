@@ -42,9 +42,9 @@ namespace Fungus
             public string text;
             public ILocalizable localizable;
         }
-#endif
-
+        
         public LocalizedStringTable StringTable => stringTable;
+#endif
         
 #if !UNITY_LOCALIZATION
         /// <summary>
