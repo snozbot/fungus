@@ -1225,7 +1225,7 @@ MonoBehaviour:
   nameText: Bo
   nameString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: CHARACTER.Bo
@@ -2873,7 +2873,7 @@ MonoBehaviour:
   storyText: Select Language
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.1
@@ -2884,6 +2884,14 @@ MonoBehaviour:
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -2967,9 +2975,9 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216217}
+  - {fileID: 1369216220}
   selectedCommands:
-  - {fileID: 1369216234}
+  - {fileID: 1369216189}
   variables: []
   description: 
   stepPause: 0
@@ -3128,7 +3136,7 @@ MonoBehaviour:
   text: Japanese
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.3
@@ -3165,7 +3173,7 @@ MonoBehaviour:
   text: English
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.2
@@ -3286,7 +3294,7 @@ MonoBehaviour:
   storyText: Wellll, maybe if you got some rest...
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.35
@@ -3297,6 +3305,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3325,7 +3341,7 @@ MonoBehaviour:
   storyText: Dang. How does this keep happening?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.34
@@ -3336,6 +3352,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3365,7 +3389,7 @@ MonoBehaviour:
     of a screen?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.33
@@ -3376,6 +3400,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3404,7 +3436,7 @@ MonoBehaviour:
   storyText: Uh, what?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.32
@@ -3415,6 +3447,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3443,7 +3483,7 @@ MonoBehaviour:
   text: (Defensive)
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.31
@@ -3480,7 +3520,7 @@ MonoBehaviour:
   text: (Embarrassed)
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.30
@@ -3638,7 +3678,7 @@ MonoBehaviour:
   text: (Dazed)
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.25
@@ -3675,7 +3715,7 @@ MonoBehaviour:
   storyText: Fell asleep at your laptop again?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.24
@@ -3686,6 +3726,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3714,7 +3762,7 @@ MonoBehaviour:
   storyText: Bo?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.23
@@ -3725,6 +3773,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3753,7 +3809,7 @@ MonoBehaviour:
   storyText: Dang, I thought I would have gotten this finished by now.
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.41
@@ -3764,6 +3820,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3792,7 +3856,7 @@ MonoBehaviour:
   storyText: "I\u2019m not sure, I was focused on my own work. An hour? Maybe two?"
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.40
@@ -3803,6 +3867,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3831,7 +3903,7 @@ MonoBehaviour:
   storyText: Oh geez, how long was I out for?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.39
@@ -3842,6 +3914,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3870,7 +3950,7 @@ MonoBehaviour:
   storyText: Sure... Just resting your eyes?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.38
@@ -3881,6 +3961,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3909,7 +3997,7 @@ MonoBehaviour:
   storyText: (Side eyes) Something like that, yeah...
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.37
@@ -3920,6 +4008,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3948,7 +4044,7 @@ MonoBehaviour:
   storyText: N-No.
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.36
@@ -3959,6 +4055,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -3987,7 +4091,7 @@ MonoBehaviour:
   text: And the path disappeared?
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.80
@@ -4024,7 +4128,7 @@ MonoBehaviour:
   text: You got stuck at a fork in the road?
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.79
@@ -4062,7 +4166,7 @@ MonoBehaviour:
     forest and..."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.78
@@ -4073,6 +4177,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4101,7 +4213,7 @@ MonoBehaviour:
   storyText: "I\u2019m not sure I\u2013Why?"
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.77
@@ -4112,6 +4224,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4140,7 +4260,7 @@ MonoBehaviour:
   storyText: "I don\u2019t know. It\u2019s hard to explain, but I feel disoriented."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.76
@@ -4151,6 +4271,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4179,7 +4307,7 @@ MonoBehaviour:
   storyText: "I don\u2019t-"
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.75
@@ -4190,6 +4318,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4218,7 +4354,7 @@ MonoBehaviour:
   storyText: "-It\u2019s not just that."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.74
@@ -4229,6 +4365,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4257,7 +4401,7 @@ MonoBehaviour:
   storyText: What?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.73
@@ -4268,6 +4412,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4296,7 +4448,7 @@ MonoBehaviour:
   storyText: Everything just feels really flat right now.
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.72
@@ -4307,6 +4459,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4357,7 +4517,7 @@ MonoBehaviour:
     out soon."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.70
@@ -4368,6 +4528,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4460,7 +4628,7 @@ MonoBehaviour:
     getting distracted. How are you getting on?"
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.66
@@ -4471,6 +4639,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4499,7 +4675,7 @@ MonoBehaviour:
   storyText: "Eh, I\u2019m not sure I even like any of this art anymore..."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.65
@@ -4510,6 +4686,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4538,7 +4722,7 @@ MonoBehaviour:
   storyText: You probably just need space from it.
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.64
@@ -4549,6 +4733,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4578,7 +4770,7 @@ MonoBehaviour:
     to keep me going."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.63
@@ -4589,6 +4781,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4617,7 +4817,7 @@ MonoBehaviour:
   storyText: "Take a break. You\u2019ve been at it for too long."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.62
@@ -4628,6 +4828,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4657,7 +4865,7 @@ MonoBehaviour:
     then we pack up and go..."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.61
@@ -4668,6 +4876,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4696,7 +4912,7 @@ MonoBehaviour:
   storyText: "I thought it\u2019d get easier once we\u2019d graduated university."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.60
@@ -4707,6 +4923,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4736,7 +4960,7 @@ MonoBehaviour:
     anymore."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.59
@@ -4747,6 +4971,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4775,7 +5007,7 @@ MonoBehaviour:
   storyText: "You\u2019ve been staring at this screen for too long."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.58
@@ -4786,6 +5018,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4815,7 +5055,7 @@ MonoBehaviour:
     supposed to market myself."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.57
@@ -4826,6 +5066,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -4854,7 +5102,7 @@ MonoBehaviour:
   text: "I\u2019ve been trying to tie up these closing bills."
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.56
@@ -4891,7 +5139,7 @@ MonoBehaviour:
   text: I was thinking about making some riso prints of my old art.
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.55
@@ -4928,7 +5176,7 @@ MonoBehaviour:
   text: Trying to get this damn job application sent off.
   textString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: MENU.LocalizationDemo.54
@@ -4965,7 +5213,7 @@ MonoBehaviour:
   storyText: What were you working on?
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.53
@@ -4976,6 +5224,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5309,7 +5565,7 @@ MonoBehaviour:
   storyText: "At this point it\u2019s impossible to distinguish one path from another."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.83
@@ -5320,6 +5576,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5349,7 +5613,7 @@ MonoBehaviour:
     all overlapping, and it isn\u2019t clear where they lead at all!"
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.82
@@ -5360,6 +5624,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5389,7 +5661,7 @@ MonoBehaviour:
     if they take me anywhere! So I\u2019ve just stopped proceeding."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.81
@@ -5400,6 +5672,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5428,7 +5708,7 @@ MonoBehaviour:
   storyText: "I suppose you\u2019re right..."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.89
@@ -5439,6 +5719,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5468,7 +5756,7 @@ MonoBehaviour:
     your legs a little at the very least."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.88
@@ -5479,6 +5767,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5507,7 +5803,7 @@ MonoBehaviour:
   storyText: "I know, I just don\u2019t know what to do with myself."
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.87
@@ -5518,6 +5814,14 @@ MonoBehaviour:
   character: {fileID: 524087566}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -5547,7 +5851,7 @@ MonoBehaviour:
     there all day, after all.
   storyTextString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: SAY.LocalizationDemo.86
@@ -5558,6 +5862,14 @@ MonoBehaviour:
   character: {fileID: 1903645500}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
+  localizedVoiceOverClip:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -6686,7 +6998,7 @@ MonoBehaviour:
   nameText: Ao
   nameString:
     m_TableReference:
-      m_TableCollectionName: No Longer Home Table
+      m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: CHARACTER.Ao
