@@ -18,15 +18,6 @@ namespace SaveSystemTests
         }
 
         [UnityTest]
-        [Ignore("")]
-        public virtual IEnumerator MenuHideIfVisitedSaved()
-        {
-            // Might want to erase this test later on... The Menu Command tells whether its target block was
-            // visited based on said target's execution count rather than some other flag in said Command
-            throw new System.NotImplementedException();
-        }
-
-        [UnityTest]
         public virtual IEnumerator SayExecutionCountSaved()
         {
             yield return SetUpForEachTest();
