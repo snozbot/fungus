@@ -37,13 +37,17 @@ namespace Fungus
         [SerializeField] protected LocalizedStringTable stringTable;
         [SerializeField] protected string defaultLanguageCode = "en";
 
+        public LocalizedStringTable StringTable => stringTable;
+        
+        /// <summary>
+        /// Temp storage for a single item of text and its localizable component.
+        /// </summary>
         protected class TextItem
         {
             public string text;
             public ILocalizable localizable;
         }
         
-        public LocalizedStringTable StringTable => stringTable;
 #endif
         
 #if !UNITY_LOCALIZATION
@@ -343,6 +347,11 @@ namespace Fungus
 
         #region Public members
 
+        /// <summary>
+        /// Stores any notification message from export / import methods.
+        /// </summary>
+        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
+        
 #if !UNITY_LOCALIZATION
         /// <summary>
         /// Looks up the specified string in the localized strings table.
@@ -369,14 +378,6 @@ namespace Fungus
         /// </summary>
         public virtual string ActiveLanguage { get { return activeLanguage; } }
 
-#endif
-        
-        /// <summary>
-        /// Stores any notification message from export / import methods.
-        /// </summary>
-        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
-
-#if !UNITY_LOCALIZATION
         /// <summary>
         /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
         /// </summary>
@@ -658,7 +659,25 @@ namespace Fungus
             var table = collection.GetTable(defaultLanguageCode) as StringTable;
             if (table == null) return;
 
-            foreach (var kvp in FindTextItems())
+            var textItems = FindTextItems();
+
+            // warn the user about overwriting data if there is data that will be overwritten
+            foreach (var kvp in textItems)
+            {
+                if (collection.SharedData.Contains(kvp.Key))
+                {
+                    if (!EditorUtility.DisplayDialog("Overwriting Existing Entries", "Found one or more existing entries that will be overwritten if you continue. Continue?", "Yes", "No"))
+                    {
+                        notificationText = "Export canceled";
+                        return;
+                    }
+                        
+                    break;
+                }
+            }
+
+            // add or modify items to table
+            foreach (var kvp in textItems)
             {
                 // prevent adding the CommandCopyBuffer or a bug where a extra character name is added despite there not being one (ik this code could be problematic)
                 if (kvp.Key.Contains("CommandCopyBuffer") || kvp.Key.Equals("CHARACTER.Character Name")) continue;
