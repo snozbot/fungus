@@ -37,7 +37,7 @@ namespace Fungus.EditorUtils
             {
                 foreach (var item in VariableScriptGenerator.AllGeneratedVariableTypeClassNames)
                 {
-                    generator.TargetType = generator.types.Where(x => string.Compare(x.Name, item, StringComparison.InvariantCultureIgnoreCase) == 0).First();
+                    generator.TargetType = item;
                     generator.Generate();
 
                     generator = new VariableScriptGenerator();

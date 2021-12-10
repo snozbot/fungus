@@ -14,6 +14,7 @@ namespace Fungus
                  "Move Add", 
                  "Moves a game object by a specified offset over time.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class MoveAdd : iTweenCommand
     {

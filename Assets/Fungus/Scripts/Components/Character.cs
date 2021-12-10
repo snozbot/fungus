@@ -48,9 +48,21 @@ namespace Fungus
         [TextArea(5,10)]
         [SerializeField] protected string description;
 
+        [Tooltip("Optional, AudioSource to be used for effects and 'beeps' for this Character.")]
+        [SerializeField] protected AudioSource effectAudioSource;
+
+        [Tooltip("Optional, AudioSource to be used for voice over AudioClips for this Character.")]
+        [SerializeField] protected AudioSource voiceAudioSource;
+
         protected PortraitState portaitState = new PortraitState();
 
         protected static List<Character> activeCharacters = new List<Character>();
+
+        /// <summary>
+        /// Currently display profile sprite for this character.
+        /// </summary>
+        /// <value>The profile sprite.</value>
+        public virtual Sprite ProfileSprite { get; set; }
 
         protected virtual void OnEnable()
         {
@@ -81,13 +93,13 @@ namespace Fungus
         /// <summary>
         /// Color to display the character name in Say Dialog.
         /// </summary>
-        public virtual Color NameColor { get { return nameColor; } }
+        public virtual Color NameColor { get { return nameColor; } set { nameColor = value; } }
 
         /// <summary>
         /// Sound effect to play when this character is speaking.
         /// </summary>
         /// <value>The sound effect.</value>
-        public virtual AudioClip SoundEffect { get { return soundEffect; } }
+        public virtual AudioClip SoundEffect { get { return soundEffect; } set { soundEffect = value; } }
 
         /// <summary>
         /// List of portrait images that can be displayed for this character.
@@ -100,12 +112,6 @@ namespace Fungus
         public virtual FacingDirection PortraitsFace { get { return portraitsFace; } }
 
         /// <summary>
-        /// Currently display profile sprite for this character.
-        /// </summary>
-        /// <value>The profile sprite.</value>
-        public virtual Sprite ProfileSprite { get; set; }
-
-        /// <summary>
         /// Current display state of this character's portrait.
         /// </summary>
         /// <value>The state.</value>
@@ -115,6 +121,26 @@ namespace Fungus
         /// Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.
         /// </summary>
         public virtual SayDialog SetSayDialog { get { return setSayDialog; } }
+
+        public virtual AudioSource VoiceAudioSource { get { return voiceAudioSource; } set { voiceAudioSource = value; } }
+
+        public virtual AudioSource EffectAudioSource { get { return effectAudioSource; } set { effectAudioSource = value; } }
+
+        public virtual GameObject SayDialogGameObject
+        {
+            get
+            {
+                return setSayDialog.gameObject;
+            }
+            set
+            {
+                var sd = value.GetComponent<SayDialog>();
+                if (sd != null)
+                {
+                    setSayDialog = sd;
+                }
+            }
+        }
 
         /// <summary>
         /// Returns the name of the game object.
@@ -131,7 +157,7 @@ namespace Fungus
                 || nameText.StartsWith(matchString, StringComparison.CurrentCultureIgnoreCase);
 #else
             return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
-                || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
+                || NameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
 #endif
         }
 
@@ -183,7 +209,7 @@ namespace Fungus
 
         public virtual string GetStandardText()
         {
-            return nameText;
+            return NameText;
         }
 
         public virtual void SetStandardText(string standardText)
@@ -199,7 +225,7 @@ namespace Fungus
         public virtual string GetStringId()
         {
             // String id for character names is CHARACTER.<Character Name>
-            return "CHARACTER." + nameText;
+            return "CHARACTER." + NameText;
         }
         
 #if UNITY_LOCALIZATION

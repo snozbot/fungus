@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -58,8 +59,12 @@ namespace Fungus.EditorUtils
             foreach (var item in filteredAttributes)
             {
                 //force lookup to orig index here to account for commmand lists being filtered by users
-                var newFilteredItem = new FilteredListItem(CommandTypes.IndexOf(item.Key), (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText);
-                allItems.Add(newFilteredItem);
+                var obsAttr = item.Key.GetCustomAttribute<System.ObsoleteAttribute>();
+
+                var fliStr = (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") 
+                    + (obsAttr != null ? FungusConstants.UIPrefixForDeprecated_RichText : "")
+                    + item.Value.CommandName;
+                allItems.Add(new FilteredListItem(CommandTypes.IndexOf(item.Key), fliStr, item.Value.HelpText));
             }
         }
 

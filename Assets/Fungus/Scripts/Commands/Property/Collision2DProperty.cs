@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a Collision2D component
     /// </summary>
     [CommandInfo("Property",
