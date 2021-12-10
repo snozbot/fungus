@@ -2975,9 +2975,9 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216220}
+  - {fileID: 1369216156}
   selectedCommands:
-  - {fileID: 1369216189}
+  - {fileID: 1369216181}
   variables: []
   description: 
   stepPause: 0
@@ -3728,9 +3728,9 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   localizedVoiceOverClip:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:596fd9de92fe941a18748408ec2fc696
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 307877634048
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -3775,9 +3775,9 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   localizedVoiceOverClip:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:596fd9de92fe941a18748408ec2fc696
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 149458771968
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

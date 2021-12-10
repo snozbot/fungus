@@ -27,6 +27,11 @@ MonoBehaviour:
       Home Table/No Longer home Table Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 596fd9de92fe941a18748408ec2fc696
+    m_Address: Assets/FungusExamples/UnityLocalization/No Longer Home/No Longer Home
+      Audio Table/No Longer Home Audio Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 407f7689d9aa24dbbababb597bdff279, type: 2}
   m_SchemaSet:
