@@ -40,6 +40,28 @@ namespace SaveSystemTests
         {
             yield return PostSetUp();
 
+            throw new System.NotImplementedException();
+        }
+
+        [UnityTest]
+        [Ignore("")]
+        public virtual IEnumerator ExecutionCountSaved()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [UnityTest]
+        [Ignore("")]
+        public virtual IEnumerator SayCommandsSaved()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [UnityTest]
+        [Ignore("")]
+        public virtual IEnumerator ItemIDsSaved()
+        {
+            yield return PostSetUp();
 
             throw new System.NotImplementedException();
         }

@@ -36,19 +36,27 @@ namespace Fungus.LionManeSaveSys
         string blockName;
 
         /// <summary>
-        /// States of the Commands that were executing at the time this Save Unit was made.
+        /// States of the Commands that were executing at the time this Save Unit was made. 
+        /// Keys are the exact types of the commands' states, values are the json representations of 
+        /// said states.
         /// </summary>
-        public IList<CommandSaveUnit> ExecutingCommands
+        public IList<StringPair> ExecutingCommands
         {
             get { return executingCommands; }
+            set 
+            {
+                executingCommands.Clear();
+                executingCommands.AddRange(value);
+            }
         }
 
         [SerializeField]
-        List<CommandSaveUnit> executingCommands;
+        List<StringPair> executingCommands;
 
         public int ExecutionCount
         {
             get { return executionCount; }
+            set { executionCount = value; }
         }
 
         [SerializeField]
@@ -68,16 +76,21 @@ namespace Fungus.LionManeSaveSys
             return results;
         }
 
+        /// <summary>
+        /// Note that this does not create a BlockSaveUnit with the executingCommands populated, given
+        /// how command save states will have to be made on a case-by-case basis.
+        /// </summary>
         public static BlockSaveUnit From(Block block)
         {
             BlockSaveUnit newUnit = new BlockSaveUnit();
+            newUnit.ItemId = block.ItemId;
             newUnit.executionCount = block.GetExecutionCount();
             newUnit.BlockName = block.BlockName;
-
-            // TODO: set up executing commands
+            newUnit.executingCommands = new List<StringPair>();
 
             return newUnit;
         }
+
 
     }
 }
