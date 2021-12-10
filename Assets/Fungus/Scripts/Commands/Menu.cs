@@ -28,9 +28,9 @@ namespace Fungus
         [SerializeField] protected string text = "Option Text";
         
 #if UNITY_LOCALIZATION
-        [FormerlySerializedAs("textString")]
+        [FormerlySerializedAs("localizedString")]
         [Tooltip("Localization entry for the menu button.")]
-        [SerializeField] protected LocalizedString localizedString;
+        [SerializeField] protected LocalizedString localizedText;
 #endif
         
         [Tooltip("Notes about the option text for other authors, localization, etc.")]
@@ -73,7 +73,7 @@ namespace Fungus
 
                     var flowchart = GetFlowchart();
 #if UNITY_LOCALIZATION
-                    string displayText = flowchart.SubstituteVariables(localizedString.IsEmpty ? text : localizedString.GetLocalizedString());
+                    string displayText = flowchart.SubstituteVariables(localizedText.IsEmpty ? text : localizedText.GetLocalizedString());
 #else
                     string displayText = flowchart.SubstituteVariables(text);
 #endif
@@ -152,7 +152,7 @@ namespace Fungus
 
         public LocalizedString GetLocalizedString()
         {
-            return localizedString;
+            return localizedText;
         }
         
 #endif
