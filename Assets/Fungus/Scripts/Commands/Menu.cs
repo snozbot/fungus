@@ -28,7 +28,6 @@ namespace Fungus
         [SerializeField] protected string text = "Option Text";
         
 #if UNITY_LOCALIZATION
-        [FormerlySerializedAs("localizedString")]
         [Tooltip("Localization entry for the menu button.")]
         [SerializeField] protected LocalizedString localizedText;
 #endif

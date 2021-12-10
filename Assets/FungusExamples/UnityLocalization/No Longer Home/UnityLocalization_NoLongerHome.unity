@@ -2978,9 +2978,8 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216179}
-  selectedCommands:
-  - {fileID: 1369216187}
+  - {fileID: 1369216156}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -3042,8 +3041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 549.8603
-    y: 48.60708
+    x: 548.3911
+    y: 50.076225
     width: 130.80318
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -3137,7 +3136,7 @@ MonoBehaviour:
   itemId: 3
   indentLevel: 0
   text: Japanese
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -3174,7 +3173,7 @@ MonoBehaviour:
   itemId: 2
   indentLevel: 0
   text: English
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -3484,7 +3483,7 @@ MonoBehaviour:
   itemId: 31
   indentLevel: 0
   text: (Defensive)
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -3521,7 +3520,7 @@ MonoBehaviour:
   itemId: 30
   indentLevel: 0
   text: (Embarrassed)
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -3679,7 +3678,7 @@ MonoBehaviour:
   itemId: 25
   indentLevel: 0
   text: (Dazed)
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -4092,7 +4091,7 @@ MonoBehaviour:
   itemId: 80
   indentLevel: 0
   text: And the path disappeared?
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -4129,7 +4128,7 @@ MonoBehaviour:
   itemId: 79
   indentLevel: 0
   text: You got stuck at a fork in the road?
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -5103,7 +5102,7 @@ MonoBehaviour:
   itemId: 56
   indentLevel: 0
   text: "I\u2019ve been trying to tie up these closing bills."
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -5140,7 +5139,7 @@ MonoBehaviour:
   itemId: 55
   indentLevel: 0
   text: I was thinking about making some riso prints of my old art.
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
@@ -5177,7 +5176,7 @@ MonoBehaviour:
   itemId: 54
   indentLevel: 0
   text: Trying to get this damn job application sent off.
-  localizedString:
+  localizedText:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:

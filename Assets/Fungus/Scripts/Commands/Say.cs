@@ -23,7 +23,6 @@ namespace Fungus
         [SerializeField] protected string storyText = "";
 
 #if UNITY_LOCALIZATION
-        [FormerlySerializedAs("storyTextString")]
         [Tooltip("Localization entry for story text.")]
         [SerializeField] protected LocalizedString localizedStoryText;
 #endif

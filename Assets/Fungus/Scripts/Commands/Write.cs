@@ -44,7 +44,6 @@ namespace Fungus
         [SerializeField] protected StringDataMulti text;
 
 #if UNITY_LOCALIZATION
-        [FormerlySerializedAs("textString")]
         [Tooltip("Localization entry for text")]
         [SerializeField] protected LocalizedString localizedText;
 #endif
