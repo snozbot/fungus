@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Fungus
 {
@@ -14,9 +15,17 @@ namespace Fungus
     [AddComponentMenu("")]
     public class PlaySound : Command
     {
+#if UNITY_LOCALIZATION
+        [Tooltip("Sound effect clip to play. Ignored if LocalizedSoundClip is not empty.")]
+#else
         [Tooltip("Sound effect clip to play")]
+#endif
         [SerializeField] protected AudioClip soundClip;
 
+#if UNITY_LOCALIZATION
+        [SerializeField] protected LocalizedAsset<AudioClip> localizedSoundClip;
+#endif
+        
         [Range(0,1)]
         [Tooltip("Volume level of the sound effect")]
         [SerializeField] protected float volume = 1;
@@ -33,15 +42,25 @@ namespace Fungus
 
         public override void OnEnter()
         {
+            var musicManager = FungusManager.Instance.MusicManager;
+
+#if UNITY_LOCALIZATION
+            if (soundClip == null && localizedSoundClip.IsEmpty)
+            {
+                Continue();
+                return;
+            }
+            
+            musicManager.PlaySound(localizedSoundClip.IsEmpty ? soundClip : localizedSoundClip.LoadAsset(), volume);
+#else
             if (soundClip == null)
             {
                 Continue();
                 return;
             }
 
-            var musicManager = FungusManager.Instance.MusicManager;
-
             musicManager.PlaySound(soundClip, volume);
+#endif
 
             if (waitUntilFinished)
             {
@@ -55,7 +74,7 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (soundClip == null)
+            if (soundClip == null && localizedSoundClip.IsEmpty)
             {
                 return "Error: No sound clip selected";
             }
