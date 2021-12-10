@@ -108,7 +108,7 @@ namespace Fungus
             if (eventSystem == null)
             {
                 // Auto spawn an Event System from the prefab
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
+                GameObject prefab = Resources.Load<GameObject>(FungusConstants.EventSystemPrefabName);
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab) as GameObject;

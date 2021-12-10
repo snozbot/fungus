@@ -16,6 +16,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty beepSoundsProp;
         protected SerializedProperty soundEffectProp;
         protected SerializedProperty inputSoundProp;
+        protected SerializedProperty useLegacyAudioLogicProp;
 
         protected virtual void OnEnable()
         {
@@ -26,6 +27,7 @@ namespace Fungus.EditorUtils
             audioModeProp = serializedObject.FindProperty("audioMode");
             beepSoundsProp = serializedObject.FindProperty("beepSounds");
             soundEffectProp = serializedObject.FindProperty("soundEffect");
+            useLegacyAudioLogicProp = serializedObject.FindProperty("useLegacyAudioLogic");
         }
 
         public override void OnInspectorGUI() 
@@ -34,7 +36,11 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.PropertyField(volumeProp);
             EditorGUILayout.PropertyField(loopProp);
-            EditorGUILayout.PropertyField(targetAudioSourceProp);
+            EditorGUILayout.PropertyField(useLegacyAudioLogicProp);
+            if (useLegacyAudioLogicProp.boolValue)
+            {
+                EditorGUILayout.PropertyField(targetAudioSourceProp);
+            }
             EditorGUILayout.PropertyField(inputSoundProp);
 
             EditorGUILayout.PropertyField(audioModeProp);
@@ -45,6 +51,13 @@ namespace Fungus.EditorUtils
             else
             {
                 EditorGUILayout.PropertyField(soundEffectProp);
+            }
+
+            if( ( ((MonoBehaviour)target).GetComponent<AudioSource>() != null || targetAudioSourceProp.objectReferenceValue != null) &&
+                !useLegacyAudioLogicProp.boolValue)
+            {
+                EditorGUILayout.HelpBox("AudioSource found or targetAudioSource set but will not be used. " +
+                    "\nToggle useLegacyAudioLogic to use the targetAudioSource and not the AudioSources that might be provided by the Character", MessageType.Warning);
             }
 
             serializedObject.ApplyModifiedProperties();

@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Store Input.mousePosition and mouse screen conversions in a variable(s)
     /// </summary>
     [CommandInfo("Input",
@@ -37,26 +40,32 @@ namespace Fungus
                 castCamera = Camera.main;
             }
 
+#if ENABLE_INPUT_SYSTEM
+            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
+#else
+            var mousePos = Input.mousePosition;
+#endif
+
             if (screenPosition != null)
             {
-                screenPosition.Value = Input.mousePosition;
+                screenPosition.Value = mousePos;
             }
 
             if (viewPosition != null)
             {
-                viewPosition.Value = castCamera.ScreenToViewportPoint(Input.mousePosition);
+                viewPosition.Value = castCamera.ScreenToViewportPoint(mousePos);
             }
 
             if (worldPosition != null)
             {
-                var screenWithZ = Input.mousePosition;
+                Vector3 screenWithZ = mousePos;
                 screenWithZ.z = castCamera.nearClipPlane;
                 worldPosition.Value = castCamera.ScreenToWorldPoint(screenWithZ);
             }
 
             if (worldDirection != null)
             {
-                var screenWithZ = Input.mousePosition;
+                Vector3 screenWithZ = mousePos;
                 screenWithZ.z = castCamera.nearClipPlane;
                 worldDirection.Value = castCamera.ScreenPointToRay(screenWithZ).direction;
             }

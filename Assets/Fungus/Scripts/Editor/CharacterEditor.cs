@@ -19,6 +19,8 @@ namespace Fungus.EditorUtils
         protected SerializedProperty portraitsFaceProp;
         protected SerializedProperty descriptionProp;
         protected SerializedProperty setSayDialogProp;
+        protected SerializedProperty effectAudioSourceProp;
+        protected SerializedProperty voiceAudioSourceProp;
 
         protected virtual void OnEnable()
         {
@@ -32,6 +34,8 @@ namespace Fungus.EditorUtils
             portraitsFaceProp = serializedObject.FindProperty ("portraitsFace");
             descriptionProp = serializedObject.FindProperty ("description");
             setSayDialogProp = serializedObject.FindProperty("setSayDialog");
+            effectAudioSourceProp = serializedObject.FindProperty("effectAudioSource");
+            voiceAudioSourceProp = serializedObject.FindProperty("voiceAudioSource");
         }
 
         public override void OnInspectorGUI() 
@@ -47,6 +51,8 @@ namespace Fungus.EditorUtils
 #endif
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
             EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
+            EditorGUILayout.PropertyField(effectAudioSourceProp);
+            EditorGUILayout.PropertyField(voiceAudioSourceProp);
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
 
