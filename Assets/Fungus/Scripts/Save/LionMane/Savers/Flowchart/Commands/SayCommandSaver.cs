@@ -21,7 +21,7 @@ namespace Fungus.LionManeSaveSys
 
         public virtual SaySaveUnit CreateSaveFrom(Block block)
         {
-
+            throw new System.NotImplementedException();
         }
 
     }
