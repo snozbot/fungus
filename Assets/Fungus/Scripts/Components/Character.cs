@@ -25,8 +25,9 @@ namespace Fungus
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 
 #if UNITY_LOCALIZATION
+        [FormerlySerializedAs("nameString")]
         [Tooltip("Localization entry for the Character name.")]
-        [SerializeField] protected LocalizedString nameString;
+        [SerializeField] protected LocalizedString localizedNameText;
 #endif
         
         [Tooltip("Color to display the character name in Say Dialog.")]
@@ -232,7 +233,7 @@ namespace Fungus
 
         public LocalizedString GetLocalizedString()
         {
-            return nameString;
+            return localizedNameText;
         }
 
 #endif
@@ -250,7 +251,7 @@ namespace Fungus
         public string GetNameText()
         {
 #if UNITY_LOCALIZATION
-            return nameString.IsEmpty ? nameText : nameString.GetLocalizedString();
+            return localizedNameText.IsEmpty ? nameText : localizedNameText.GetLocalizedString();
 #else
             return nameText;
 #endif

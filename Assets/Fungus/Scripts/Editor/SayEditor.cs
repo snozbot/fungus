@@ -73,7 +73,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty portraitProp;
         protected SerializedProperty storyTextProp;
 #if UNITY_LOCALIZATION
-        protected SerializedProperty storyTextStringProp;
+        protected SerializedProperty localizedStoryTextProp;
 #endif
         protected SerializedProperty descriptionProp;
         protected SerializedProperty voiceOverClipProp;
@@ -97,7 +97,7 @@ namespace Fungus.EditorUtils
             portraitProp = serializedObject.FindProperty("portrait");
             storyTextProp = serializedObject.FindProperty("storyText");
 #if UNITY_LOCALIZATION
-            storyTextStringProp = serializedObject.FindProperty("storyTextString");
+            localizedStoryTextProp = serializedObject.FindProperty("localizedStoryText");
 #endif
             descriptionProp = serializedObject.FindProperty("description");
             voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
@@ -166,7 +166,7 @@ namespace Fungus.EditorUtils
             
             EditorGUILayout.PropertyField(storyTextProp);
 #if UNITY_LOCALIZATION
-            EditorGUILayout.PropertyField(storyTextStringProp);
+            EditorGUILayout.PropertyField(localizedStoryTextProp);
 #endif
             
             EditorGUILayout.PropertyField(descriptionProp);

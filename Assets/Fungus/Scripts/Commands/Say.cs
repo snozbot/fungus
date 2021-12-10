@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Serialization;
 #if UNITY_LOCALIZATION
 using UnityEngine.Localization;
 #endif
@@ -22,8 +23,9 @@ namespace Fungus
         [SerializeField] protected string storyText = "";
 
 #if UNITY_LOCALIZATION
+        [FormerlySerializedAs("storyTextString")]
         [Tooltip("Localization entry for story text.")]
-        [SerializeField] protected LocalizedString storyTextString;
+        [SerializeField] protected LocalizedString localizedStoryText;
 #endif
         
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
@@ -132,7 +134,7 @@ namespace Fungus
             sayDialog.SetCharacterImage(portrait);
 
 #if UNITY_LOCALIZATION
-            string displayText = storyTextString.IsEmpty ? storyText : storyTextString.GetLocalizedString();
+            string displayText = localizedStoryText.IsEmpty ? storyText : localizedStoryText.GetLocalizedString();
             AudioClip audioClip = localizedVoiceOverClip.IsEmpty ? voiceOverClip : localizedVoiceOverClip.LoadAsset();
 #else
             string displayText = storyText;
@@ -234,7 +236,7 @@ namespace Fungus
 
         public LocalizedString GetLocalizedString()
         {
-            return storyTextString;
+            return localizedStoryText;
         }
         
 #endif
