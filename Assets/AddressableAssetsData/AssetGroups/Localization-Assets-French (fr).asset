@@ -10,28 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-Asset-Tables-English (en)
+  m_Name: Localization-Assets-French (fr)
   m_EditorClassIdentifier: 
-  m_GroupName: Localization-Asset-Tables-English (en)
+  m_GroupName: Localization-Assets-French (fr)
   m_Data:
     m_SerializedData: []
-  m_GUID: 5fac4cea5705c4a3286defad52dce037
+  m_GUID: 60a65a6003f934d84b0266bf48f43f5e
   m_SerializeEntries:
-  - m_GUID: acf1465b0fb9c48ab8ce95236a1917b4
-    m_Address: No Longer Home Audio Table_en
+  - m_GUID: 5d02c7c3e13074a22b53f18247092c07
+    m_Address: This text is in_French
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-en
-    - Preload
-  - m_GUID: 4ea888a2fef334eb28fce99be5b5e31d
-    m_Address: Simple Example Audio Table_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
-    - Preload
+    - Locale-fr
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 407f7689d9aa24dbbababb597bdff279, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 7bbdfb261206d42ce8941ac5be7da261, type: 2}
-    - {fileID: 11400000, guid: bff4c20d8b051413290ec4b594b1dbbc, type: 2}
+    - {fileID: 11400000, guid: 1b31417d68df3491faa052e458abbefd, type: 2}
+    - {fileID: 11400000, guid: 0a9dc4a6f65614f2081a4ccb578afd8f, type: 2}

@@ -10,14 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Simple Example Table_es
+  m_Name: Simple Example Table_fr
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: es
+    m_Code: fr
   m_SharedData: {fileID: 11400000, guid: e9c2c1b1b494e4dc38b898188216a719, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 461107117416448
+    m_Localized: Select Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 461107138387968
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 461107138387969
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 461107138387970
+    m_Localized: French
+    m_Metadata:
+      m_Items: []
+  - m_Id: 461107138387971
+    m_Localized: "Ce texte est en fran\xE7ais"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

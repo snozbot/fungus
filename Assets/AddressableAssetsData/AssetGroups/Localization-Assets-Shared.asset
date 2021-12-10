@@ -32,6 +32,11 @@ MonoBehaviour:
       Audio Table/No Longer Home Audio Table Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: b92a07f09dc1a4010be15d71d712142a
+    m_Address: Assets/FungusExamples/UnityLocalization/Simple Example/Table Collections/Simple
+      Example Audio Table/Simple Example Audio Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 407f7689d9aa24dbbababb597bdff279, type: 2}
   m_SchemaSet:
