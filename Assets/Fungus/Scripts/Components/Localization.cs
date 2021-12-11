@@ -685,17 +685,28 @@ namespace Fungus
                 if (!collection.SharedData.Contains(kvp.Key))
                 {
                     // create new entry
-                    table.AddEntry(kvp.Key, kvp.Value.text);
+                    var entry = table.AddEntry(kvp.Key, kvp.Value.text);
                     
-                    // var entry = table.AddEntry(kvp.Key, kvp.Value.text);
-                    // ignoring this for now because there is no easy way to remove it afterwards for another export or import without having the original text we set :(
-                    // entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                    // add comment to entry
+                    if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
+                        entry.AddMetadata(new FungusComment{CommentText = kvp.Value.localizable.GetDescription()});
                 }
                 else
                 {
                     // modify existing entry
                     var entry = table.GetEntry(kvp.Key);
                     entry.Value = kvp.Value.text;
+
+                    // remove old comment
+                    var comment = entry.GetMetadata<FungusComment>();
+                    if (comment != null)
+                        entry.RemoveMetadata(comment);
+                    
+                    // add comment to entry
+                    if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
+                        entry.AddMetadata(new FungusComment{CommentText = kvp.Value.localizable.GetDescription()});
+                    
+                    
                 }
 
                 var localizedString = kvp.Value.localizable.GetLocalizedString();
