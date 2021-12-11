@@ -689,7 +689,7 @@ namespace Fungus
                     
                     // add comment to entry
                     if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
-                        entry.AddMetadata(new FungusComment{CommentText = kvp.Value.localizable.GetDescription()});
+                        entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
                 }
                 else
                 {
@@ -697,16 +697,14 @@ namespace Fungus
                     var entry = table.GetEntry(kvp.Key);
                     entry.Value = kvp.Value.text;
 
-                    // remove old comment
-                    var comment = entry.GetMetadata<FungusComment>();
-                    if (comment != null)
+                    // remove old comments
+                    var comments = entry.GetMetadatas<UnityEngine.Localization.Metadata.Comment>();
+                    foreach (var comment in comments)
                         entry.RemoveMetadata(comment);
                     
                     // add comment to entry
                     if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
-                        entry.AddMetadata(new FungusComment{CommentText = kvp.Value.localizable.GetDescription()});
-                    
-                    
+                        entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
                 }
 
                 var localizedString = kvp.Value.localizable.GetLocalizedString();
