@@ -16,11 +16,11 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 596fd9de92fe941a18748408ec2fc696
   m_Entries:
   - m_Id: 149458771968
-    m_Key: SAY.LocalizationDemo.23
+    m_Key: SAY.NLHLocalizationDemo.23
     m_Metadata:
       m_Items: []
   - m_Id: 307877634048
-    m_Key: SAY.LocalizationDemo.24
+    m_Key: SAY.NLHLocalizationDemo.24
     m_Metadata:
       m_Items: []
   m_Metadata:

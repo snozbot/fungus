@@ -1228,8 +1228,8 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
-      m_KeyId: 34551619601
-      m_Key: 
+      m_KeyId: 0
+      m_Key: CHARACTER.Bo
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2879,7 +2879,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.1
+      m_Key: SAY.NLHLocalizationDemo.1
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -2937,7 +2937,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 66.06748
     y: 58.190605
-    width: 148.43295
+    width: 158
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2966,11 +2966,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -249.14261, y: 68.5515}
+  scrollPos: {x: 167.86807, y: 478.2047}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 416
-  zoom: 0.6806663
+  zoom: 0.25
   scrollViewRect:
     serializedVersion: 2
     x: -350
@@ -2978,15 +2978,18 @@ MonoBehaviour:
     width: 1297
     height: 1114
   selectedBlocks:
-  - {fileID: 1369216156}
-  selectedCommands: []
+  - {fileID: 1369216148}
+  selectedCommands:
+  - {fileID: 1369216146}
   variables: []
-  description: 
+  description: This scene shows how to use the Fungus Unity Localization package
+    with Fungus. Requires the Localization package and UNITY_LOCALIZATION to be specified
+    in custom defines in Player Settings.
   stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  localizationId: LocalizationDemo
+  localizationId: NLHLocalizationDemo
   showLineNumbers: 0
   hideCommands: []
   luaEnvironment: {fileID: 0}
@@ -3043,7 +3046,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 548.3911
     y: 50.076225
-    width: 130.80318
+    width: 140
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3108,7 +3111,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 258.43054
     y: 114.20068
-    width: 107.2968
+    width: 112
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3141,7 +3144,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.3
+      m_Key: MENU.NLHLocalizationDemo.3
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3178,7 +3181,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.2
+      m_Key: MENU.NLHLocalizationDemo.2
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3229,7 +3232,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 266.7358
     y: 27.20079
-    width: 91.13616
+    width: 96
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3299,7 +3302,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.35
+      m_Key: SAY.NLHLocalizationDemo.35
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3346,7 +3349,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.34
+      m_Key: SAY.NLHLocalizationDemo.34
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3394,7 +3397,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.33
+      m_Key: SAY.NLHLocalizationDemo.33
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3441,7 +3444,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.32
+      m_Key: SAY.NLHLocalizationDemo.32
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3488,7 +3491,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.31
+      m_Key: MENU.NLHLocalizationDemo.31
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3525,7 +3528,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.30
+      m_Key: MENU.NLHLocalizationDemo.30
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3558,7 +3561,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 555.1636
     y: 233.51605
-    width: 116.11169
+    width: 124
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3588,7 +3591,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 674.6173
     y: 133.96878
-    width: 114.64254
+    width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3618,7 +3621,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 472.0703
     y: 136.9423
-    width: 79.38297
+    width: 82
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3649,7 +3652,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 580.89594
     y: 139.22336
-    width: 66.16064
+    width: 68
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -3683,7 +3686,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.25
+      m_Key: MENU.NLHLocalizationDemo.25
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3720,7 +3723,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.24
+      m_Key: SAY.NLHLocalizationDemo.24
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3767,7 +3770,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.23
+      m_Key: SAY.NLHLocalizationDemo.23
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3814,7 +3817,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.41
+      m_Key: SAY.NLHLocalizationDemo.41
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3861,7 +3864,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.40
+      m_Key: SAY.NLHLocalizationDemo.40
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3908,7 +3911,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.39
+      m_Key: SAY.NLHLocalizationDemo.39
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -3955,7 +3958,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.38
+      m_Key: SAY.NLHLocalizationDemo.38
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4002,7 +4005,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.37
+      m_Key: SAY.NLHLocalizationDemo.37
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4049,7 +4052,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.36
+      m_Key: SAY.NLHLocalizationDemo.36
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4096,7 +4099,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.80
+      m_Key: MENU.NLHLocalizationDemo.80
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4133,7 +4136,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.79
+      m_Key: MENU.NLHLocalizationDemo.79
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4171,7 +4174,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.78
+      m_Key: SAY.NLHLocalizationDemo.78
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4218,7 +4221,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.77
+      m_Key: SAY.NLHLocalizationDemo.77
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4265,7 +4268,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.76
+      m_Key: SAY.NLHLocalizationDemo.76
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4312,7 +4315,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.75
+      m_Key: SAY.NLHLocalizationDemo.75
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4359,7 +4362,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.74
+      m_Key: SAY.NLHLocalizationDemo.74
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4406,7 +4409,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.73
+      m_Key: SAY.NLHLocalizationDemo.73
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4453,7 +4456,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.72
+      m_Key: SAY.NLHLocalizationDemo.72
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4522,7 +4525,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.70
+      m_Key: SAY.NLHLocalizationDemo.70
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4633,7 +4636,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.66
+      m_Key: SAY.NLHLocalizationDemo.66
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4680,7 +4683,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.65
+      m_Key: SAY.NLHLocalizationDemo.65
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4727,7 +4730,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.64
+      m_Key: SAY.NLHLocalizationDemo.64
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4775,7 +4778,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.63
+      m_Key: SAY.NLHLocalizationDemo.63
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4822,7 +4825,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.62
+      m_Key: SAY.NLHLocalizationDemo.62
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4870,7 +4873,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.61
+      m_Key: SAY.NLHLocalizationDemo.61
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4917,7 +4920,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.60
+      m_Key: SAY.NLHLocalizationDemo.60
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -4965,7 +4968,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.59
+      m_Key: SAY.NLHLocalizationDemo.59
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5012,7 +5015,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.58
+      m_Key: SAY.NLHLocalizationDemo.58
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5060,7 +5063,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.57
+      m_Key: SAY.NLHLocalizationDemo.57
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5107,7 +5110,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.56
+      m_Key: MENU.NLHLocalizationDemo.56
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5144,7 +5147,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.55
+      m_Key: MENU.NLHLocalizationDemo.55
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5181,7 +5184,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: MENU.LocalizationDemo.54
+      m_Key: MENU.NLHLocalizationDemo.54
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5218,7 +5221,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.53
+      m_Key: SAY.NLHLocalizationDemo.53
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5261,7 +5264,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 559.3977
     y: 641.49274
-    width: 83.79042
+    width: 86
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5292,7 +5295,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 627.5376
     y: 560.4617
-    width: 122.722855
+    width: 130
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5321,7 +5324,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 476.52496
     y: 560.4616
-    width: 75.7101
+    width: 78
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5349,7 +5352,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 570.4474
     y: 486.79706
-    width: 71.30266
+    width: 74
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5384,7 +5387,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 564.92255
     y: 402.0826
-    width: 85.25957
+    width: 88
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5412,7 +5415,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 666.2115
     y: 322.89307
-    width: 74.24095
+    width: 76
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5443,7 +5446,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 570.44745
     y: 322.8931
-    width: 72.771805
+    width: 76
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5473,7 +5476,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 434.1678
     y: 326.57632
-    width: 114.64254
+    width: 122
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5570,7 +5573,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.83
+      m_Key: SAY.NLHLocalizationDemo.83
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5618,7 +5621,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.82
+      m_Key: SAY.NLHLocalizationDemo.82
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5666,7 +5669,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.81
+      m_Key: SAY.NLHLocalizationDemo.81
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5713,7 +5716,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.89
+      m_Key: SAY.NLHLocalizationDemo.89
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5761,7 +5764,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.88
+      m_Key: SAY.NLHLocalizationDemo.88
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5808,7 +5811,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.87
+      m_Key: SAY.NLHLocalizationDemo.87
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -5856,7 +5859,7 @@ MonoBehaviour:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
       m_KeyId: 0
-      m_Key: SAY.LocalizationDemo.86
+      m_Key: SAY.NLHLocalizationDemo.86
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
@@ -7002,8 +7005,8 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:abef67b4b76b84c25a1793a9fd122590
     m_TableEntryReference:
-      m_KeyId: 34551619600
-      m_Key: 
+      m_KeyId: 0
+      m_Key: CHARACTER.Ao
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
