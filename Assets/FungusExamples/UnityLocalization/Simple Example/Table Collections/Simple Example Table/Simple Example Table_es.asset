@@ -19,19 +19,19 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 461107117416448
-    m_Localized: Select Language
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 461107138387968
-    m_Localized: English
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 461107138387969
-    m_Localized: Spanish
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 461107138387970
-    m_Localized: French
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 461107138387971

@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 34543230976
-    m_Localized: English
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 34543230977
@@ -219,7 +219,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 34522259456
-    m_Localized: Select Language
+    m_Localized: 
     m_Metadata:
       m_Items: []
   references:
