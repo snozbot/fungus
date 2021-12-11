@@ -18,6 +18,8 @@ namespace Fungus.EditorUtils
 #else
         protected SerializedProperty stringTableProp;
         protected SerializedProperty defaultLanguageCodeProp;
+
+        protected bool showAdvancedOptions;
 #endif
         
         protected virtual void OnEnable()
@@ -82,6 +84,18 @@ namespace Fungus.EditorUtils
                 if (GUILayout.Button(new GUIContent("String Table  -> Commands (Import)")))
                 {
                     ImportText(localization);
+                }
+                
+                EditorGUILayout.Space();
+                EditorGUILayout.Space();
+            
+                showAdvancedOptions = EditorGUILayout.Foldout(showAdvancedOptions, "Show Advanced Options");
+                if (showAdvancedOptions)
+                {
+                    if (GUILayout.Button(new GUIContent("Fix Localized Strings in Fungus Commands")))
+                    {
+                        FixLocalizedStrings(localization);
+                    }
                 }
             }
 #endif
@@ -149,20 +163,29 @@ namespace Fungus.EditorUtils
 #else
         private void ImportText(Localization localization)
         {
-            localization.ImportDataRoutine();
+            localization.ImportData();
             ShowNotification(localization);
         }
 
         private void ExportText(Localization localization)
         {
-            localization.ExportDataRoutine();
+            localization.ExportData();
+            ShowNotification(localization);
+        }
+
+        private void FixLocalizedStrings(Localization localization)
+        {
+            localization.FixLocalizedStrings();
             ShowNotification(localization);
         }
 #endif
         
         protected virtual void ShowNotification(Localization localization)
         {
-            FlowchartWindow.ShowNotification(localization.NotificationText);
+            if (!string.IsNullOrWhiteSpace(localization.NotificationText))
+            {
+                FlowchartWindow.ShowNotification(localization.NotificationText);
+            }
             localization.NotificationText = "";
         }
     }

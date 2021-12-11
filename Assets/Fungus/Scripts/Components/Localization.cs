@@ -649,7 +649,7 @@ namespace Fungus
         }
 #else
 
-        public void ExportDataRoutine()
+        public void ExportData()
         {
 #if UNITY_EDITOR
             int exportCount = 0;
@@ -667,10 +667,7 @@ namespace Fungus
                 if (collection.SharedData.Contains(kvp.Key))
                 {
                     if (!EditorUtility.DisplayDialog("Overwriting Existing Entries", "Found one or more existing entries that will be overwritten if you continue. Continue?", "Yes", "No"))
-                    {
-                        notificationText = "Export canceled";
                         return;
-                    }
                         
                     break;
                 }
@@ -685,11 +682,11 @@ namespace Fungus
                 if (!collection.SharedData.Contains(kvp.Key))
                 {
                     // create new entry
-                    var entry = table.AddEntry(kvp.Key, kvp.Value.text);
+                    table.AddEntry(kvp.Key, kvp.Value.text);
                     
                     // add comment to entry
                     if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
-                        entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                        collection.SharedData.GetEntry(kvp.Key).Metadata.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
                 }
                 else
                 {
@@ -697,14 +694,16 @@ namespace Fungus
                     var entry = table.GetEntry(kvp.Key);
                     entry.Value = kvp.Value.text;
 
+                    var sharedEntry = collection.SharedData.GetEntry(kvp.Key);
+
                     // remove old comments
-                    var comments = entry.GetMetadatas<UnityEngine.Localization.Metadata.Comment>();
+                    var comments = sharedEntry.Metadata.GetMetadatas<UnityEngine.Localization.Metadata.Comment>();
                     foreach (var comment in comments)
-                        entry.RemoveMetadata(comment);
+                        sharedEntry.Metadata.RemoveMetadata(comment);
                     
                     // add comment to entry
                     if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
-                        entry.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                        sharedEntry.Metadata.AddMetadata(new UnityEngine.Localization.Metadata.Comment {CommentText = kvp.Value.localizable.GetDescription()});
                 }
 
                 var localizedString = kvp.Value.localizable.GetLocalizedString();
@@ -728,11 +727,12 @@ namespace Fungus
 #endif
         }
 
-        public void ImportDataRoutine()
+        public void ImportData()
         {
 #if UNITY_EDITOR
             int importCount = 0;
 
+            // make sure selected locale is set before doing anything
             var locale = LocalizationSettings.AvailableLocales.GetLocale(defaultLanguageCode);
             LocalizationSettings.SelectedLocale = locale; 
             
@@ -752,6 +752,33 @@ namespace Fungus
             }
 
             notificationText = $"Imported {importCount} text items";
+#endif
+        }
+
+        public void FixLocalizedStrings()
+        {
+#if UNITY_EDITOR
+            int fixedCount = 0;
+            if (stringTable.IsEmpty) return;
+            
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) return;
+
+            foreach (var kvp in FindTextItems())
+            {
+                var localizedString = kvp.Value.localizable.GetLocalizedString();
+
+                if (localizedString.TableReference != stringTable.TableReference ||
+                    localizedString.TableEntryReference != kvp.Key)
+                {
+                    localizedString.TableReference = stringTable.TableReference;
+                    localizedString.TableEntryReference = kvp.Key;
+                    fixedCount++;
+                }
+            }
+            
+            notificationText = $"Fixed {fixedCount} LocalizedString references";
 #endif
         }
         
