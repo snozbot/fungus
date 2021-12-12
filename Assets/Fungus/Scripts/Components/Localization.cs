@@ -37,6 +37,8 @@ namespace Fungus
         [SerializeField] protected LocalizedStringTable stringTable;
         [SerializeField] protected string defaultLanguageCode = "en";
 
+        [SerializeField] protected string toReplace, replaceWith;
+        
         public LocalizedStringTable StringTable => stringTable;
         
         /// <summary>
@@ -780,6 +782,32 @@ namespace Fungus
             
             notificationText = $"Fixed {fixedCount} LocalizedString references";
 #endif
+        }
+        
+        public void ReplaceKeyValues(string target, string newValue)
+        {
+#if UNITY_EDITOR
+            int replaceCount = 0;
+            if (stringTable.IsEmpty) return;
+
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) return;
+
+            foreach (var kvp in table)
+            {
+                var entry = table.GetEntry(kvp.Key);
+
+                if (entry.Key.Contains(target))
+                {
+                    entry.Key = entry.Key.Replace(target, newValue);
+                    replaceCount++;
+                }
+            }
+
+            notificationText = $"Replaced {replaceCount} entries' key";
+#endif
+
         }
         
 #endif

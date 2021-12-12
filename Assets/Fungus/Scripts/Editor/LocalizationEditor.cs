@@ -18,6 +18,8 @@ namespace Fungus.EditorUtils
 #else
         protected SerializedProperty stringTableProp;
         protected SerializedProperty defaultLanguageCodeProp;
+        protected SerializedProperty toReplaceProp;
+        protected SerializedProperty replaceWithProp;
 
         protected bool showAdvancedOptions;
 #endif
@@ -30,6 +32,8 @@ namespace Fungus.EditorUtils
 #else
             stringTableProp = serializedObject.FindProperty("stringTable");
             defaultLanguageCodeProp = serializedObject.FindProperty("defaultLanguageCode");
+            toReplaceProp = serializedObject.FindProperty("toReplace");
+            replaceWithProp = serializedObject.FindProperty("replaceWith");
 #endif
         }
 
@@ -87,11 +91,22 @@ namespace Fungus.EditorUtils
                 }
                 
                 EditorGUILayout.Space();
-                EditorGUILayout.Space();
             
                 showAdvancedOptions = EditorGUILayout.Foldout(showAdvancedOptions, "Show Advanced Options");
                 if (showAdvancedOptions)
                 {
+                    EditorGUILayout.PropertyField(toReplaceProp, new GUIContent("To Replace"));
+                    EditorGUILayout.PropertyField(replaceWithProp, new GUIContent("Replace With"));
+                    GUI.enabled = !string.IsNullOrWhiteSpace(toReplaceProp.stringValue) && !string.IsNullOrWhiteSpace(replaceWithProp.stringValue);
+                    if (GUILayout.Button(new GUIContent("Replace Keys")))
+                    {
+                        ReplaceKeyValues(localization, toReplaceProp.stringValue, replaceWithProp.stringValue);
+                        FixLocalizedStrings(localization, false); // fix localized string while we are here because they were broken.
+                    }
+                    GUI.enabled = true;
+                    
+                    EditorGUILayout.Space();
+                    
                     if (GUILayout.Button(new GUIContent("Fix Localized Strings in Fungus Commands")))
                     {
                         FixLocalizedStrings(localization);
@@ -173,9 +188,16 @@ namespace Fungus.EditorUtils
             ShowNotification(localization);
         }
 
-        private void FixLocalizedStrings(Localization localization)
+        private void FixLocalizedStrings(Localization localization, bool showNotification = true)
         {
             localization.FixLocalizedStrings();
+            if (showNotification)
+                ShowNotification(localization);
+        }
+        
+        private void ReplaceKeyValues(Localization localization, string toReplace, string replaceWith)
+        {
+            localization.ReplaceKeyValues(toReplace, replaceWith);
             ShowNotification(localization);
         }
 #endif
@@ -186,6 +208,7 @@ namespace Fungus.EditorUtils
             {
                 FlowchartWindow.ShowNotification(localization.NotificationText);
             }
+            
             localization.NotificationText = "";
         }
     }
