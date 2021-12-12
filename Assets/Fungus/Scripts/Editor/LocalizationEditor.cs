@@ -15,26 +15,26 @@ namespace Fungus.EditorUtils
 #if !UNITY_LOCALIZATION
         protected SerializedProperty activeLanguageProp;
         protected SerializedProperty localizationFileProp;
-#else
+#else // !UNITY_LOCALIZATION
         protected SerializedProperty stringTableProp;
         protected SerializedProperty defaultLanguageCodeProp;
         protected SerializedProperty toReplaceProp;
         protected SerializedProperty replaceWithProp;
 
         protected bool showAdvancedOptions;
-#endif
+#endif // UNITY_LOCALIZATION
         
         protected virtual void OnEnable()
         {
 #if !UNITY_LOCALIZATION
             activeLanguageProp = serializedObject.FindProperty("activeLanguage");
             localizationFileProp = serializedObject.FindProperty("localizationFile");
-#else
+#else // !UNITY_LOCALIZATION
             stringTableProp = serializedObject.FindProperty("stringTable");
             defaultLanguageCodeProp = serializedObject.FindProperty("defaultLanguageCode");
             toReplaceProp = serializedObject.FindProperty("toReplace");
             replaceWithProp = serializedObject.FindProperty("replaceWith");
-#endif
+#endif // UNITY_LOCALIZATION
         }
 
         public override void OnInspectorGUI()
@@ -70,7 +70,7 @@ namespace Fungus.EditorUtils
             {
                 ImportStandardText(localization);
             }
-#else
+#else // !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(stringTableProp);
             EditorGUILayout.PropertyField(defaultLanguageCodeProp);
             
@@ -115,7 +115,7 @@ namespace Fungus.EditorUtils
                     }
                 }
             }
-#endif
+#endif // UNITY_LOCALIZATION
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -177,7 +177,7 @@ namespace Fungus.EditorUtils
 
             ShowNotification(localization);
         }
-#else
+#else // !UNITY_LOCALIZATION
         private void ImportText(Localization localization)
         {
             localization.ImportData();
@@ -202,7 +202,7 @@ namespace Fungus.EditorUtils
             localization.ReplaceKeyValues();
             ShowNotification(localization);
         }
-#endif
+#endif // UNITY_LOCALIZATION
         
         protected virtual void ShowNotification(Localization localization)
         {

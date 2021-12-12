@@ -7,6 +7,7 @@ using UnityEditor;
 #endif
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 #if UNITY_LOCALIZATION
 #if UNITY_EDITOR
 using UnityEditor.Localization;
@@ -17,7 +18,6 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 #else
 using Ideafixxxer.CsvParser;
-using System.Text.RegularExpressions;
 using System.Collections;
 #endif
 
@@ -50,7 +50,7 @@ namespace Fungus
             public ILocalizable localizable;
         }
         
-#endif
+#endif // UNITY_LOCALIZATION
         
 #if !UNITY_LOCALIZATION
         /// <summary>
@@ -97,7 +97,7 @@ namespace Fungus
         {
             LevelWasLoaded();
         }
-#endif
+#endif // !UNITY_LOCALIZATION
 
         protected virtual void OnEnable()
         {
@@ -121,7 +121,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// String subsitution can happen during the Start of another component, so we
+        /// String substitution can happen during the Start of another component, so we
         /// may need to call Init() from other methods.
         /// </summary>
         protected virtual void Init()
@@ -139,7 +139,7 @@ namespace Fungus
             {
                 SetActiveLanguage(activeLanguage);
             }
-#endif
+#endif // !UNITY_LOCALIZATION
             initialized = true;
         }
 
@@ -283,8 +283,8 @@ namespace Fungus
                 }
             }
         }
-#else
-          /// <summary>
+#else // !UNITY_LOCALIZATION
+        /// <summary>
         /// Builds a dictionary of localizable text items in the scene.
         /// </summary>
         protected Dictionary<string, TextItem> FindTextItems()
@@ -344,8 +344,7 @@ namespace Fungus
 
             return textItems;
         }
-
-#endif
+#endif // UNITY_LOCALIZATION
 
         #region Public members
 
@@ -353,8 +352,9 @@ namespace Fungus
         /// Stores any notification message from export / import methods.
         /// </summary>
         public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
-        
+
 #if !UNITY_LOCALIZATION
+
         /// <summary>
         /// Looks up the specified string in the localized strings table.
         /// For this to work, a localization file and active language must have been set previously.
@@ -560,7 +560,7 @@ namespace Fungus
         /// </summary>
         public virtual bool PopulateTextProperty(string stringId, string newText)
         {
-            // Ensure that all localizeable objects have been cached
+            // Ensure that all localizable objects have been cached
             if (localizeableObjects.Count == 0)
             {
                 CacheLocalizeableObjects();
@@ -649,7 +649,22 @@ namespace Fungus
 
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
-#else
+#else // !UNITY_LOCALIZATION
+        /// <summary>
+        /// Looks up the specified string in the localized string table.
+        /// For this to work, a localization table and active language must have been set previously.
+        /// Return null if the string is not found.
+        /// </summary>
+        public string GetLocalizedString(string stringId)
+        {
+            if (stringTable.IsEmpty) return null;
+            
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(LocalizationSettings.SelectedLocale.Identifier) as StringTable;
+            if (table == null) return null;
+
+            return collection.SharedData.Contains(stringId) ? table.GetEntry(stringId).GetLocalizedString() : null;
+        }
 
         public void ExportData()
         {
@@ -726,7 +741,7 @@ namespace Fungus
             }
 
             notificationText = $"Exported {exportCount} text items";
-#endif
+#endif // UNITY_EDITOR
         }
 
         public void ImportData()
@@ -754,7 +769,7 @@ namespace Fungus
             }
 
             notificationText = $"Imported {importCount} text items";
-#endif
+#endif // UNITY_EDITOR
         }
 
         public void FixLocalizedStrings()
@@ -781,7 +796,7 @@ namespace Fungus
             }
             
             notificationText = $"Fixed {fixedCount} LocalizedString references";
-#endif
+#endif // UNITY_EDITOR
         }
         
         public void ReplaceKeyValues()
@@ -810,10 +825,10 @@ namespace Fungus
             replaceWith = "";
 
             notificationText = $"Replaced {replaceCount} entries' key";
-#endif
+#endif // UNITY_EDITOR
         }
         
-#endif
+#endif // UNITY_LOCALIZATION
         
         #endregion
 
@@ -821,10 +836,8 @@ namespace Fungus
 
         public virtual bool SubstituteStrings(StringBuilder input)
         {
-            // ok im gonna be honest i dont how to work the code below.
-#if !UNITY_LOCALIZATION
             // This method could be called from the Start method of another component, so we
-            // may need to initilize the localization system.
+            // may need to initialize the localization system.
             Init();
 
             // Instantiate the regular expression object.
@@ -839,7 +852,11 @@ namespace Fungus
                 Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
                 // Next look for matching localized string
+#if UNITY_LOCALIZATION
+                string localizedString = GetLocalizedString(key);
+#else // UNITY_LOCALIZATION
                 string localizedString = Localization.GetLocalizedString(key);
+#endif // !UNITY_LOCALIZATION
                 if (localizedString != null)
                 {
                     input.Replace(match.Value, localizedString);
@@ -848,9 +865,6 @@ namespace Fungus
             }
 
             return modified;
-#else
-            return false;
-#endif
         }
         
         #endregion
