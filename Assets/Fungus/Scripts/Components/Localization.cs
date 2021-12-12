@@ -784,7 +784,7 @@ namespace Fungus
 #endif
         }
         
-        public void ReplaceKeyValues(string target, string newValue)
+        public void ReplaceKeyValues()
         {
 #if UNITY_EDITOR
             int replaceCount = 0;
@@ -798,16 +798,19 @@ namespace Fungus
             {
                 var entry = table.GetEntry(kvp.Key);
 
-                if (entry.Key.Contains(target))
+                if (entry.Key.Contains(toReplace))
                 {
-                    entry.Key = entry.Key.Replace(target, newValue);
+                    entry.Key = entry.Key.Replace(toReplace, replaceWith);
                     replaceCount++;
                 }
             }
+            
+            // clear the variables cause we don't need them
+            toReplace = "";
+            replaceWith = "";
 
             notificationText = $"Replaced {replaceCount} entries' key";
 #endif
-
         }
         
 #endif

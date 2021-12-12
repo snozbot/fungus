@@ -95,19 +95,21 @@ namespace Fungus.EditorUtils
                 showAdvancedOptions = EditorGUILayout.Foldout(showAdvancedOptions, "Show Advanced Options");
                 if (showAdvancedOptions)
                 {
+                    
                     EditorGUILayout.PropertyField(toReplaceProp, new GUIContent("To Replace"));
                     EditorGUILayout.PropertyField(replaceWithProp, new GUIContent("Replace With"));
                     GUI.enabled = !string.IsNullOrWhiteSpace(toReplaceProp.stringValue) && !string.IsNullOrWhiteSpace(replaceWithProp.stringValue);
-                    if (GUILayout.Button(new GUIContent("Replace Keys")))
+                    if (GUILayout.Button(new GUIContent("Find and replace all Keys")))
                     {
-                        ReplaceKeyValues(localization, toReplaceProp.stringValue, replaceWithProp.stringValue);
+                        ReplaceKeyValues(localization);
                         FixLocalizedStrings(localization, false); // fix localized string while we are here because they were broken.
                     }
                     GUI.enabled = true;
-                    
+                    EditorGUILayout.HelpBox("Find and Replace functionality is useful if you update a Flowchart's Localization ID. 'Fix LocalizedStrings in Fungus Commands' will automatically be run upon completion.", MessageType.Info);
+
                     EditorGUILayout.Space();
                     
-                    if (GUILayout.Button(new GUIContent("Fix Localized Strings in Fungus Commands")))
+                    if (GUILayout.Button(new GUIContent("Fix LocalizedStrings in Fungus Commands")))
                     {
                         FixLocalizedStrings(localization);
                     }
@@ -195,9 +197,9 @@ namespace Fungus.EditorUtils
                 ShowNotification(localization);
         }
         
-        private void ReplaceKeyValues(Localization localization, string toReplace, string replaceWith)
+        private void ReplaceKeyValues(Localization localization)
         {
-            localization.ReplaceKeyValues(toReplace, replaceWith);
+            localization.ReplaceKeyValues();
             ShowNotification(localization);
         }
 #endif
