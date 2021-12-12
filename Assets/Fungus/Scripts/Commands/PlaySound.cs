@@ -74,11 +74,17 @@ namespace Fungus
 
         public override string GetSummary()
         {
+#if UNITY_LOCALIZATION
             if (soundClip == null && localizedSoundClip.IsEmpty)
             {
                 return "Error: No sound clip selected";
             }
-
+#else
+            if (soundClip == null)
+            {
+                return "Error: No sound clip selected";
+            }
+#endif
             return soundClip.name;
         }
 

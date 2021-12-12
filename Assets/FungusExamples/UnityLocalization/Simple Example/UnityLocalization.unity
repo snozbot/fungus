@@ -519,6 +519,8 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:e9c2c1b1b494e4dc38b898188216a719
   defaultLanguageCode: en
+  toReplace: 
+  replaceWith: 
 --- !u!4 &334545342
 Transform:
   m_ObjectHideFlags: 0
@@ -2486,7 +2488,7 @@ MonoBehaviour:
   variables: []
   description: This scene shows how to use the Fungus Unity Localization package
     with Fungus. Requires the Localization package and UNITY_LOCALIZATION to be specified
-    in custom defines in Player Settings.
+    in Scripting Define Symbols in Player Settings.
   stepPause: 0
   colorCommands: 1
   hideComponents: 1

@@ -2984,7 +2984,7 @@ MonoBehaviour:
   variables: []
   description: This scene shows how to use the Fungus Unity Localization package
     with Fungus. Requires the Localization package and UNITY_LOCALIZATION to be specified
-    in custom defines in Player Settings.
+    in Scripting Define Symbols in Player Settings.
   stepPause: 0
   colorCommands: 1
   hideComponents: 1
