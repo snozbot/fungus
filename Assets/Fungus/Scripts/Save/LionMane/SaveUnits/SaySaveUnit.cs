@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public struct SaySaveUnit : ISaveUnit<SaySaveUnit>, System.IEquatable<SaySaveUnit>
+    public struct SaySaveUnit : ICommandSaveUnit<SaySaveUnit>, System.IEquatable<SaySaveUnit>
     {
         public SaySaveUnit Contents => this;
         object ISaveUnit.Contents => this;
@@ -14,6 +14,26 @@ namespace Fungus.LionManeSaveSys
             get { return executionCount; }
             set { executionCount = value; }
         }
+
+        public int Index
+        {
+            get { return index; }
+            set { index = value; }
+        }
+
+        [SerializeField]
+        int index;
+
+        public bool WasExecuting
+        {
+            get { return wasExecuting; }
+            set { wasExecuting = value; }
+        }
+
+        public string TypeName => "SayCommand";
+
+        [SerializeField]
+        bool wasExecuting;
 
         [SerializeField]
         int executionCount;
@@ -27,6 +47,9 @@ namespace Fungus.LionManeSaveSys
         {
             SaySaveUnit newUnit = new SaySaveUnit();
             newUnit.executionCount = command.ExecutionCount;
+            newUnit.index = command.CommandIndex;
+            newUnit.wasExecuting = command.IsExecuting;
+
             return newUnit;
         }
 

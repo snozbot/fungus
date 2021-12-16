@@ -323,8 +323,7 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 4265726587599475885}
-  selectedCommands:
-  - {fileID: 4329482522987080809}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -436,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 6
   indentLevel: 0
-  storyText: a
+  storyText: abc
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -1269,6 +1268,54 @@ MonoBehaviour:
   scope: 0
   key: thirdV4
   value: {x: 0, y: 2, z: 3, w: 4}
+--- !u!1 &5504735901905553913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5039624110213807318}
+  - component: {fileID: 1549818758880389849}
+  m_Layer: 0
+  m_Name: CommandSavers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5039624110213807318
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504735901905553913}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7207508386225608450}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1549818758880389849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504735901905553913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ade25b7e0797074fbf2ec4a0610d531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6609570569751383371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1653,7 @@ GameObject:
   - component: {fileID: 6571007931220161188}
   - component: {fileID: 1745635959623093962}
   - component: {fileID: 6993795887856362067}
+  - component: {fileID: 8284007555035288522}
   m_Layer: 0
   m_Name: FlowchartEncoders
   m_TagString: Untagged
@@ -1623,7 +1671,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5039624110213807318}
   m_Father: {fileID: 134484536365499727}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1680,3 +1729,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41252e6c33387e14495b26acc70fc998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8284007555035288522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8355802931863322742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05cc06408240e84f85fc8d1d3ef0de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasCommandSavers:
+  - {fileID: 5039624110213807318}

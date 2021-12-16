@@ -10,6 +10,8 @@ namespace Fungus.LionManeSaveSys
         public CommandSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
 
+        public string TypeName => "Command";
+
         [SerializeField]
         int indexInBlock; // Index 0 = first block, index 3 = fourth block, etc
 

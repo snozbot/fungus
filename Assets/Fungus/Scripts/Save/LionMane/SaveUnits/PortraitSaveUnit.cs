@@ -85,6 +85,8 @@ namespace Fungus.LionManeSaveSys
             set { portraitName = value; }
         }
 
+        public string TypeName => "Portrait";
+
         [SerializeField]
         private string portraitName;
 

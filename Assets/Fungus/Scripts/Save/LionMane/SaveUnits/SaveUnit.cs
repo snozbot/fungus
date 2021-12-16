@@ -10,6 +10,8 @@ namespace Fungus.LionManeSaveSys
             get { return contents; }
             set { contents = value; }
         }
+
+        public abstract string TypeName { get; }
     }
 
     /// <summary>

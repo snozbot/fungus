@@ -36,28 +36,42 @@ namespace Fungus.LionManeSaveSys
         string blockName;
 
         /// <summary>
-        /// States of the Commands that were executing at the time this Save Unit was made. 
+        /// For the commands that have state to restore on load.
         /// Keys are the exact types of the commands' states, values are the json representations of 
         /// said states.
         /// </summary>
-        public IList<StringPair> ExecutingCommands
+        public IList<ICommandSaveUnit> Commands
         {
-            get { return executingCommands; }
+            get { return commands; }
             set 
             {
-                executingCommands.Clear();
-                executingCommands.AddRange(value);
+                commands.Clear();
+                commands.AddRange(value);
+            }
+        }
+
+        List<ICommandSaveUnit> commands;
+
+        public IList<string> SerializedCommands
+        {
+            get { return serializedCommands; }
+            set
+            {
+                serializedCommands.Clear();
+                serializedCommands.AddRange(value);
             }
         }
 
         [SerializeField]
-        List<StringPair> executingCommands;
+        List<string> serializedCommands;
 
         public int ExecutionCount
         {
             get { return executionCount; }
             set { executionCount = value; }
         }
+
+        public string TypeName => "Block";
 
         [SerializeField]
         int executionCount;
@@ -86,9 +100,15 @@ namespace Fungus.LionManeSaveSys
             newUnit.ItemId = block.ItemId;
             newUnit.executionCount = block.GetExecutionCount();
             newUnit.BlockName = block.BlockName;
-            newUnit.executingCommands = new List<StringPair>();
+            newUnit.commands = new List<ICommandSaveUnit>();
+            newUnit.serializedCommands = new List<string>();
 
             return newUnit;
+        }
+
+        public void RegisterCommandStates(IList<ICommandSaveUnit> commands)
+        {
+            this.commands.AddRange(commands);
         }
 
 

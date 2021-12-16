@@ -41,6 +41,8 @@ namespace Fungus.LionManeSaveSys
             set { rotation = value; }
         }
 
+        public string TypeName => "Transform";
+
         [SerializeField]
         private Quaternion rotation;
 

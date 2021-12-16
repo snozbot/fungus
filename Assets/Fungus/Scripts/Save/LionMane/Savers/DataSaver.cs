@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Object = System.Object;
+using Type = System.Type;
 
 namespace Fungus.LionManeSaveSys
 {
@@ -10,7 +11,19 @@ namespace Fungus.LionManeSaveSys
     /// </summary>
     public abstract class DataSaver: MonoBehaviour, ISaveCreator
     {
-        public abstract ISaveUnit CreateSaveFrom(Object input);
+        /// <summary>
+        /// The types of objects this can accept as input
+        /// </summary>
+        public virtual IList<Type> ValidInputTypes
+        {
+            get { return validInputTypes; }
+        }
+
+        protected Type[] validInputTypes = new Type[]
+        {
+            typeof(Object)
+        };
+
         public virtual IList<ISaveUnit> CreateSavesFrom(IList<Object> inputs)
         {
             IList<ISaveUnit> result = new ISaveUnit[inputs.Count];
@@ -25,6 +38,8 @@ namespace Fungus.LionManeSaveSys
             return result;
         }
 
+        public abstract ISaveUnit CreateSaveFrom(Object input);
+
         protected virtual void Validate(Object input)
         {
             if (!IsValid(input))
@@ -33,7 +48,20 @@ namespace Fungus.LionManeSaveSys
             }
         }
 
-        protected abstract bool IsValid(Object input);
+        protected virtual bool IsValid(Object input)
+        {
+            Type inputType = input.GetType();
+
+            foreach (Type validType in ValidInputTypes)
+            {
+                bool sameOrSubtype = inputType == validType || inputType.IsSubclassOf(validType);
+
+                if (sameOrSubtype)
+                    return true;
+            }
+
+            return false;
+        }
 
         protected virtual void AlertFor(Object invalidInput)
         {
