@@ -45,7 +45,7 @@ namespace Fungus.LionManeSaveSys
             BlockSaveUnit blockSave = BlockSaveUnit.From(block);
             SaveCommandStatesFor(ref blockSave, block);
 
-            throw new System.NotImplementedException();
+            return blockSave;
         }
 
         protected virtual void SaveCommandStatesFor(ref BlockSaveUnit saveUnit, Block block)
