@@ -22,7 +22,7 @@ namespace Fungus.LionManeSaveSys
             hasCommandSavers.RemoveAll(obj => obj == null);
             foreach (var commandSaverContainer in hasCommandSavers)
             {
-                var saversFound = commandSaverContainer.GetComponentsInChildren<CommandSaver>();
+                var saversFound = commandSaverContainer.GetComponents<CommandSaver>();
                 commandSavers.AddRange(saversFound);
             }
         }

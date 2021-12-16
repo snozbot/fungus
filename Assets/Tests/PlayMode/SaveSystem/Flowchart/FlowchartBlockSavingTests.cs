@@ -52,14 +52,27 @@ namespace SaveSystemTests
         public virtual IEnumerator CommandIndexesSaved()
         {
             yield return PostSetUp();
-
+            
             List<Say> sayCommands = new List<Say>(blockToSave.GetComponents<Say>());
             sayCommands.Sort(SortByIndex);
 
-            IList<int> commandIndexesFound = CommandIndexesOf(sayCommands);
+            IList<int> commandIndexesFound = GetSayCommandIndexesOf(blockState);
 
             bool savedCorrectly = SameIntsInSameOrder(commandIndexesFound, expectedSayIndexes);
             Assert.IsTrue(savedCorrectly);
+        }
+
+        protected virtual IList<int> GetSayCommandIndexesOf(BlockSaveUnit blockState)
+        {
+            List<int> indexes = new List<int>();
+
+            foreach (var commandState in blockState.Commands)
+            {
+                if (commandState.TypeName == "SayCommand")
+                    indexes.Add(commandState.Index);
+            }
+
+            return indexes;
         }
 
         protected virtual int SortByIndex(Say firstSay, Say secondSay)

@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Fungus.LionManeSaveSys
 {
-    public class SayCommandSaver : DataSaver, ICommandSaver
+    public class SayCommandSaver : CommandSaver, ICommandSaver
     {
         public override ISaveUnit CreateSaveFrom(object input)
         {
             if (IsValid(input))
-                return CreateSaveFrom(input as Block);
+                return CreateSaveFrom(input as Say);
             else
                 throw new System.ArgumentException("");
         }
@@ -24,13 +24,23 @@ namespace Fungus.LionManeSaveSys
             return newUnit;
         }
 
-        public virtual IList<ICommandSaveUnit> CreateSavesFrom(Block block)
+        public override IList<ICommandSaveUnit> CreateSavesFrom(Block block)
         {
             IList<Say> sayCommands = block.GetCommandsOfType<Say>();
             List<object> commandsToPass = new List<object>();
             commandsToPass.AddRange(sayCommands);
-            IList<ICommandSaveUnit> results = (IList<ICommandSaveUnit>) CreateSavesFrom(commandsToPass);
-            return results;
+            IList<ISaveUnit> results = CreateSavesFrom(commandsToPass);
+
+            // We can't simply cast the above list for ICommandSaveUnits, so we have to do it the long way
+            List<ICommandSaveUnit> resultsToReturn = new List<ICommandSaveUnit>();
+            foreach (var resultEl in results)
+            {
+                if (resultEl is ICommandSaveUnit)
+                    resultsToReturn.Add(resultEl as ICommandSaveUnit);
+            }
+
+            return resultsToReturn;
         }
+
     }
 }
