@@ -102,9 +102,12 @@ namespace SaveSystemTests
         protected virtual IEnumerator PostSetUp()
         {
             yield return new WaitForSeconds(1f);
+            blockToSave.SetExecutionCount(expectedExecutionCount);
             SaveTheTestBlock();
 
         }
+
+        int expectedExecutionCount = 8192;
 
         protected virtual void SaveTheTestBlock()
         {
@@ -114,10 +117,12 @@ namespace SaveSystemTests
         protected BlockSaveUnit blockState;
 
         [UnityTest]
-        [Ignore("")]
         public virtual IEnumerator ExecutionCountSaved()
         {
-            throw new System.NotImplementedException();
+            yield return PostSetUp();
+
+            bool savedCorrectly = blockState.ExecutionCount == expectedExecutionCount;
+            Assert.IsTrue(savedCorrectly);
         }
 
         [UnityTest]
