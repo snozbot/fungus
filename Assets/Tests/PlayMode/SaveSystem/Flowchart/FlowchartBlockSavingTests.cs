@@ -39,10 +39,10 @@ namespace SaveSystemTests
 
         protected virtual void SetUpExpectedFields()
         {
-            
+            expectedBlockItemId = blockToSave.ItemId;
         }
         
-        protected int dialogueBlockIndex = 3, menuBlockIndex = 2;
+        protected int dialogueBlockIndex = 3, menuBlockIndex = 2, expectedBlockItemId;
         protected int[] expectedSayIndexes = new int[] // within the Dialogue block
         {
             3, 4
@@ -146,12 +146,12 @@ namespace SaveSystemTests
         }
 
         [UnityTest]
-        [Ignore("")]
         public virtual IEnumerator ItemIDsSaved()
         {
             yield return PostSetUp();
 
-            throw new System.NotImplementedException();
+            bool savedCorrectly = blockState.ItemId == expectedBlockItemId;
+            Assert.IsTrue(savedCorrectly);
         }
     }
 }
