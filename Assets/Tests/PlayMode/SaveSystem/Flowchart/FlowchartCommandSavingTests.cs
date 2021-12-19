@@ -113,30 +113,5 @@ namespace SaveSystemTests
             return true;
         }
 
-        [UnityTest]
-        public virtual IEnumerator BlockExecutionCountsSaved()
-        {
-            yield return SetUpForEachTest();
-
-            var allBlocks = GameObject.FindObjectsOfType<Block>();
-
-            foreach (var block in allBlocks)
-            {
-                block.SetExecutionCount(2);
-            }
-
-            PrepareBlockStates();
-
-            int[] executionCounts = new int[blockStates.Count];
-
-            for (int i = 0; i < blockStates.Count; i++)
-            {
-                var currentState = blockStates[i];
-                executionCounts[i] = currentState.ExecutionCount;
-            }
-
-            bool savedCorrectly = ExactSameNums(executionCounts, expectedBlockExecutionCount);
-            Assert.IsTrue(savedCorrectly);
-        }
     }
 }

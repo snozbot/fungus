@@ -139,13 +139,6 @@ namespace SaveSystemTests
         }
 
         [UnityTest]
-        [Ignore("")]
-        public virtual IEnumerator SayCommandsSaved()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        [UnityTest]
         public virtual IEnumerator ItemIDsSaved()
         {
             yield return PostSetUp();
@@ -153,5 +146,58 @@ namespace SaveSystemTests
             bool savedCorrectly = blockState.ItemId == expectedBlockItemId;
             Assert.IsTrue(savedCorrectly);
         }
+
+        [UnityTest]
+        public virtual IEnumerator BlockExecutionCountsSaved()
+        {
+            yield return PostSetUp();
+
+            var allBlocks = GameObject.FindObjectsOfType<Block>();
+
+            foreach (var block in allBlocks)
+            {
+                block.SetExecutionCount(2);
+            }
+
+            List<Block> blocks = new List<Block>(GameObject.FindObjectsOfType<Block>());
+            blocks.Sort((firstBlock, secondBlock) => firstBlock.BlockName.CompareTo(secondBlock.BlockName));
+            IList<BlockSaveUnit> blockStates = BlockSaveUnit.From(blocks);
+
+            int[] expectedBlockExecutionCounts = new int[blockStates.Count];
+            for (int i = 0; i < expectedBlockExecutionCounts.Length; i++)
+            {
+                expectedBlockExecutionCounts[i] = 2;
+            }
+
+            int[] executionCounts = new int[blockStates.Count];
+
+            for (int i = 0; i < blockStates.Count; i++)
+            {
+                var currentState = blockStates[i];
+                executionCounts[i] = currentState.ExecutionCount;
+            }
+
+            bool savedCorrectly = ExactSameNums(executionCounts, expectedBlockExecutionCounts);
+            Assert.IsTrue(savedCorrectly);
+        }
+
+        protected virtual bool ExactSameNums(IList<int> firstList, IList<int> secondList)
+        {
+            bool differentSizes = firstList.Count != secondList.Count;
+            if (differentSizes)
+                return false;
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                var firstElem = firstList[i];
+                var secondElem = secondList[i];
+
+                if (firstElem != secondElem)
+                    return false;
+            }
+
+            return true;
+        }
+
     }
 }
