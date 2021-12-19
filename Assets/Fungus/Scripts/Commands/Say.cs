@@ -56,7 +56,7 @@ namespace Fungus
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
         [SerializeField] protected SayDialog setSayDialog;
 
-        protected int executionCount;
+        public int ExecutionCount { get; set; }
 
         #region Public members
 
@@ -77,13 +77,13 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            if (!showAlways && executionCount >= showCount)
+            if (!showAlways && ExecutionCount >= showCount)
             {
                 Continue();
                 return;
             }
 
-            executionCount++;
+            ExecutionCount++;
 
             // Override the active say dialog if needed
             if (character != null && character.SetSayDialog != null)
@@ -151,7 +151,7 @@ namespace Fungus
 
         public override void OnReset()
         {
-            executionCount = 0;
+            ExecutionCount = 0;
         }
 
         public override void OnStopExecuting()
