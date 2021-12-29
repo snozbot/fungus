@@ -52,5 +52,11 @@ namespace Fungus.PlaytimeSys
             StopTracking();
         }
 
+        public virtual void ResetRecording()
+        {
+            PlaytimeRecorded = new TimeSpan();
+            startDate = DateTime.Now;
+        }
+
     }
 }
