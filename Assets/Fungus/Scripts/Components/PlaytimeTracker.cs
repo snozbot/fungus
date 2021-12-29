@@ -14,10 +14,9 @@ namespace Fungus.PlaytimeSys
 
         protected virtual void UpdatePlaytimeRecorded()
         {
-            endDate = DateTime.Now;
-
             if (this.IsTracking)
             {
+                endDate = DateTime.Now;
                 PlaytimeRecorded = endDate - startDate;
             }
         }

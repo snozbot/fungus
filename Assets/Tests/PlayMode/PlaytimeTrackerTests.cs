@@ -6,6 +6,7 @@ using UnityEngine.TestTools;
 using Fungus;
 using DateTime = System.DateTime;
 using TimeSpan = System.TimeSpan;
+using Fungus.PlaytimeSys;
 
 namespace Fungus.Tests
 {
@@ -48,6 +49,24 @@ namespace Fungus.Tests
             Assert.IsTrue(trackedCorrectly);
         }
 
+        [UnityTest]
+        public virtual IEnumerator StopsTrackingOnRequest()
+        {
+            yield return SetUpForCoroutineTests();
+
+            tracker.StartTracking();
+            yield return new WaitForSeconds(1.2f);
+
+            TimeSpan timeTrackedBeforeStop = tracker.PlaytimeRecorded;
+            tracker.StopTracking();
+            yield return new WaitForSeconds(1.2f);
+
+            TimeSpan timeTrackedAfterStop = tracker.PlaytimeRecorded;
+            bool success = timeTrackedAfterStop.Seconds == timeTrackedBeforeStop.Seconds;
+            // ^Since the time tracked shouldn't change during do-not-track mode
+
+            Assert.IsTrue(success);
+        }
         
     }
 }
