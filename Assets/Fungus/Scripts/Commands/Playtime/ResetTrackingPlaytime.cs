@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Fungus.PlaytimeSys
 {
-    [CommandInfo("Playtime", "Reset Playtime Tracking", "Resets the time recorded for tracking playtime")]
-    public class ResetPlaytimeTracking : PlaytimeCommand
+    [CommandInfo("Playtime", "Reset Tracking Playtime", "Resets the time recorded for tracking playtime")]
+    public class ResetTrackingPlaytime : PlaytimeCommand
     {
         public override void OnEnter()
         {
