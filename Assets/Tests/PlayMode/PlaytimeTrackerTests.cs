@@ -17,11 +17,11 @@ namespace Fungus.Tests
         public virtual void SetUp()
         {
             scenePrefab = Resources.Load<GameObject>(prefabPath);
-            sceneObject = GameObject.Instantiate<GameObject>(scenePrefab, Vector3.zero, Quaternion.identity);
+            testingScene = GameObject.Instantiate<GameObject>(scenePrefab, Vector3.zero, Quaternion.identity);
         }
 
         string prefabPath = "Prefabs/PlaytimeTrackerTests";
-        GameObject scenePrefab, sceneObject;
+        GameObject scenePrefab, testingScene;
 
         public virtual IEnumerator SetUpForCoroutineTests()
         {
@@ -66,6 +66,32 @@ namespace Fungus.Tests
             // ^Since the time tracked shouldn't change during do-not-track mode
 
             Assert.IsTrue(success);
+        }
+
+        [UnityTest]
+        public virtual IEnumerator ResetsTrackingOnRequest()
+        {
+            yield return SetUpForCoroutineTests();
+
+            tracker.StartTracking();
+            yield return new WaitForSeconds(1.2f);
+
+            tracker.ResetTracking();
+
+            int expectedPostResetTime = 2;
+            float timeOffset = 0.2f;
+            yield return new WaitForSeconds(expectedPostResetTime + timeOffset);
+
+            TimeSpan timeTrackedAfterReset = tracker.PlaytimeRecorded;
+            bool success = timeTrackedAfterReset.Seconds == expectedPostResetTime;
+
+            Assert.IsTrue(success);
+        }
+
+        [TearDown]
+        public virtual void TearDown()
+        {
+            MonoBehaviour.Destroy(testingScene.gameObject);
         }
         
     }

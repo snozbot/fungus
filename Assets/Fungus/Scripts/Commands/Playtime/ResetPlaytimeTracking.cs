@@ -10,7 +10,7 @@ namespace Fungus.PlaytimeSys
         public override void OnEnter()
         {
             base.OnEnter();
-            tracker.ResetRecording();
+            tracker.ResetTracking();
             Continue();
         }
     }
