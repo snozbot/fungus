@@ -17,6 +17,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
+    [RequireComponent(typeof(PlaytimeTracker))]
     #endif
     public sealed class FungusManager : MonoBehaviour
     {
@@ -37,6 +38,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
+            PlaytimeTracker = GetComponent<PlaytimeTracker>();
 #endif
             MainAudioMixer.Init();
             MusicManager.Init();
@@ -89,6 +91,8 @@ namespace Fungus
         /// Gets the history manager singleton instance.
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
+
+        public PlaytimeTracker PlaytimeTracker { get; private set; }
         
         #endif
 
