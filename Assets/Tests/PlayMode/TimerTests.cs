@@ -173,5 +173,25 @@ namespace Fungus.Tests.TimeSystemTests
             bool success = secondsRemaining == expectedRemainingSeconds;
             Assert.IsTrue(success);
         }
+
+        [UnityTest]
+        public virtual IEnumerator ResetsCountingDownOnRequest()
+        {
+            // Arrange
+            yield return SetUpForCountdownTimerTesting();
+
+            float secondsToWait = 1.5f;
+            float expectedRemainingSeconds = countdownStartTime.Seconds;
+
+            // Act
+            yield return WaitAndLetTimerRunFor(secondsToWait);
+            timerManager.ResetTimerWithID(testID);
+            TimeSpan timeRemaining = testTimer.TimeRecorded;
+            float remainingSeconds = Mathf.Round((float)timeRemaining.TotalSeconds);
+
+            // Assert
+            bool success = remainingSeconds == expectedRemainingSeconds;
+            Assert.IsTrue(success);
+        }
     }
 }
