@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TimeSpan = System.TimeSpan;
 
 namespace Fungus.TimeSys
 {
@@ -47,6 +48,12 @@ namespace Fungus.TimeSys
         {
             EnsureTimerExistsWithID(id);
             timers[id].Stop();
+        }
+
+        public virtual void SetCountdownStartingTimeOfTimerWithID(int id, ref TimeSpan countdownTime)
+        {
+            EnsureTimerExistsWithID(id);
+            timers[id].CountdownStartingTime = countdownTime;
         }
 
         protected virtual void Update()

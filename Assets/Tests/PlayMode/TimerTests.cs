@@ -32,17 +32,22 @@ namespace Fungus.Tests.TimeSystemTests
         {
             // To make sure that the test timer exists and has a clean slate
             timerManager.SetModeOfTimerWithID(testID, TimerMode.countup);
+            RegisterAndSetTestTimerToHaveCleanSlate();
+            yield return null;
+        }
+
+        protected virtual void RegisterAndSetTestTimerToHaveCleanSlate()
+        {
             timerManager.StopTimerWithID(testID);
             timerManager.ResetTimerWithID(testID);
             testTimer = timerManager.Timers[testID];
-            yield return null;
         }
 
         protected int testID = 999;
         protected Timer testTimer;
 
         [UnityTest]
-        public virtual IEnumerator TracksSecondsProperly()
+        public virtual IEnumerator CountsUpCorrectly()
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
@@ -61,11 +66,16 @@ namespace Fungus.Tests.TimeSystemTests
         protected virtual IEnumerator WaitAndLetTimerRunFor(int expectedSeconds)
         {
             timerManager.StartTimerWithID(testID);
-            float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
-
             yield return new WaitForSeconds(expectedSeconds + timeOffset);
         }
 
+        float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
+
+        protected virtual IEnumerator WaitAndLetTimerRunFor(float expectedSeconds)
+        {
+            timerManager.StartTimerWithID(testID);
+            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+        }
 
         [UnityTest]
         public virtual IEnumerator StopsCountupTrackingOnRequest()
@@ -108,5 +118,36 @@ namespace Fungus.Tests.TimeSystemTests
             Assert.IsTrue(success);
 
         }
+
+        [UnityTest]
+        public virtual IEnumerator CountsDownCorrectly()
+        {
+            // Arrange
+            yield return SetUpForCountdownTimerTesting();
+
+            int timeToWait = 2;
+            int expectedRemainingSeconds = countdownStartTime.Seconds - timeToWait;
+
+            // Act
+            yield return WaitAndLetTimerRunFor(timeToWait - timeOffset);
+            // ^ We are negating the time offset since for some reason, the timer is more precise when counting down
+            TimeSpan remainingTime = testTimer.TimeRecorded;
+
+            // Assert
+            bool success = remainingTime.Seconds == expectedRemainingSeconds;
+            Assert.IsTrue(success);
+
+        }
+
+        protected virtual IEnumerator SetUpForCountdownTimerTesting()
+        {
+            // To make sure that the test timer exists and has a clean slate
+            timerManager.SetModeOfTimerWithID(testID, TimerMode.countdown);
+            timerManager.SetCountdownStartingTimeOfTimerWithID(testID, ref countdownStartTime);
+            RegisterAndSetTestTimerToHaveCleanSlate();
+            yield return null;
+        }
+
+        protected TimeSpan countdownStartTime = new TimeSpan(0, 0, 5);
     }
 }
