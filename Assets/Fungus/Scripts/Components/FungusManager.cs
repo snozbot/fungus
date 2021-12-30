@@ -4,6 +4,7 @@
 using UnityEngine;
 using System.Collections;
 using Fungus.PlaytimeSys;
+using Fungus.TimeSys;
 
 namespace Fungus
 {
@@ -19,6 +20,7 @@ namespace Fungus
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
     [RequireComponent(typeof(PlaytimeTracker))]
+    [RequireComponent(typeof(TimerManager))]
     #endif
     public sealed class FungusManager : MonoBehaviour
     {
@@ -40,6 +42,7 @@ namespace Fungus
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
             PlaytimeTracker = GetComponent<PlaytimeTracker>();
+            TimerManager = GetComponent<TimerManager>();
 #endif
             MainAudioMixer.Init();
             MusicManager.Init();
@@ -94,6 +97,8 @@ namespace Fungus
         public NarrativeLog NarrativeLog { get; private set; }
 
         public PlaytimeTracker PlaytimeTracker { get; private set; }
+
+        public TimerManager TimerManager { get; private set; }
         
         #endif
 

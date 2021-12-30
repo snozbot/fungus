@@ -19,7 +19,7 @@ namespace Fungus.TimeSys
             timers[id].Start();
         }
 
-        protected virtual void EnsureTimerExistsWithID(int id)
+        public virtual void EnsureTimerExistsWithID(int id)
         {
             bool doesNotExist = !timers.ContainsKey(id);
 
