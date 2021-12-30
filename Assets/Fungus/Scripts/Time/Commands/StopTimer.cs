@@ -7,6 +7,7 @@
         {
             base.OnEnter();
             TimerManager.StopTimerWithID(timerID);
+            Continue();
         }
     }
 }
