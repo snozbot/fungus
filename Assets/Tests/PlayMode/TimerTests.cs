@@ -51,13 +51,15 @@ namespace Fungus.Tests.TimeSystemTests
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
-            int expectedSeconds = 2;
+            float expectedSeconds = 2;
 
             // Act
             yield return WaitAndLetTimerRunFor(expectedSeconds);
 
             TimeSpan timeRecorded = testTimer.TimeRecorded;
-            bool success = timeRecorded.Seconds == expectedSeconds;
+            float secondsCounted = Mathf.Round((float)timeRecorded.TotalSeconds);
+
+            bool success = secondsCounted == expectedSeconds;
 
             // Assert
             Assert.IsTrue(success);
@@ -66,19 +68,18 @@ namespace Fungus.Tests.TimeSystemTests
         protected virtual IEnumerator WaitAndLetTimerRunFor(int expectedSeconds)
         {
             timerManager.StartTimerWithID(testID);
-            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            yield return new WaitForSeconds(expectedSeconds);
         }
 
-        float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
 
         protected virtual IEnumerator WaitAndLetTimerRunFor(float expectedSeconds)
         {
             timerManager.StartTimerWithID(testID);
-            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            yield return new WaitForSeconds(expectedSeconds);
         }
 
         [UnityTest]
-        public virtual IEnumerator StopsCountupTrackingOnRequest()
+        public virtual IEnumerator StopsCountingUpOnRequest()
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
@@ -96,16 +97,15 @@ namespace Fungus.Tests.TimeSystemTests
             bool success = timeRecorded.Seconds == expectedSeconds;
 
             Assert.IsTrue(success);
-
         }
 
         [UnityTest]
-        public virtual IEnumerator ResetsCountupTrackingOnRequest()
+        public virtual IEnumerator ResetsCountingUpOnRequest()
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
 
-            int secondsToWait = 1, expectedSeconds = 0;
+            float secondsToWait = 1, expectedSeconds = 0;
 
             // Act
             yield return WaitAndLetTimerRunFor(secondsToWait);
@@ -125,16 +125,17 @@ namespace Fungus.Tests.TimeSystemTests
             // Arrange
             yield return SetUpForCountdownTimerTesting();
 
-            int timeToWait = 2;
-            int expectedRemainingSeconds = countdownStartTime.Seconds - timeToWait;
+            float timeToWait = 2;
+            float expectedRemainingSeconds = countdownStartTime.Seconds - timeToWait;
 
             // Act
-            yield return WaitAndLetTimerRunFor(timeToWait - timeOffset);
+            yield return WaitAndLetTimerRunFor(timeToWait);
             // ^ We are negating the time offset since for some reason, the timer is more precise when counting down
-            TimeSpan remainingTime = testTimer.TimeRecorded;
+            TimeSpan timeRemaining = testTimer.TimeRecorded;
+            float secondsRemaining = Mathf.Round((float)timeRemaining.TotalSeconds);
 
             // Assert
-            bool success = remainingTime.Seconds == expectedRemainingSeconds;
+            bool success = secondsRemaining == expectedRemainingSeconds;
             Assert.IsTrue(success);
 
         }
@@ -149,5 +150,28 @@ namespace Fungus.Tests.TimeSystemTests
         }
 
         protected TimeSpan countdownStartTime = new TimeSpan(0, 0, 5);
+
+        [UnityTest]
+        public virtual IEnumerator StopsCountingDownOnRequest()
+        {
+            // Arrange
+            yield return SetUpForCountdownTimerTesting();
+
+            float secondsToWait = 1;
+            float expectedRemainingSeconds = countdownStartTime.Seconds - secondsToWait;
+
+            // Act
+            yield return WaitAndLetTimerRunFor(secondsToWait);
+            timerManager.StopTimerWithID(testID);
+            yield return WaitAndLetTimerRunFor(secondsToWait);
+
+            TimeSpan timeRemaining = testTimer.TimeRecorded;
+            float secondsRemaining = Mathf.Round((float)timeRemaining.TotalSeconds);
+            // ^ So we don't have to worry about the slight inaccuracies of WaitForSeconds
+
+            // Assert
+            bool success = secondsRemaining == expectedRemainingSeconds;
+            Assert.IsTrue(success);
+        }
     }
 }
