@@ -46,13 +46,10 @@ namespace Fungus.Tests.TimeSystemTests
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
-            timerManager.StartTimerWithID(testID);
-            
             int expectedSeconds = 2;
-            float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
 
             // Act
-            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            yield return WaitAndLetTimerRunFor(expectedSeconds);
 
             TimeSpan timeRecorded = testTimer.TimeRecorded;
             bool success = timeRecorded.Seconds == expectedSeconds;
@@ -61,25 +58,51 @@ namespace Fungus.Tests.TimeSystemTests
             Assert.IsTrue(success);
         }
 
+        protected virtual IEnumerator WaitAndLetTimerRunFor(int expectedSeconds)
+        {
+            timerManager.StartTimerWithID(testID);
+            float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
+
+            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+        }
+
 
         [UnityTest]
         public virtual IEnumerator StopsCountupTrackingOnRequest()
         {
             // Arrange
             yield return SetUpForCountupTimerTesting();
-            timerManager.StartTimerWithID(testID);
 
             int expectedSeconds = 2;
-            float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
 
             // Act
-            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            yield return WaitAndLetTimerRunFor(expectedSeconds);
             timerManager.StopTimerWithID(testID);
 
-            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            yield return WaitAndLetTimerRunFor(expectedSeconds);
             // ^This should be ignored by the timer
 
             TimeSpan timeRecorded = testTimer.TimeRecorded;
+            bool success = timeRecorded.Seconds == expectedSeconds;
+
+            Assert.IsTrue(success);
+
+        }
+
+        [UnityTest]
+        public virtual IEnumerator ResetsCountupTrackingOnRequest()
+        {
+            // Arrange
+            yield return SetUpForCountupTimerTesting();
+
+            int secondsToWait = 1, expectedSeconds = 0;
+
+            // Act
+            yield return WaitAndLetTimerRunFor(secondsToWait);
+            timerManager.ResetTimerWithID(testID);
+
+            TimeSpan timeRecorded = testTimer.TimeRecorded;
+
             bool success = timeRecorded.Seconds == expectedSeconds;
 
             Assert.IsTrue(success);
