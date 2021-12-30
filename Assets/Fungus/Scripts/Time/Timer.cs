@@ -10,6 +10,14 @@ namespace Fungus.TimeSys
     [System.Serializable]
     public class Timer
     {
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        [SerializeField]
+        int id;
+
         public virtual TimerMode TimerMode
         {
             get { return timerMode; }
