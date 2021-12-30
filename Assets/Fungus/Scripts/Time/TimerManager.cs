@@ -37,6 +37,18 @@ namespace Fungus.TimeSys
             timers[id].TimerMode = timerMode;
         }
 
+        public virtual void ResetTimerWithID(int id)
+        {
+            EnsureTimerExistsWithID(id);
+            timers[id].Reset();
+        }
+
+        public virtual void StopTimerWithID(int id)
+        {
+            EnsureTimerExistsWithID(id);
+            timers[id].Stop();
+        }
+
         protected virtual void Update()
         {
             foreach (Timer timerEl in timers.Values)

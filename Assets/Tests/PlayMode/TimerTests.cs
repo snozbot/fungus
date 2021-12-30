@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 using Fungus.TimeSys;
 using TimeSpan = System.TimeSpan;
 
-namespace Fungus.Tests.TimerSystemTests
+namespace Fungus.Tests.TimeSystemTests
 {
     public class TimerTests
     {
@@ -28,12 +28,24 @@ namespace Fungus.Tests.TimerSystemTests
             MonoBehaviour.Destroy(managerGO.gameObject);
         }
 
+        protected virtual IEnumerator SetUpForCountupTimerTesting()
+        {
+            // To make sure that the test timer exists and has a clean slate
+            timerManager.SetModeOfTimerWithID(testID, TimerMode.countup);
+            timerManager.StopTimerWithID(testID);
+            timerManager.ResetTimerWithID(testID);
+            testTimer = timerManager.Timers[testID];
+            yield return null;
+        }
+
+        protected int testID = 999;
+        protected Timer testTimer;
+
         [UnityTest]
-        public IEnumerator TracksSecondsProperly()
+        public virtual IEnumerator TracksSecondsProperly()
         {
             // Arrange
-            int testID = 999;
-            timerManager.SetModeOfTimerWithID(testID, TimerMode.countup);
+            yield return SetUpForCountupTimerTesting();
             timerManager.StartTimerWithID(testID);
             
             int expectedSeconds = 2;
@@ -42,13 +54,36 @@ namespace Fungus.Tests.TimerSystemTests
             // Act
             yield return new WaitForSeconds(expectedSeconds + timeOffset);
 
-            Timer timerWeUsed = timerManager.Timers[testID];
-            TimeSpan timeRecorded = timerWeUsed.TimeRecorded;
-
+            TimeSpan timeRecorded = testTimer.TimeRecorded;
             bool success = timeRecorded.Seconds == expectedSeconds;
 
             // Assert
             Assert.IsTrue(success);
+        }
+
+
+        [UnityTest]
+        public virtual IEnumerator StopsCountupTrackingOnRequest()
+        {
+            // Arrange
+            yield return SetUpForCountupTimerTesting();
+            timerManager.StartTimerWithID(testID);
+
+            int expectedSeconds = 2;
+            float timeOffset = 0.2f; // <- To account for how imprecise WaitForSeconds can be
+
+            // Act
+            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            timerManager.StopTimerWithID(testID);
+
+            yield return new WaitForSeconds(expectedSeconds + timeOffset);
+            // ^This should be ignored by the timer
+
+            TimeSpan timeRecorded = testTimer.TimeRecorded;
+            bool success = timeRecorded.Seconds == expectedSeconds;
+
+            Assert.IsTrue(success);
+
         }
     }
 }
