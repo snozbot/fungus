@@ -105,17 +105,17 @@ namespace Fungus.TimeSys
 
         protected virtual void UpdateTimeRecorded()
         {
+            TimeSpan timeElapsedSinceLastUpdate = endDate - lastUpdate;
+
             if (timerMode == TimerMode.countdown)
             {
-                TimeSpan timeElapsedSinceLastUpdate = endDate - lastUpdate;
                 TimeRecorded = TimeRecorded.Subtract(timeElapsedSinceLastUpdate);
                 StopSelfAsNeeded();
 
             }
             else if (timerMode == TimerMode.countup)
             {
-                TimeSpan timeElapsedSinceLastStart = endDate - startDate;
-                TimeRecorded = timeElapsedSinceLastStart;
+                TimeRecorded = TimeRecorded.Add(timeElapsedSinceLastUpdate);
             }
         }
 
