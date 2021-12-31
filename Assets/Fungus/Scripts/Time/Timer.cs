@@ -158,12 +158,39 @@ namespace Fungus.TimeSys
 
         public virtual void Start()
         {
+            if (ShouldStartOnRequest())
+            {
+                ResetDates();
+                timerState = TimerState.running;
+                OnAnyTimerStart(this);
+            }
+        }
+
+        protected virtual bool ShouldStartOnRequest()
+        {
             bool alreadyRunning = timerState == TimerState.running;
             if (alreadyRunning)
-                return;
+                return false;
 
-            timerState = TimerState.running;
-            OnAnyTimerStart(this);
+            // We don't want a countdown timer to be able to start while stopped at zero, so...
+            bool isCountdownTimer = this.timerMode == TimerMode.countdown;
+            bool atCountdownEnd = isCountdownTimer && TimeRecordedIsZero();
+            if (atCountdownEnd)
+                return false;
+
+            return true;
+        }
+
+        protected virtual bool TimeRecordedIsZero()
+        {
+            return TimeRecorded.Milliseconds == 0 && TimeRecorded.Seconds == 0 &&
+                TimeRecorded.Minutes == 0 && TimeRecorded.Hours == 0 &&
+                TimeRecorded.Days == 0;
+        }
+
+        protected virtual void ResetDates()
+        {
+            startDate = endDate = lastUpdate = DateTime.Now;
         }
 
         public static System.Action<Timer> OnAnyTimerStart = delegate { };
@@ -172,7 +199,7 @@ namespace Fungus.TimeSys
 
         public virtual void Reset()
         {
-            startDate = endDate = lastUpdate = DateTime.Now;
+            ResetDates();
 
             if (timerMode == TimerMode.countdown)
                 TimeRecorded = CountdownStartingTime;
