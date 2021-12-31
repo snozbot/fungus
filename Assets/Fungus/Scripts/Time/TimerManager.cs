@@ -30,6 +30,7 @@ namespace Fungus.TimeSys
         protected virtual void CreateTimerWithID(int id)
         {
             timers[id] = new Timer();
+            timers[id].ID = id;
         }
 
         public virtual void SetModeOfTimerWithID(int id, TimerMode timerMode)
@@ -63,5 +64,6 @@ namespace Fungus.TimeSys
                 timerEl.Update();
             }
         }
+
     }
 }
