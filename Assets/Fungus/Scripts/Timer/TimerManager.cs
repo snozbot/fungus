@@ -7,6 +7,25 @@ namespace Fungus.TimeSys
 {
     public class TimerManager : MonoBehaviour
     {
+        protected virtual void Awake()
+        {
+            SetUpPlaytimeTimer();
+        }
+
+        protected virtual void SetUpPlaytimeTimer()
+        {
+            CreateTimerWithID(playtimeTimerID);
+            timers[0].TimerMode = TimerMode.countup;
+        }
+
+        protected virtual void CreateTimerWithID(int id)
+        {
+            timers[id] = new Timer();
+            timers[id].ID = id;
+        }
+
+        protected int playtimeTimerID = 0;
+
         public IReadOnlyDictionary<int, Timer> Timers
         {
             get { return timers; }
@@ -27,16 +46,24 @@ namespace Fungus.TimeSys
                 CreateTimerWithID(id);
         }
 
-        protected virtual void CreateTimerWithID(int id)
-        {
-            timers[id] = new Timer();
-            timers[id].ID = id;
-        }
-
         public virtual void SetModeOfTimerWithID(int id, TimerMode timerMode)
         {
+            bool changingPlaytimeTimerMode = id == playtimeTimerID;
+
+            if (changingPlaytimeTimerMode)
+            {
+                LetUserKnowPlaytimeTimerModeIsStatic();
+                return;
+            }
+
             EnsureTimerExistsWithID(id);
             timers[id].TimerMode = timerMode;
+        }
+
+        protected virtual void LetUserKnowPlaytimeTimerModeIsStatic()
+        {
+            string message = "Cannot change the mode of the playtime timer. That always has to be Countup.";
+            Debug.LogWarning(message);
         }
 
         public virtual void ResetTimerWithID(int id)

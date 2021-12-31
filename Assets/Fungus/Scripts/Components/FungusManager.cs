@@ -3,7 +3,6 @@
 
 using UnityEngine;
 using System.Collections;
-using Fungus.PlaytimeSys;
 using Fungus.TimeSys;
 
 namespace Fungus
