@@ -41,8 +41,8 @@ namespace Fungus.TimeSys
         protected DateTime StartDate
         {
             get { return startDate; }
-            set 
-            { 
+            set
+            {
                 startDate = value;
                 UpdateStartDateString();
             }
@@ -162,9 +162,19 @@ namespace Fungus.TimeSys
             if (alreadyRunning)
                 return;
 
+            isCallingStart = true;
             Reset();
             timerState = TimerState.running;
+            OnAnyTimerStart(this);
+            isCallingStart = false;
         }
+
+        protected bool isCallingStart = false;
+        // ^We don't want OnAnyTimerReset to execute when Reset is called by Start, hence this flag
+
+        public static System.Action<Timer> OnAnyTimerStart = delegate { };
+        public static System.Action<Timer> OnAnyTimerReset = delegate { };
+        public static System.Action<Timer> OnAnyTimerStop = delegate { };
 
         public virtual void Reset()
         {
@@ -174,6 +184,9 @@ namespace Fungus.TimeSys
                 TimeRecorded = CountdownStartingTime;
             else if (timerMode == TimerMode.countup)
                 TimeRecorded = new TimeSpan();
+
+            if (!this.isCallingStart)
+                OnAnyTimerReset(this);
         }
 
         public TimeSpan CountdownStartingTime
@@ -182,6 +195,9 @@ namespace Fungus.TimeSys
             set
             {
                 countdownStartingTime = value;
+                bool shouldSetRecordToCountdown = timerMode == TimerMode.countdown && this.timerState == TimerState.stopped;
+                if (shouldSetRecordToCountdown)
+                    TimeRecorded = countdownStartingTime;
                 UpdateCountdownStartingTimeString();
             }
         }
@@ -209,6 +225,7 @@ namespace Fungus.TimeSys
                 return;
 
             timerState = TimerState.stopped;
+            OnAnyTimerStop(this);
         }
     }
 
