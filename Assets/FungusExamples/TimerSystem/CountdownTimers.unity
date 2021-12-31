@@ -891,9 +891,9 @@ MonoBehaviour:
     width: 0
     height: 0
   selectedBlocks:
-  - {fileID: 750350750}
+  - {fileID: 750350731}
   selectedCommands:
-  - {fileID: 750350749}
+  - {fileID: 750350753}
   variables:
   - {fileID: 750350746}
   - {fileID: 750350738}
@@ -1609,7 +1609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: secondsAtStart
-  value: 3
+  value: 5
 --- !u!114 &750350757
 MonoBehaviour:
   m_ObjectHideFlags: 2
