@@ -162,15 +162,9 @@ namespace Fungus.TimeSys
             if (alreadyRunning)
                 return;
 
-            isCallingStart = true;
-            Reset();
             timerState = TimerState.running;
             OnAnyTimerStart(this);
-            isCallingStart = false;
         }
-
-        protected bool isCallingStart = false;
-        // ^We don't want OnAnyTimerReset to execute when Reset is called by Start, hence this flag
 
         public static System.Action<Timer> OnAnyTimerStart = delegate { };
         public static System.Action<Timer> OnAnyTimerReset = delegate { };
@@ -185,8 +179,7 @@ namespace Fungus.TimeSys
             else if (timerMode == TimerMode.countup)
                 TimeRecorded = new TimeSpan();
 
-            if (!this.isCallingStart)
-                OnAnyTimerReset(this);
+            OnAnyTimerReset(this);
         }
 
         public TimeSpan CountdownStartingTime
@@ -227,6 +220,7 @@ namespace Fungus.TimeSys
             timerState = TimerState.stopped;
             OnAnyTimerStop(this);
         }
+
     }
 
     public enum TimerMode
