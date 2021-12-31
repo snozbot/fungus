@@ -109,6 +109,8 @@ namespace Fungus.TimeSys
             {
                 TimeSpan timeElapsedSinceLastUpdate = endDate - lastUpdate;
                 TimeRecorded = TimeRecorded.Subtract(timeElapsedSinceLastUpdate);
+                StopSelfAsNeeded();
+
             }
             else if (timerMode == TimerMode.countup)
             {
@@ -141,6 +143,18 @@ namespace Fungus.TimeSys
         }
         [SerializeField]
         string timeRecordedString = "";
+
+        protected virtual void StopSelfAsNeeded()
+        {
+            bool timeIsNegative = TimeRecorded.TotalMilliseconds < 0;
+            bool shouldStopCountingDown = timeIsNegative;
+
+            if (shouldStopCountingDown)
+            {
+                TimeRecorded = new TimeSpan();
+                this.Stop();
+            }
+        }
 
         public virtual void Start()
         {
