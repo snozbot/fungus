@@ -19,7 +19,6 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
-    [RequireComponent(typeof(PlaytimeTracker))]
     [RequireComponent(typeof(TimerManager))]
     #endif
     public sealed class FungusManager : MonoBehaviour
@@ -41,7 +40,6 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-            PlaytimeTracker = GetComponent<PlaytimeTracker>();
             TimerManager = GetComponent<TimerManager>();
 #endif
             MainAudioMixer.Init();
@@ -96,7 +94,6 @@ namespace Fungus
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
 
-        public PlaytimeTracker PlaytimeTracker { get; private set; }
 
         public TimerManager TimerManager { get; private set; }
         
