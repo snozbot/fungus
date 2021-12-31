@@ -90,11 +90,12 @@ namespace Fungus.Tests.TimeSystemTests
             yield return WaitAndLetTimerRunFor(expectedSeconds);
             timerManager.StopTimerWithID(testID);
 
-            yield return WaitAndLetTimerRunFor(expectedSeconds);
+            yield return new WaitForSeconds(expectedSeconds);
             // ^This should be ignored by the timer
 
             TimeSpan timeRecorded = testTimer.TimeRecorded;
-            bool success = timeRecorded.Seconds == expectedSeconds;
+            float secondsRecorded = Mathf.Round((float)timeRecorded.TotalSeconds);
+            bool success = secondsRecorded == expectedSeconds;
 
             Assert.IsTrue(success);
         }
@@ -163,7 +164,7 @@ namespace Fungus.Tests.TimeSystemTests
             // Act
             yield return WaitAndLetTimerRunFor(secondsToWait);
             timerManager.StopTimerWithID(testID);
-            yield return WaitAndLetTimerRunFor(secondsToWait);
+            yield return new WaitForSeconds(secondsToWait); // <- We don't want to call Start right after stopping the timer
 
             TimeSpan timeRemaining = testTimer.TimeRecorded;
             float secondsRemaining = Mathf.Round((float)timeRemaining.TotalSeconds);
