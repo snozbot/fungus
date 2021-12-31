@@ -36,58 +36,9 @@ namespace Fungus.TimeSys
         [SerializeField]
         TimerState timerState = TimerState.stopped;
 
-        // Since DateTimes and TimeSpans can't be serialized by default, we have to maintain string versions
+        // Since TimeSpans can't be serialized by default, we have to maintain string versions
         // of these objects so that we can properly restore them right after deserializing them
-        protected DateTime StartDate
-        {
-            get { return startDate; }
-            set
-            {
-                startDate = value;
-                UpdateStartDateString();
-            }
-        }
-
-        DateTime startDate = DateTime.Now;
-
-        protected virtual void UpdateStartDateString()
-        {
-            // We need to have the date strings in the round trip format to prevent deserialization issues
-            startDateString = startDate.ToString(roundTripFormat);
-        }
-
-        public virtual string StartDateString
-        {
-            get { return startDateString; }
-        }
-
-        protected string startDateString = "";
-        protected static string roundTripFormat = "O";
-
-        protected DateTime EndDate
-        {
-            get { return endDate; }
-            set
-            {
-                endDate = value;
-                UpdateEndDateString();
-            }
-
-        }
-
-        DateTime endDate = DateTime.Now;
-
-        protected virtual void UpdateEndDateString()
-        {
-            endDateString = endDate.ToString(roundTripFormat);
-        }
-
-        public virtual string EndDateString
-        {
-            get { return endDateString; }
-        }
-        [SerializeField]
-        string endDateString = "";
+        protected DateTime endDate = DateTime.Now;
 
         public virtual void Update()
         {
@@ -190,7 +141,7 @@ namespace Fungus.TimeSys
 
         protected virtual void ResetDates()
         {
-            startDate = endDate = lastUpdate = DateTime.Now;
+            endDate = lastUpdate = DateTime.Now;
         }
 
         public static System.Action<Timer> OnAnyTimerStart = delegate { };
