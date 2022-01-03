@@ -1,7 +1,7 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -123,6 +123,8 @@ namespace Fungus
         protected int readAheadStartIndex = 0;
         public WriterAudio AttachedWriterAudio { get; set; }
 
+        private const float AutoSkipWaitLength = 3f;
+        
         protected virtual void Awake()
         {
             GameObject go = targetTextObject;
@@ -779,9 +781,29 @@ namespace Fungus
             inputFlag = false;
             isWaitingForInput = true;
 
-            while (!inputFlag && !exitFlag)
+            if (SayDialog.AutoSkip)
             {
-                yield return null;
+                float autoSkipCounter = 0f;
+                while (autoSkipCounter <= AutoSkipWaitLength)
+                {
+                    // if input is made while waiting, exit early and continue.
+                    if (inputFlag || exitFlag)
+                        break;
+             
+                    autoSkipCounter += Time.deltaTime;
+                    yield return null;
+                }         
+            }
+            else
+            {
+                while (!inputFlag && !exitFlag)
+                {
+                    // if auto skip was activated after we already started wait for input, count it as input and continue.
+                    if (SayDialog.AutoSkip)
+                        break;
+                    
+                    yield return null;
+                }
             }
         
             isWaitingForInput = false;          
