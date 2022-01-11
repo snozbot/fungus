@@ -31,7 +31,7 @@ namespace Fungus.Tests.TimeSystemTests
         protected virtual IEnumerator SetUpForCountupTimerTesting()
         {
             // To make sure that the test timer exists and has a clean slate
-            timerManager.SetModeOfTimerWithID(testID, TimerMode.countup);
+            timerManager.SetModeOfTimerWithID(testID, TimerMode.Countup);
             RegisterAndSetTestTimerToHaveCleanSlate();
             yield return null;
         }
@@ -46,6 +46,13 @@ namespace Fungus.Tests.TimeSystemTests
         protected int testID = 999;
         protected Timer testTimer;
 
+        protected virtual void FetchTestTimer()
+        {
+            // The TimerManager's Timers dict returns a copy of the actual timers dict, so we'll need to 
+            // fetch the test timer again at multiple points
+            testTimer = timerManager.Timers[testID];
+        }
+
         [UnityTest]
         public virtual IEnumerator CountsUpCorrectly()
         {
@@ -55,7 +62,7 @@ namespace Fungus.Tests.TimeSystemTests
 
             // Act
             yield return WaitAndLetTimerRunFor(expectedSeconds);
-
+            FetchTestTimer();
             TimeSpan timeRecorded = testTimer.TimeRecorded;
             float secondsCounted = Mathf.Round((float)timeRecorded.TotalSeconds);
 
@@ -92,7 +99,7 @@ namespace Fungus.Tests.TimeSystemTests
 
             yield return new WaitForSeconds(expectedSeconds);
             // ^This should be ignored by the timer
-
+            FetchTestTimer();
             TimeSpan timeRecorded = testTimer.TimeRecorded;
             float secondsRecorded = Mathf.Round((float)timeRecorded.TotalSeconds);
             bool success = secondsRecorded == expectedSeconds;
@@ -127,11 +134,12 @@ namespace Fungus.Tests.TimeSystemTests
             yield return SetUpForCountdownTimerTesting();
 
             float timeToWait = 2;
-            float expectedRemainingSeconds = countdownStartTime.Seconds - timeToWait;
+            float expectedRemainingSeconds = CountdownStartTime.Seconds - timeToWait;
 
             // Act
             yield return WaitAndLetTimerRunFor(timeToWait);
             // ^ We are negating the time offset since for some reason, the timer is more precise when counting down
+            FetchTestTimer();
             TimeSpan timeRemaining = testTimer.TimeRecorded;
             float secondsRemaining = Mathf.Round((float)timeRemaining.TotalSeconds);
 
@@ -144,13 +152,13 @@ namespace Fungus.Tests.TimeSystemTests
         protected virtual IEnumerator SetUpForCountdownTimerTesting()
         {
             // To make sure that the test timer exists and has a clean slate
-            timerManager.SetModeOfTimerWithID(testID, TimerMode.countdown);
-            timerManager.SetCountdownStartingTimeOfTimerWithID(testID, ref countdownStartTime);
+            timerManager.SetModeOfTimerWithID(testID, TimerMode.Countdown);
+            timerManager.SetCountdownStartingTimeOfTimerWithID(testID, ref CountdownStartTime);
             RegisterAndSetTestTimerToHaveCleanSlate();
             yield return null;
         }
 
-        protected TimeSpan countdownStartTime = new TimeSpan(0, 0, 5);
+        protected TimeSpan CountdownStartTime = new TimeSpan(0, 0, 5);
 
         [UnityTest]
         public virtual IEnumerator StopsCountingDownOnRequest()
@@ -159,13 +167,13 @@ namespace Fungus.Tests.TimeSystemTests
             yield return SetUpForCountdownTimerTesting();
 
             float secondsToWait = 1;
-            float expectedRemainingSeconds = countdownStartTime.Seconds - secondsToWait;
+            float expectedRemainingSeconds = CountdownStartTime.Seconds - secondsToWait;
 
             // Act
             yield return WaitAndLetTimerRunFor(secondsToWait);
             timerManager.StopTimerWithID(testID);
             yield return new WaitForSeconds(secondsToWait); // <- We don't want to call Start right after stopping the timer
-
+            FetchTestTimer();
             TimeSpan timeRemaining = testTimer.TimeRecorded;
             float secondsRemaining = Mathf.Round((float)timeRemaining.TotalSeconds);
             // ^ So we don't have to worry about the slight inaccuracies of WaitForSeconds
@@ -182,7 +190,7 @@ namespace Fungus.Tests.TimeSystemTests
             yield return SetUpForCountdownTimerTesting();
 
             float secondsToWait = 1.5f;
-            float expectedRemainingSeconds = countdownStartTime.Seconds;
+            float expectedRemainingSeconds = CountdownStartTime.Seconds;
 
             // Act
             yield return WaitAndLetTimerRunFor(secondsToWait);
@@ -201,12 +209,13 @@ namespace Fungus.Tests.TimeSystemTests
             // Arrange
             yield return SetUpForCountdownTimerTesting();
 
-            float secondsToWait = countdownStartTime.Seconds + 0.2f;
+            float secondsToWait = CountdownStartTime.Seconds + 0.2f;
             float expectedRemainingMilliseconds = 0;
 
             // Act
             yield return WaitAndLetTimerRunFor(secondsToWait);
-
+            FetchTestTimer();
+            
             TimeSpan timeRemaining = testTimer.TimeRecorded;
             float millisecondsRemaining = (float) timeRemaining.TotalMilliseconds;
 
@@ -214,5 +223,6 @@ namespace Fungus.Tests.TimeSystemTests
             bool success = millisecondsRemaining == expectedRemainingMilliseconds;
             Assert.IsTrue(success);
         }
+
     }
 }

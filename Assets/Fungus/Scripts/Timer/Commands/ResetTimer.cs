@@ -6,7 +6,7 @@
         public override void OnEnter()
         {
             base.OnEnter();
-            TimerManager.ResetTimerWithID(timerID);
+            TimerManager.ResetTimerWithID(timer.Value);
             Continue();
         }
     }

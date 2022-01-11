@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TimeSpan = System.TimeSpan;
 
 namespace Fungus.TimeSys
@@ -21,7 +19,7 @@ namespace Fungus.TimeSys
 
         protected virtual void ApplyStatsToVars()
         {
-            TimeSpan timeRecorded = timer.TimeRecorded;
+            TimeSpan timeRecorded = timerObj.TimeRecorded;
             ApplyNumericalStatsFrom(ref timeRecorded);
         }
 

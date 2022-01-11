@@ -13,7 +13,7 @@ namespace Fungus.TimeSys
         {
             base.OnEnter();
             PrepTheTime();
-            TimerManager.SetCountdownStartingTimeOfTimerWithID(timerID, ref countdownTime);
+            TimerManager.SetCountdownStartingTimeOfTimerWithID(timer.Value, ref countdownTime);
             Continue();
         }
 
@@ -23,6 +23,21 @@ namespace Fungus.TimeSys
         }
 
         protected TimeSpan countdownTime;
+
+        public override string GetSummary()
+        {
+            string summary = "";
+
+            if (TimerInputIsSet)
+            {
+                string timerName = timer.Key;
+                summary = string.Format(summaryFormat, timerName, milliseconds, seconds, minutes, hours, days);
+            }
+
+            return summary;
+        }
+
+        protected static string summaryFormat = "{0}, {1} millsec, {2} sec, {3} min, {4} hour, {5} day";
 
     }
 }

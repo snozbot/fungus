@@ -11,8 +11,23 @@ namespace Fungus.TimeSys
         public override void OnEnter()
         {
             base.OnEnter();
-            TimerManager.SetModeOfTimerWithID(timerID, timerMode);
+            TimerManager.SetModeOfTimerWithID(timer.Value, timerMode);
             Continue();
         }
+
+        public override string GetSummary()
+        {
+            string summary = "";
+
+            if (TimerInputIsSet)
+            {
+                string timerName = timer.Key;
+                summary = string.Format(summaryFormat, timerName, timerMode);
+            }
+
+            return summary;
+        }
+
+        protected static string summaryFormat = "Set {0} to {1}";
     }
 }
