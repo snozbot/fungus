@@ -35,7 +35,10 @@ namespace Fungus
         
 #if UNITY_LOCALIZATION
         
-        LocalizedString GetLocalizedString();
+        /// <summary>
+        /// Gets the LocalizedString component.
+        /// </summary>
+        LocalizedString GetLocalizedStringComponent();
         
 #endif
     }

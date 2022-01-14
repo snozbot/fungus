@@ -723,7 +723,7 @@ namespace Fungus
                         sharedEntry.Metadata.AddMetadata(new UnityEngine.Localization.Metadata.Comment {CommentText = kvp.Value.localizable.GetDescription()});
                 }
 
-                var localizedString = kvp.Value.localizable.GetLocalizedString();
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
                 localizedString.TableReference = stringTable.TableReference;
                 localizedString.TableEntryReference = kvp.Key;
                 
@@ -755,7 +755,7 @@ namespace Fungus
             
             foreach (var kvp in FindTextItems())
             {
-                var localizedString = kvp.Value.localizable.GetLocalizedString();
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
 
                 if (localizedString.IsEmpty) continue;
                 var collection = LocalizationEditorSettings.GetStringTableCollection(localizedString.TableReference);
@@ -784,7 +784,7 @@ namespace Fungus
 
             foreach (var kvp in FindTextItems())
             {
-                var localizedString = kvp.Value.localizable.GetLocalizedString();
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
 
                 if (localizedString.TableReference != stringTable.TableReference ||
                     localizedString.TableEntryReference != kvp.Key)

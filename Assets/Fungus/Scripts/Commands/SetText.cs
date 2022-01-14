@@ -127,7 +127,7 @@ namespace Fungus
         
 #if UNITY_LOCALIZATION
 
-        public LocalizedString GetLocalizedString()
+        public LocalizedString GetLocalizedStringComponent()
         {
             return localizedText;
         }
