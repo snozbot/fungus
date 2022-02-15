@@ -20,7 +20,7 @@ namespace Fungus
     public class Menu : Command, ILocalizable, IBlockCaller
     {
 #if UNITY_LOCALIZATION
-        [Tooltip("Text to display on the menu button. Ignored if textString is not empty.")]
+        [Tooltip("Text to display on the menu button. Ignored if Localized Text is not empty.")]
 #else
         [Tooltip("Text to display on the menu button")]
 #endif

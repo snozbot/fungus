@@ -164,8 +164,13 @@ namespace Fungus.EditorUtils
                 }
             }
             
+#if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(storyTextProp);
-#if UNITY_LOCALIZATION
+#else
+            string storyTextTitle = "Story Text";
+            if (!t.GetLocalizedStringComponent().IsEmpty)
+                storyTextTitle += " (IGNORED FOR LOCALIZED STORY TEXT)";
+            EditorGUILayout.PropertyField(storyTextProp, new GUIContent(storyTextTitle));
             EditorGUILayout.PropertyField(localizedStoryTextProp);
 #endif
             

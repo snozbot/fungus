@@ -46,9 +46,15 @@ namespace Fungus.EditorUtils
             
             serializedObject.Update();
             
+            Menu t = target as Menu;
+
+#if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(textProp);
-            
-#if UNITY_LOCALIZATION
+#else
+            string textTitle = "Text";
+            if (!t.GetLocalizedStringComponent().IsEmpty)
+                textTitle += " (IGNORED FOR LOCALIZED TEXT)";
+            EditorGUILayout.PropertyField(textProp, new GUIContent(textTitle, "Text to display on the menu button. Ignored if Localized Text is not empty."));
             EditorGUILayout.PropertyField(localizedTextProp);
 #endif
 
@@ -63,7 +69,6 @@ namespace Fungus.EditorUtils
             if(targetBlockProp.objectReferenceValue == null && GUILayout.Button("+",GUILayout.MaxWidth(popupWidth)))
             {
                 var fw = EditorWindow.GetWindow<FlowchartWindow>();
-                var t = (Menu)target;
                 var activeFlowchart = t.GetFlowchart();
                 var newBlock = fw.CreateBlockSuppressSelect(activeFlowchart, t.ParentBlock._NodeRect.position - Vector2.down * 60);
                 targetBlockProp.objectReferenceValue = newBlock;
