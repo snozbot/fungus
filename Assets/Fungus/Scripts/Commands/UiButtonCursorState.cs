@@ -17,7 +17,7 @@ namespace Fungus
     /// </summary>
     [CommandInfo("UI",
                 "OnMouseCursorHoverButton",
-                "Change cursor state when entering a button")]
+                "Change cursor state when entering a button. NOTE: Default Mouse Cursor is OPTIONAL for when the game already has custom cursor")]
     [AddComponentMenu("")]
     public class UiButtonCursorState : Command
     {
