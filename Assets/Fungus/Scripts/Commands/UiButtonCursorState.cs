@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public enum EnableDisable
+
+public enum UIbuttonEnableDisable
 {
     Enable,
     Disable
 }
+
 namespace Fungus
 {
     /// <summary>
@@ -22,7 +24,7 @@ namespace Fungus
         [System.Serializable]
         public class UiButtonMouseChange
         {
-            public EnableDisable enable = EnableDisable.Disable;
+            public UIbuttonEnableDisable enable = UIbuttonEnableDisable.Disable;
             public Button UiButton;
             public Texture2D mouseTexture;
             public Vector2 hotSpot = Vector2.zero;
@@ -40,7 +42,7 @@ namespace Fungus
        
         private void MouseActions(UiButtonMouseChange uis)
         {
-            if (uis != null && uis.enable == EnableDisable.Enable)
+            if (uis != null && uis.enable == UIbuttonEnableDisable.Enable)
             {
                 if (uis.mouseTexture == null)
                     return;
@@ -111,6 +113,26 @@ namespace Fungus
                         SetDefaultMouseCursor();
                 }
             }
+        }
+        public override string GetSummary()
+        {
+            string btn = string.Empty;
+            string txtr = string.Empty;
+
+            for(int i = 0; i < buttons.Length; i++)
+            {
+                if(buttons[i].enable == UIbuttonEnableDisable.Enable && buttons[i].UiButton == null)
+                {
+                    btn = "UI button slot can't be empty";
+                }
+
+                if(buttons[i].enable == UIbuttonEnableDisable.Enable && buttons[i].mouseTexture == null)
+                {
+                    txtr = "Mouse Texture can't slot can't be empty";
+                }
+            }
+
+            return btn + " : " + txtr;
         }
         public override void OnEnter()
         {
