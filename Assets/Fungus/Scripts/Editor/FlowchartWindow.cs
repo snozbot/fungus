@@ -831,6 +831,11 @@ namespace Fungus.EditorUtils
                 // Redraw on next frame to get crisp refresh rate
                 Repaint();
             }
+
+#if UNITY_2020_1_OR_NEWER
+            //Force exit gui once repainted
+            GUIUtility.ExitGUI();
+#endif
         }
 
         protected virtual void DrawOverlay(Event e)
