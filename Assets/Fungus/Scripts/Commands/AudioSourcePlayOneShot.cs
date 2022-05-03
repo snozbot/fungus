@@ -30,7 +30,14 @@ namespace Fungus
 
             if (waitUntilFinished)
             {
-                StartCoroutine(WaitForClipLength());
+                if (FungusManager.Instance.useUnscaledTime)
+                {
+                    StartCoroutine(WaitForRealtimeClipLength());
+                }
+                else
+                {
+                    StartCoroutine(WaitForClipLength());
+                }
             }
             else
             {
@@ -41,6 +48,12 @@ namespace Fungus
         protected IEnumerator WaitForClipLength()
         {
             yield return new WaitForSeconds(audioClip.Value.length);
+            Continue();
+        }
+
+        protected IEnumerator WaitForRealtimeClipLength()
+        {
+            yield return new WaitForSecondsRealtime(audioClip.Value.length);
             Continue();
         }
 

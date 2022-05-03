@@ -40,7 +40,14 @@ namespace Fungus
 
             if (waitUntilFinished)
             {
-                StartCoroutine(WaitForTransition());
+                if (FungusManager.Instance.useUnscaledTime)
+                {
+                    StartCoroutine(WaitForRealtimeTransition());
+                }
+                else
+                {
+                    StartCoroutine(WaitForTransition());
+                }
             }
             else
             {
@@ -51,6 +58,12 @@ namespace Fungus
         protected IEnumerator WaitForTransition()
         {
             yield return new WaitForSeconds(timeToTransition.Value);
+            Continue();
+        }
+
+        protected IEnumerator WaitForRealtimeTransition()
+        {
+            yield return new WaitForSecondsRealtime(timeToTransition.Value);
             Continue();
         }
 

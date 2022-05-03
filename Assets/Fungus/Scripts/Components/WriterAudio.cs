@@ -220,7 +220,13 @@ namespace Fungus
         protected virtual void Update()
         {
             if(lastUsedAudioSource != null)
-                lastUsedAudioSource.volume = Mathf.MoveTowards(lastUsedAudioSource.volume, targetVolume, Time.deltaTime * 5f);
+            {
+                lastUsedAudioSource.volume = Mathf.MoveTowards(
+                    lastUsedAudioSource.volume,
+                    targetVolume,
+                    FungusManager.Instance.deltaTime * 5f
+                );
+            }
         }
 
         #region IWriterListener implementation

@@ -24,6 +24,9 @@ namespace Fungus
         static bool applicationIsQuitting = false;
         readonly static object _lock = new object();  // The keyword "readonly" is friendly to the multi-thread.
 
+        public bool useUnscaledTime = false;
+        public float deltaTime => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
         void Awake()
         {
             if (instance == null)

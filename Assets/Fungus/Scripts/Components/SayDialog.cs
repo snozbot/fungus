@@ -211,7 +211,7 @@ namespace Fungus
             {
                 // Add a short delay before we start fading in case there's another Say command in the next frame or two.
                 // This avoids a noticeable flicker between consecutive Say commands.
-                fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - Time.deltaTime);
+                fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - FungusManager.Instance.deltaTime);
             }
 
             CanvasGroup canvasGroup = GetCanvasGroup();
@@ -221,7 +221,7 @@ namespace Fungus
             }
             else
             {
-                float delta = (1f / fadeDuration) * Time.deltaTime;
+                float delta = (1f / fadeDuration) * FungusManager.Instance.deltaTime;
                 float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
                 canvasGroup.alpha = alpha;
 

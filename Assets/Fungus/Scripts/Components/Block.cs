@@ -336,7 +336,14 @@ namespace Fungus
                 #if UNITY_EDITOR
                 if (flowchart.StepPause > 0f)
                 {
-                    yield return new WaitForSeconds(flowchart.StepPause);
+                    if (FungusManager.Instance.useUnscaledTime)
+                    {
+                        yield return new WaitForSecondsRealtime(flowchart.StepPause);
+                    }
+                    else
+                    {
+                        yield return new WaitForSeconds(flowchart.StepPause);
+                    }
                 }
                 #endif
 
