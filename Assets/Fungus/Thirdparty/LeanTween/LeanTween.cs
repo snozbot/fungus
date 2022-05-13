@@ -381,7 +381,7 @@ public class LeanTween : MonoBehaviour {
             //      Debug.Log("Time.unscaledDeltaTime:"+Time.unscaledDeltaTime);
             #endif
 
-            dtActual = Time.deltaTime;
+            dtActual = FungusManager.deltaTime;
             maxTweenReached = 0;
             finishedCnt = 0;
             // if(tweenMaxSearch>1500)

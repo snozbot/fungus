@@ -99,11 +99,11 @@ namespace Fungus
 
         protected IEnumerator ExecutePeriodically()
         {
-            yield return new WaitForSeconds(executeAfterTime);
+            yield return FungusManager.WaitForAdjustedTime(executeAfterTime);
             Execute(ExecuteMethod.AfterPeriodOfTime);
             while (repeatExecuteTime)
             {
-                yield return new WaitForSeconds(repeatEveryTime);
+                yield return FungusManager.WaitForAdjustedTime(repeatEveryTime);
                 Execute(ExecuteMethod.AfterPeriodOfTime);
             }
         }

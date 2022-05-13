@@ -255,7 +255,7 @@ namespace Fungus
             waitTimer = duration;
             while (waitTimer > 0f)
             {
-                waitTimer -= Time.deltaTime;
+                waitTimer -= FungusManager.deltaTime;
                 yield return null;
             }
 
