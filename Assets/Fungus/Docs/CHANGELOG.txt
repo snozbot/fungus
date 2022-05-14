@@ -4,6 +4,13 @@ Changelog {#changelog}
 Unreleased
 ======
 
+v3.13.8
+======
+
+## Fixed
+
+ - Fixed Editor Gui Layout error in 2021.x and up. Thanks to breadnone. 
+
 v3.13.7
 ======
 
