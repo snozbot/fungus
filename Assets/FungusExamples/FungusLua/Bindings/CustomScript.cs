@@ -19,7 +19,7 @@ public class CustomScript : MonoBehaviour
     {
         Debug.Log("Called my coroutine");
 
-        yield return new WaitForSeconds(timeToWait);
+        yield return FungusManager.WaitForAdjustedTime(timeToWait);
 
         Debug.Log("Coroutine finished");
     }

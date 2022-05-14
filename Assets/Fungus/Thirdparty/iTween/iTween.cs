@@ -4569,7 +4569,7 @@ public class iTween : MonoBehaviour{
 	
 	IEnumerator TweenDelay(){
 		delayStarted = Time.time;
-		yield return new WaitForSeconds (delay);
+		yield return FungusManager.WaitForAdjustedTime(delay);
 		if(wasPaused){
 			wasPaused=false;
 			TweenStart();	
@@ -4600,7 +4600,7 @@ public class iTween : MonoBehaviour{
 	IEnumerator TweenRestart(){
 		if(delay > 0){
 			delayStarted = Time.time;
-			yield return new WaitForSeconds (delay);
+			yield return FungusManager.WaitForAdjustedTime(delay);
 		}
 		loop=true;
 		TweenStart();
@@ -4701,7 +4701,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector3 Vector3Update(Vector3 currentValue, Vector3 targetValue, float speed){
 		Vector3 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * FungusManager.deltaTime;
 		return (currentValue);
 	}
 	
@@ -4722,7 +4722,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector2 Vector2Update(Vector2 currentValue, Vector2 targetValue, float speed){
 		Vector2 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * FungusManager.deltaTime;
 		return (currentValue);
 	}
 	
@@ -4743,7 +4743,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static float FloatUpdate(float currentValue, float targetValue, float speed){
 		float diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * FungusManager.deltaTime;
 		return (currentValue);
 	}
 	
@@ -6929,7 +6929,7 @@ public class iTween : MonoBehaviour{
 	        }
 	        else
 	        {
-	            runningTime += Time.deltaTime;
+	            runningTime += FungusManager.deltaTime;
 	        }
 	
 			if(reverse){

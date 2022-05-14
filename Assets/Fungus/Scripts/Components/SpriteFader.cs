@@ -31,7 +31,7 @@ namespace Fungus
 
         protected virtual void Update() 
         {
-            fadeTimer += Time.deltaTime;
+            fadeTimer += FungusManager.deltaTime;
             if (fadeTimer > fadeDuration)
             {
                 // Snap to final values

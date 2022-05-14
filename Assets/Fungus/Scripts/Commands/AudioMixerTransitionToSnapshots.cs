@@ -50,7 +50,7 @@ namespace Fungus
 
         protected IEnumerator WaitForTransition()
         {
-            yield return new WaitForSeconds(timeToTransition.Value);
+            yield return FungusManager.WaitForAdjustedTime(timeToTransition.Value);
             Continue();
         }
 
