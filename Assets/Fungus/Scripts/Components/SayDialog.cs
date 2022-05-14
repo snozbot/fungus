@@ -71,6 +71,8 @@ namespace Fungus
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
         [SerializeField] protected bool fitTextWithImage = true;
 
+        [SerializeField] protected GameObject autoSkipGO;
+
         [Tooltip("Close any other open Say Dialogs when this one is active")]
         [SerializeField] protected bool closeOtherDialogs;
 
@@ -89,6 +91,8 @@ namespace Fungus
 
         // Most recent speaking character
         protected static Character speakingCharacter;
+        
+        public static bool AutoSkip { get; private set; }
 
         protected StringSubstituter stringSubstituter = new StringSubstituter();
 
@@ -184,6 +188,15 @@ namespace Fungus
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
+        }
+
+        protected virtual void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+                AutoSkip = !AutoSkip;
+            
+            if (autoSkipGO)
+                autoSkipGO.SetActive(AutoSkip);
         }
 
         protected virtual void LateUpdate()
