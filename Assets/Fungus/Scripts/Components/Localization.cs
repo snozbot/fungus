@@ -26,7 +26,11 @@ namespace Fungus
     /// <summary>
     /// Multi-language localization support.
     /// </summary>
+#if !UNITY_LOCALIZATION
     public class Localization : MonoBehaviour, ISubstitutionHandler
+#else // !UNITY_LOCALIZATION
+    public class Localization : MonoBehaviour
+#endif // UNITY_LOCALIZATION
     {
         protected bool initialized;
         
@@ -50,7 +54,7 @@ namespace Fungus
             public ILocalizable localizable;
         }
         
-#endif // UNITY_LOCALIZATION
+#endif // UNITY_5_4_OR_NEWER
         
 #if !UNITY_LOCALIZATION
         /// <summary>
@@ -74,35 +78,31 @@ namespace Fungus
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
         #if UNITY_5_4_OR_NEWER
-        #else
+        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
+        {
+            LevelWasLoaded();
+        }
+        #else // UNITY_5_4_OR_NEWER
         public virtual void OnLevelWasLoaded(int level) 
         {
             LevelWasLoaded();
         }
-        #endif
+        #endif // !UNITY_5_4_OR_NEWER
 
         protected virtual void LevelWasLoaded()
         {
-            #if !UNITY_LOCALIZATION
             // Check if a language has been selected using the Set Language command in a previous scene.
             if (SetLanguage.mostRecentLanguage != "")
             {
                 // This language will be used when Start() is called
                 activeLanguage = SetLanguage.mostRecentLanguage;
             }
-            #endif
         }
-
-        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-        {
-            LevelWasLoaded();
-        }
-#endif // !UNITY_LOCALIZATION
-
+        
         protected virtual void OnEnable()
         {
             StringSubstituter.RegisterHandler(this);
-            #if UNITY_5_4_OR_NEWER && !UNITY_LOCALIZATION
+            #if UNITY_5_4_OR_NEWER
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             #endif
         }
@@ -110,10 +110,11 @@ namespace Fungus
         protected virtual void OnDisable()
         {
             StringSubstituter.UnregisterHandler(this);
-            #if UNITY_5_4_OR_NEWER && !UNITY_LOCALIZATION
+            #if UNITY_5_4_OR_NEWER
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             #endif
         }
+#endif // !UNITY_LOCALIZATION
 
         protected virtual void Start()
         {
@@ -650,21 +651,6 @@ namespace Fungus
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
 #else // !UNITY_LOCALIZATION
-        /// <summary>
-        /// Looks up the specified string in the localized string table.
-        /// For this to work, a localization table and active language must have been set previously.
-        /// Return null if the string is not found.
-        /// </summary>
-        public string GetLocalizedString(string stringId)
-        {
-            if (stringTable.IsEmpty) return null;
-            
-            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
-            var table = collection.GetTable(LocalizationSettings.SelectedLocale.Identifier) as StringTable;
-            if (table == null) return null;
-
-            return collection.SharedData.Contains(stringId) ? table.GetEntry(stringId).GetLocalizedString() : null;
-        }
 
         public void ExportData()
         {
@@ -832,6 +818,7 @@ namespace Fungus
         
         #endregion
 
+#if !UNITY_LOCALIZATION
         #region StringSubstituter.ISubstitutionHandler imlpementation
 
         public virtual bool SubstituteStrings(StringBuilder input)
@@ -852,11 +839,7 @@ namespace Fungus
                 Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
                 // Next look for matching localized string
-#if UNITY_LOCALIZATION
                 string localizedString = GetLocalizedString(key);
-#else // UNITY_LOCALIZATION
-                string localizedString = Localization.GetLocalizedString(key);
-#endif // !UNITY_LOCALIZATION
                 if (localizedString != null)
                 {
                     input.Replace(match.Value, localizedString);
@@ -868,5 +851,6 @@ namespace Fungus
         }
         
         #endregion
+#endif // !UNITY_LOCALIZATION
     }
 }
