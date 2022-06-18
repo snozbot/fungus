@@ -55,5 +55,20 @@ namespace Fungus
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        public override void VisitEncode(ISaveDataItemStringPairVisitor visitor)
+        {
+            visitor.AddToVisitorPairs(GetLocationIdentifier(), seed.ToString());
+            base.VisitEncode(visitor);
+        }
+
+        public override void VisitDecode(ISaveDataItemStringPairVisitor visitor)
+        {
+            string sVal;
+            if(visitor.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
+                int.TryParse(sVal, out seed);
+            
+            base.VisitDecode(visitor);
+        }
     }
 }

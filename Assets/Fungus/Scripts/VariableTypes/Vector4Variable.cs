@@ -53,6 +53,22 @@ namespace Fungus
                 break;
             }
         }
+
+        public override bool IsSerializable { get { return true; } }
+
+        public override string GetStringifiedValue()
+        {
+            return StringifyFloatArray(new float[] { Value.x, Value.y, Value.z, Value.w });
+        }
+
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
+        {
+            var fs = FloatArrayFromString(stringifiedValue);
+            if (fs.Length != 4)
+                throw new System.Exception("Incorrect param count for Vector4Variable.");
+
+            Value = new Vector4(fs[0], fs[1], fs[2], fs[3]);
+        }
     }
 
     /// <summary>

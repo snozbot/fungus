@@ -32,6 +32,11 @@ namespace Fungus
 
         public PortraitOptions(bool useDefaultSettings = true)
         {
+            Reset(useDefaultSettings);
+        }
+
+        public void Reset(bool useDefaultSettings)
+        {
             character = null;
             replacedCharacter = null;
             portrait = null;

@@ -64,11 +64,7 @@ namespace Fungus
 
             var cameraManager = FungusManager.Instance.CameraManager;
 
-            Vector3 targetPosition = targetView.transform.position;
-            Quaternion targetRotation = targetView.transform.rotation;
-            float targetSize = targetView.ViewSize;
-
-            cameraManager.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
+            cameraManager.PanToView(targetCamera, targetView, duration, delegate {
                 if (waitUntilFinished)
                 {
                     Continue();

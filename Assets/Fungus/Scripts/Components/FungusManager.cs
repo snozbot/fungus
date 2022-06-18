@@ -2,55 +2,61 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
     /// <summary>
     /// Fungus manager singleton. Manages access to all Fungus singletons in a consistent manner.
     /// </summary>
+    [RequireComponent(typeof(UserProfileManagerComponent))]
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
     [RequireComponent(typeof(GlobalVariables))]
     [RequireComponent(typeof(MainAudioMixer))]
-#if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
-    #endif
     public sealed class FungusManager : MonoBehaviour
     {
-        volatile static FungusManager instance;  // The keyword "volatile" is friendly to the multi-thread.
-        static bool applicationIsQuitting = false;
-        readonly static object _lock = new object();  // The keyword "readonly" is friendly to the multi-thread.
+        private static volatile FungusManager instance;  // The keyword "volatile" is friendly to the multi-thread.
+        private static bool applicationIsQuitting = false;
+        private static readonly object _lock = new object();  // The keyword "readonly" is friendly to the multi-thread.
 
-        void Awake()
+        private void Awake()
         {
             if (instance == null)
                 instance = this;
 
+            UserProfileManager = GetComponent<UserProfileManagerComponent>();
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
             GlobalVariables = GetComponent<GlobalVariables>();
             MainAudioMixer = GetComponent<MainAudioMixer>();
-#if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-#endif
+
+            SaveManager.SaveFileManager.Init(UserProfileManager.UserProfileManager);
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
+
             MainAudioMixer.Init();
             MusicManager.Init();
+        }
+
+        private void SaveManagerSignals_OnSaveReset()
+        {
+            TextVariationHandler.ClearHistory();
         }
 
         /// <summary>
         /// When Unity quits, it destroys objects in a random order.
         /// In principle, a Singleton is only destroyed when application quits.
-        /// If any script calls Instance after it have been destroyed, 
+        /// If any script calls Instance after it have been destroyed,
         ///   it will create a buggy ghost object that will stay on the Editor scene
         ///   even after stopping playing the Application. Really bad!
         /// So, this was made to be sure we're not creating that buggy ghost object.
         /// </summary>
-        void OnDestroy () 
+        private void OnDestroy()
         {
             applicationIsQuitting = true;
         }
@@ -79,18 +85,17 @@ namespace Fungus
 
         public MainAudioMixer MainAudioMixer { get; private set; }
 
-#if UNITY_5_3_OR_NEWER
         /// <summary>
         /// Gets the save manager singleton instance.
         /// </summary>
         public SaveManager SaveManager { get; private set; }
-        
+
         /// <summary>
         /// Gets the history manager singleton instance.
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
-        
-        #endif
+
+        public UserProfileManagerComponent UserProfileManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.
@@ -99,7 +104,7 @@ namespace Fungus
         {
             get
             {
-                if (applicationIsQuitting) 
+                if (applicationIsQuitting)
                 {
                     Debug.LogWarning("FungusManager.Instance() was called while application is quitting. Returning null instead.");
                     return null;
@@ -114,17 +119,22 @@ namespace Fungus
                         {
                             var go = new GameObject();
                             go.name = "FungusManager";
-                            DontDestroyOnLoad(go);
+                            if (Application.isPlaying)
+                                DontDestroyOnLoad(go);
                             instance = go.AddComponent<FungusManager>();
                         }
-
                     }
                 }
-                
+
                 return instance;
             }
         }
 
-        #endregion
+        public static void ForceApplicationQuitting(bool b)
+        {
+            applicationIsQuitting = b;
+        }
+
+        #endregion Public methods
     }
 }

@@ -123,6 +123,11 @@ namespace Fungus
                     }
                 }
 
+                if(GUILayout.Button("Open save file directory"))
+                {
+                    Application.OpenURL(FungusConstants.StorageDirectory);
+                }
+
                 // Save the preferences
                 if (GUI.changed)
                 {

@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Fungus.BaseVariableProperty;
 
 namespace Fungus
 {
@@ -16,12 +17,8 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Vector3Fields : Command
     {
-        public enum GetSet
-        {
-            Get,
-            Set,
-        }
-        public GetSet getOrSet = GetSet.Get;
+        [SerializeField]
+        protected GetSet getOrSet = GetSet.Get;
 
         [SerializeField]
         protected Vector3Data vec3;

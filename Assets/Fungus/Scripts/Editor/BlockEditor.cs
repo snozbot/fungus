@@ -156,7 +156,10 @@ namespace Fungus.EditorUtils
 
                 SerializedProperty suppressProp = serializedObject.FindProperty("suppressAllAutoSelections");
                 EditorGUILayout.PropertyField(suppressProp);
-                
+
+                SerializedProperty saveAllowedProp = serializedObject.FindProperty("isSavingAllowed");
+                EditorGUILayout.PropertyField(saveAllowedProp);
+
                 EditorGUI.indentLevel++;
                 if (callersFoldout = EditorGUILayout.Foldout(callersFoldout, "Callers"))
                 {

@@ -158,7 +158,7 @@ namespace Fungus
             OnExit();
             if (ParentBlock != null)
             {
-                ParentBlock.JumpToCommandIndex = nextCommandIndex;
+                ParentBlock.SetJumpToCommandIndex(nextCommandIndex);
             }
         }
 
@@ -194,6 +194,24 @@ namespace Fungus
         /// </summary>
         public virtual void OnCommandRemoved(Block parentBlock)
         {}
+
+        /// <summary>
+        /// Optional method for child classes to add additional data to a save via flowchartData.AddToVisitorPairs.
+        /// To be used if the child command has mutable state that it needs restored, in VisitDecode.
+        /// </summary>
+        /// <param name="visitor"></param>
+        public virtual void VisitEncode(ISaveDataItemStringPairVisitor visitor)
+        {
+        }
+
+        /// <summary>
+        /// Optional method for child classes to restore previously saved data from a save that is being loaded, via
+        /// flowchartData.TryGetVisitorValueByKey restoring internal state from previously saved values.
+        /// </summary>
+        /// <param name="flowchartData"></param>
+        public virtual void VisitDecode(ISaveDataItemStringPairVisitor visitor)
+        {
+        }
 
         /// <summary>
         /// Called when this command starts execution.
@@ -279,6 +297,16 @@ namespace Fungus
         /// Return true if this command closes a block of commands. Used for indenting commands.
         /// </summary>
         public virtual bool CloseBlock()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Only used when the command is the active command of the block and a save of the block has been requested.
+        /// Allows the command to prevent saving of the block if doing so would be problematic or otherwise undesirable.
+        /// </summary>
+        /// <returns>true if you wish to make your command prevent saving of the block containing it</returns>
+        public virtual bool GetPreventBlockSave()
         {
             return false;
         }

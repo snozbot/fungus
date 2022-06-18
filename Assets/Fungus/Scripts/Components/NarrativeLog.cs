@@ -56,7 +56,12 @@ namespace Fungus
         }
 
 
-        NarrativeData history;
+        protected NarrativeData history;
+
+        public List<NarrativeLogEntry> GetAllNarrativeLogItems()
+        {
+            return history.entries;
+        }
 
         protected virtual void Awake()
         {
@@ -67,11 +72,19 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             WriterSignals.OnWriterState += OnWriterState;
+            //we don't need to do so on load as the NarLogSaveData will do that
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
         }
 
         protected virtual void OnDisable()
         {
             WriterSignals.OnWriterState -= OnWriterState;
+            SaveManagerSignals.OnSaveReset -= SaveManagerSignals_OnSaveReset;
+        }
+
+        private void SaveManagerSignals_OnSaveReset()
+        {
+            Clear();
         }
 
         protected virtual void OnWriterState(Writer writer, WriterState writerState)
@@ -115,16 +128,6 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Convert history into Json for saving in SaveData
-        /// </summary>
-        /// <returns></returns>
-        public string GetJsonHistory()
-        {
-            string jsonText = JsonUtility.ToJson(history, true);
-            return jsonText;
-        }
-
-        /// <summary>
         /// Show previous lines for display purposes
         /// </summary>
         /// <returns></returns>
@@ -147,14 +150,9 @@ namespace Fungus
         /// Load History from Json
         /// </summary>
         /// <param name="narrativeData"></param>
-        public void LoadHistory(string narrativeData)
+        public void LoadHistory(List<NarrativeLogEntry> entries)
         {
-            if (narrativeData == null)
-            {
-                Debug.LogError("Failed to decode History save data item");
-                return;
-            }
-            history = JsonUtility.FromJson<NarrativeData>(narrativeData);
+            history.entries = entries;
 
             DoNarrativeCleared();
         }

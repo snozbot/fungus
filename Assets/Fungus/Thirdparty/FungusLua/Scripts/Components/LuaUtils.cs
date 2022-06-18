@@ -202,6 +202,9 @@ namespace Fungus
             fungusTable["luaenvironment"] = luaEnvironment;
             fungusTable["luautils"] = this;
 
+
+            fungusTable["savemanager"] = UserData.Create(FungusManager.Instance.SaveManager);
+
             // Provide access to the Unity Test Tools (if available).
             Type testType = Type.GetType("IntegrationTest");
             if (testType != null)
@@ -283,6 +286,18 @@ namespace Fungus
         }
 
         #region Public members
+
+        public virtual string UserProfile
+        {
+            get
+            {
+                return FungusManager.Instance.UserProfileManager.CurrentUserProfileName;
+            }
+            set
+            {
+                FungusManager.Instance.UserProfileManager.ChangeProfile(value);
+            }
+        }
 
         /// <summary>
         /// The currently selected language in the string table. Affects variable substitution.

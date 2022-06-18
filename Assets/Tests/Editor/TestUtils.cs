@@ -15,7 +15,10 @@ namespace Fungus.EditorUtils
         /// <param name="runBlocksManually">if true will run blocks in sequence until all are complete</param>
         /// <param name="maxFramesToComplete">max frames for the test to be allowed to run, will assert if it runs beyond this limit</param>
         /// <returns></returns>
-        static public System.Collections.IEnumerator RunPrefabFlowchartTests(string prefabTestName, bool runBlocksManually = true, int maxFramesToComplete = 1000)
+        static public System.Collections.IEnumerator RunPrefabFlowchartTests(
+            string prefabTestName, 
+            bool runBlocksManually = true, 
+            int maxFramesToComplete = 60)
         {
             var resPrefab = UnityEngine.Resources.Load<UnityEngine.GameObject>(prefabTestName);
             Assert.IsNotNull(resPrefab);
@@ -26,9 +29,11 @@ namespace Fungus.EditorUtils
             yield return null;
             yield return null;
 
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
             var f = resTest.GetComponent<Flowchart>();
+            if(f == null)
+            {
+                f = resTest.GetComponentInChildren<Flowchart>();
+            }
             Assert.IsNotNull(f);
 
             int frame = 3;

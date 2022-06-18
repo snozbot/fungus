@@ -14,10 +14,6 @@ namespace Fungus
     /// a fungus icon infront of all GOs that have a flowchart on them
     /// 
     /// Reference; http://answers.unity3d.com/questions/431952/how-to-show-an-icon-in-hierarchy-view.html
-    /// 
-    /// TODO
-    /// There is what appears like a bug but is currently out of our control. When Unity reloads the built scripts it fires
-    /// InitializeOnLoad but doesn't then fire HierarchyChanged so icons disappear until a change occurs
     /// </summary>
     [InitializeOnLoad]
     public class HierarchyIcons

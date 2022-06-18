@@ -9,29 +9,103 @@ namespace Fungus
     /// </summary>
     public static class SaveManagerSignals
     {
-        #region Public members
+        /// <summary>
+        /// ProgressMarker reached.
+        /// </summary>
+        public static event ProgressMarkerChangedHandler OnProgressMarkerReached;
+
+        public delegate void ProgressMarkerChangedHandler(ProgressMarker was, ProgressMarker now);
+
+        public static void DoProgressMarkerReached(ProgressMarker was, ProgressMarker now)
+        {
+            if (OnProgressMarkerReached != null) OnProgressMarkerReached(was, now);
+        }
 
         /// <summary>
-        /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
+        /// OnSavePrepare signal. Sent when a new save is requested, allowing others to make preparations before being
+        /// serialised.
         /// </summary>
-        public static event SavePointLoadedHandler OnSavePointLoaded;
-        public delegate void SavePointLoadedHandler(string savePointKey);
-        public static void DoSavePointLoaded(string savePointKey) { if (OnSavePointLoaded != null) OnSavePointLoaded(savePointKey); }
+        public static event SaveNameDescriptionHandler OnSavePrepare;
+
+        public delegate void SaveNameDescriptionHandler(string saveName, string saveDescription);
+
+        public static void DoSavePrepare(string savePointKey, string savePointDescription)
+        {
+            if (OnSavePrepare != null) OnSavePrepare(savePointKey, savePointDescription);
+        }
 
         /// <summary>
         /// SavePointAdded signal. Sent when a new save point is added to the save history (typically via the Save Point command).
         /// </summary>
-        public static event SavePointAddedHandler OnSavePointAdded;
-        public delegate void SavePointAddedHandler(string savePointKey, string savePointDescription);
-        public static void DoSavePointAdded(string savePointKey, string savePointDescription) { if (OnSavePointAdded != null) OnSavePointAdded(savePointKey, savePointDescription); }
+        public static event SaveNameDescriptionHandler OnSaveSaved;
+
+        public static void DoSaveSaved(string savePointKey, string savePointDescription)
+        {
+            if (OnSaveSaved != null) OnSaveSaved(savePointKey, savePointDescription);
+        }
 
         /// <summary>
-        /// SaveReset signal. Sent when the save history is reset.
+        /// SavePointLoaded signal. Sent just before a SavePoint is loaded, before the scene is switched.
         /// </summary>
-        public static event SaveResetHandler OnSaveReset;
-        public delegate void SaveResetHandler();
-        public static void DoSaveReset() { if (OnSaveReset != null) OnSaveReset(); }
+        public static event SaveNameHandler OnSavePreLoad;
 
-        #endregion
+        public delegate void SaveNameHandler(string savePointKey);
+
+        public static void DoSavePreLoad(string savePointKey)
+        {
+            if (OnSavePreLoad != null) OnSavePreLoad(savePointKey);
+        }
+
+        /// <summary>
+        /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
+        /// </summary>
+        public static event SaveNameHandler OnSaveLoaded;
+
+        public static void DoSaveLoaded(string savePointKey)
+        {
+            if (OnSaveLoaded != null) OnSaveLoaded(savePointKey);
+        }
+
+        /// <summary>
+        /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
+        /// </summary>
+        public static event SaveNameHandler OnSaveDeleted;
+
+        public static void DoSaveDeleted(string savePointKey)
+        {
+            if (OnSaveDeleted != null) OnSaveDeleted(savePointKey);
+        }
+
+        /// <summary>
+        /// SaveReset signal. Sent when the saves for the current profile are removed or progress reset or profile changed.
+        /// </summary>
+        /// </summary>
+        public static event System.Action OnSaveReset;
+
+        public static void DoSaveReset()
+        {
+            if (OnSaveReset != null) OnSaveReset();
+        }
+
+        /// <summary>
+        /// Saving or Loading allowed changed signal.
+        /// </summary>
+        public static event System.Action OnSavingLoadingAllowedChanged;
+
+        public static void DoSavingLoadingAllowedChanged()
+        {
+            if (OnSavingLoadingAllowedChanged != null) OnSavingLoadingAllowedChanged();
+        }
+
+        /// <summary>
+        /// Save manager will cause a dump and refresh of all metas when changing profiles and the like,
+        /// subscription here allows for others to respond when such a flush and refresh occurs.
+        /// </summary>
+        public static event System.Action OnSaveMetasRefreshed;
+
+        public static void DoSaveMetasRefreshed()
+        {
+            if (OnSaveMetasRefreshed != null) OnSaveMetasRefreshed();
+        }
     }
 }

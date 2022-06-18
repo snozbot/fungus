@@ -1,6 +1,9 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 namespace Fungus
@@ -59,6 +62,7 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variables.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class VariableInfoAttribute : System.Attribute
     {
         //Note do not use "isPreviewedOnly:true", it causes the script to fail to load without errors shown
@@ -79,6 +83,7 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variable properties.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class VariablePropertyAttribute : PropertyAttribute 
     {
         public VariablePropertyAttribute (params System.Type[] variableTypes) 
@@ -108,7 +113,7 @@ namespace Fungus
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
     [System.Serializable]
-    public abstract class Variable : MonoBehaviour
+    public abstract class Variable : MonoBehaviour, IStringSerializable
     {
         [SerializeField] protected VariableScope scope;
 
@@ -173,6 +178,24 @@ namespace Fungus
         {
             return GetComponent<Flowchart>();
         }
+        
+        /// <summary>
+        /// Determines if this variable is able to be serialised, requires then that it implements
+        /// GetValueAsJson & SetValueFromJson for round tripping data. If retruns false, the variable 
+        /// is ignored by the saving system.
+        /// </summary>
+        public virtual bool IsSerializable { get { return false; } }
+
+        /// <summary>
+        /// Return a stringified form of the variables value, will be stored by save system within the a FlowchartData.
+        /// </summary>
+        public virtual string GetStringifiedValue() { throw new System.NotImplementedException(); }
+
+        /// <summary>
+        /// Restore a value from a previously serialised form from GetValueAsJson. Called by save system.
+        /// </summary>
+        public virtual void RestoreFromStringifiedValue(string stringifiedValue) { throw new System.NotImplementedException(); }
+
         #endregion
     }
 
@@ -334,6 +357,61 @@ namespace Fungus
         public override bool IsArithmeticSupported(SetOperator setOperator)
         {
             return setOperator == SetOperator.Assign || base.IsArithmeticSupported(setOperator);
+        }
+
+        public override bool IsSerializable
+        {
+            get
+            {
+                //unity objects are not serialisable or at least not safe to so we default to them being false
+                return !typeof(T).IsSubclassOf(typeof(UnityEngine.Object));
+            }
+        }
+
+        /// <summary>
+        /// Helper object for simplifying value serialisation to json.
+        /// 
+        /// Not a good solution, but prevents most variables and users from defining a to and from string
+        /// parsing mechanism for each variable type that wishes to serialise.
+        /// </summary>
+        [System.Serializable]
+        private struct SerialisationPod
+        {
+            public T value;
+        }
+
+        public override string GetStringifiedValue()
+        {
+            var tmp = new SerialisationPod() { value = Value };
+            return JsonUtility.ToJson(tmp);
+        }
+
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
+        {
+            SerialisationPod tmp = JsonUtility.FromJson<SerialisationPod>(stringifiedValue);
+            Value = tmp.value;
+        }
+
+        /// <summary>
+        /// Helper for stringifying collections of floats, such found in colors, vectors, and the like.
+        /// </summary>
+        public static string StringifyFloatArray(float[] fs)
+        {
+            return string.Join(",", fs.Select(x => x.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        /// <summary>
+        /// Helper for restoring a collection floats from the previously stringified version from StringifyFloatArray.
+        /// </summary>
+        public static float[] FloatArrayFromString(string s)
+        {
+            var fstrings = s.Split(',');
+            var retVal = new float[fstrings.Length];
+            for (int i = 0; i < fstrings.Length; i++)
+            {
+                retVal[i] = float.Parse(fstrings[i]);
+            }
+            return retVal;
         }
     }
 }

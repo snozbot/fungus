@@ -81,6 +81,20 @@ function M.runwait(enumerator)
 end
 
 ---------------
+-- User Profile
+---------------
+
+-- Change User Profile
+function M.changeprofile(profilename)
+    M.luautils.UserProfile = profilename
+end
+
+-- Get current User Profile name
+function M.getuserprofile(key)
+    return M.luautils.UserProfile
+end
+
+---------------
 -- String table
 ---------------
 

@@ -40,6 +40,8 @@ namespace Fungus
 
         public override int Count { get { return collection.Count; } }
 
+        public override bool IsSerializable => typeof(T).IsValueType;
+
         public override int Add(object o)
         {
             var t = Promote(o);
@@ -447,6 +449,25 @@ namespace Fungus
 
             Debug.LogError("Collection cannot promote " + col.GetType().Name + " to " + this.GetType().Name);
             return null;
+        }
+
+
+        [System.Serializable]
+        private struct SerialisationPod
+        {
+            public System.Collections.Generic.List<T> value;
+        }
+
+        public override string GetStringifiedValue()
+        {
+            var tmp = new SerialisationPod() { value = collection };
+            return JsonUtility.ToJson(tmp);
+        }
+
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
+        {
+            SerialisationPod tmp = JsonUtility.FromJson<SerialisationPod>(stringifiedValue);
+            collection = tmp.value;
         }
     }
 }

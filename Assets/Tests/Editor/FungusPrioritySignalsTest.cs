@@ -10,6 +10,12 @@ namespace Fungus.Tests
     {
         private int changeCallCount, startCallCount, endCallCount;
 
+        [OneTimeSetUp]
+        public void Reset()
+        {
+            FungusPrioritySignals.DoResetPriority();
+        }
+
         [Test]
         public void CountsAndSignals()
         {
