@@ -19,7 +19,8 @@ namespace Fungus
 
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
-
+        [Tooltip("Un-Dim portraits when a there's a speaking character with no portrait on screen")]
+        [SerializeField] protected bool thirdPersonDim;
         [Tooltip("Choose a dimColor")]
         [SerializeField] protected Color dimColor =new Color(0.5f, 0.5f, 0.5f, 1f);
 
@@ -98,6 +99,11 @@ namespace Fungus
         /// Dim portraits when a character is not speaking.
         /// </summary>
         public virtual bool DimPortraits { get { return dimPortraits; } set { dimPortraits = value; } }
+        
+        /// <summary>
+        /// UnDim portraits when 3rd person is speaking.
+        /// </summary>
+        public virtual bool ThirdPersonDim { get { return thirdPersonDim; } set { thirdPersonDim = value; } }
 
         /// <summary>
         /// Choose a dimColor.
