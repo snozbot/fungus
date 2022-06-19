@@ -90,7 +90,35 @@ namespace Fungus.EditorUtils
             {
                 EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
             }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
 
+            GUILayout.Space(10);
+
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (flowchart.locked)
+            {
+                if (GUILayout.Button(new GUIContent("Unlock Flowchart", "Unlocks the flowchart, allowing it to be edited.")))
+                {
+                    flowchart.locked = false;
+                    Undo.RecordObject(flowchart, "Unlock Flowchart " + flowchart.name);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                    EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+                }
+            }
+            else
+            {
+                if (GUILayout.Button(new GUIContent("Lock Flowchart", "Locks the flowchart, preventing it from being edited.")))
+                {
+                    flowchart.locked = true;
+                    Undo.RecordObject(flowchart, "Lock Flowchart " + flowchart.name);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                    EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+                }
+            }
+
+            CommandListAdaptor.lockCommandList = flowchart.locked; // pass to commandlist so it can repaint
 
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();

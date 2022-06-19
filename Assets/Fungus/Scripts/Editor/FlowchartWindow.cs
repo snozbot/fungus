@@ -836,6 +836,19 @@ namespace Fungus.EditorUtils
             GUIUtility.ExitGUI();
         }
 
+        public static void RepaintInspector(System.Type t)
+        {
+            Editor[] ed = (Editor[])Resources.FindObjectsOfTypeAll<Editor>();
+            for (int i = 0; i < ed.Length; i++)
+            {
+                if (ed[i].GetType() == t)
+                {
+                    ed[i].Repaint();
+                    return;
+                }
+            }
+        }
+
         protected virtual void DrawOverlay(Event e)
         {
             // Main toolbar group
@@ -843,6 +856,7 @@ namespace Fungus.EditorUtils
             {
                 GUILayout.Space(2);
 
+                GUI.enabled = !flowchart.locked; //disable add button if locked
                 // Draw add block button
                 if (GUILayout.Button(addButtonContent, EditorStyles.toolbarButton))
                 {
@@ -853,7 +867,22 @@ namespace Fungus.EditorUtils
                     CreateBlock(flowchart, newNodePosition);
                     UpdateBlockCollection();
                 }
+                GUI.enabled = true; //reset
 
+                GUILayout.Label("", EditorStyles.toolbarButton, GUILayout.Width(8)); // Separator
+
+                Color defaultColour = GUI.color;
+                GUI.color = flowchart.locked ? Color.yellow : defaultColour; // if locked, make lock icon yellow. Normal colour otherwise
+
+                if(GUILayout.Button(EditorGUIUtility.FindTexture("d_AssemblyLock"), EditorStyles.toolbarButton))
+                {
+                    flowchart.locked = !flowchart.locked; //invert
+                    CommandListAdaptor.lockCommandList = flowchart.locked; //pass to command list
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                    Repaint();
+                }
+
+                GUI.color = defaultColour;
                 GUILayout.Label("", EditorStyles.toolbarButton, GUILayout.Width(8)); // Separator
 
                 // Draw scale bar and labels
@@ -1169,6 +1198,9 @@ namespace Fungus.EditorUtils
             switch (e.button)
             {
             case MouseButton.Left:
+
+                if (flowchart.locked) break; //if locked, disable left click
+
                 // Block dragging
                 if (dragBlock != null)
                 {
@@ -1228,6 +1260,7 @@ namespace Fungus.EditorUtils
                 break;
 
             case MouseButton.Right:
+
                 if (Vector2.Distance(rightClickDown, e.mousePosition) > RightClickTolerance)
                 {
                     rightClickDown = -Vector2.one;
@@ -1333,6 +1366,8 @@ namespace Fungus.EditorUtils
                 {
                     var menu = new GenericMenu();
                     var mousePosition = rightClickDown;
+
+                    if (flowchart.locked) break; //if locked, disable context menu
 
                     // Clicked on a block
                     if (hitBlock != null)
@@ -2088,6 +2123,8 @@ namespace Fungus.EditorUtils
             }
 
             graphics.tint = (block.UseCustomTint ? block.Tint : defaultTint) * FungusEditorPreferences.flowchatBlockTint;
+
+            if (flowchart.locked) graphics.tint.a = 0.75f; //if locked, grey blocks (makes it easier to notice the flowchart's locked
 
             return graphics;
         }

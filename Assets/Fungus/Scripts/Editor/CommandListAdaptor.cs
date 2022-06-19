@@ -11,14 +11,18 @@ namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor
     {
+        public static bool lockCommandList = false;
+      
         /// <summary>
         /// If true, scrolls to the currently selected command in the inspector when the editor is redrawn. A
         /// Automatically resets to false.
         /// </summary>
         public static bool ScrollToCommandOnDraw = false;
-
+      
         public void DrawCommandList()
         {
+            list.draggable = !lockCommandList;
+
             if (summaryStyle == null)
             {
                 summaryStyle = new GUIStyle();
@@ -90,7 +94,7 @@ namespace Fungus.EditorUtils
             this._arrayProperty = arrayProperty;
             this.block = _block;
 
-            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, true, false, false);
+            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, !lockCommandList, true, false, false);
             list.drawHeaderCallback = DrawHeader;
             list.drawElementCallback = DrawItem;
             //list.elementHeightCallback = GetElementHeight;
