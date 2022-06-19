@@ -19,11 +19,38 @@ namespace Fungus
         public static void DoMenuStart(MenuDialog menu) { if (OnMenuStart != null) OnMenuStart(menu); }
 
         /// <summary>
+        /// MenuSlection signal. Sent when a Menu item is chosen.
+        /// </summary>
+        public static event MenuSelectionHandler OnMenuSelectionMade;
+        public delegate void MenuSelectionHandler(string selectionText);
+        public static void DoMenuSelectionMade(string text)
+        {
+            if(OnMenuSelectionMade != null)
+            {
+                OnMenuSelectionMade(text);
+            }
+        }
+
+        /// <summary>
         /// MenuEnd signal. Sent when a Menu is no longer being shown, where previously there was one.
         /// </summary>
         public static event MenuEndHandler OnMenuEnd;
         public delegate void MenuEndHandler(MenuDialog menu);
         public static void DoMenuEnd(MenuDialog menu) { if (OnMenuEnd != null) OnMenuEnd(menu); }
+
+        /// <summary>
+        /// MenuTimerElapsed signal. Sent when a Menu reaches zero before the user made a selection.
+        /// </summary>
+        public static event MenuTimerElapsedHandler OnMenuTimerElapsed;
+        public delegate void MenuTimerElapsedHandler();
+        public static void DoMenuTimerElapsed()
+        {
+            if(OnMenuTimerElapsed != null)
+            {
+                OnMenuTimerElapsed();
+            }
+        }
+
         #endregion
     }
 }
