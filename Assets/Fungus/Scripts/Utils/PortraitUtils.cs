@@ -60,6 +60,7 @@ namespace Fungus
     {
         public bool onScreen;
         public bool dimmed;
+        public bool punched;
         public DisplayType display;
         public RectTransform position, holder;
         public FacingDirection facing;
