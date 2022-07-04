@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ExampleLinkSet
+  m_EditorClassIdentifier: Fungus:Fungus:LangFontLinkSet
+  links:
+  - langCode: Standard
+    uguiFont: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
+    tmpFont: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
+  - langCode: ES
+    uguiFont: {fileID: 12800000, guid: 68f573ee7ce0a4d4ab4ad3850725aedf, type: 3}
+    tmpFont: {fileID: 11400000, guid: 5718ea8f34a8ec64b9128f1f416f7e19, type: 2}
+  - langCode: FR
+    uguiFont: {fileID: 12800000, guid: b9c32a21b945a1d488f26b4e990f84d5, type: 3}
+    tmpFont: {fileID: 11400000, guid: afefb9817974e8441ad623da2f035a8f, type: 2}
