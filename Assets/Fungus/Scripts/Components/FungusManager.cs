@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections;
+using Fungus.TimeSys;
 
 namespace Fungus
 {
@@ -17,6 +18,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
+    [RequireComponent(typeof(TimerManager))]
     #endif
     public sealed class FungusManager : MonoBehaviour
     {
@@ -37,6 +39,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
+            TimerManager = GetComponent<TimerManager>();
 #endif
             MainAudioMixer.Init();
             MusicManager.Init();
@@ -89,6 +92,9 @@ namespace Fungus
         /// Gets the history manager singleton instance.
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
+
+
+        public TimerManager TimerManager { get; private set; }
         
         #endif
 
