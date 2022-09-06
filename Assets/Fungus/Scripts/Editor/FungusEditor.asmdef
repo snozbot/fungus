@@ -1,9 +1,11 @@
 {
     "name": "FungusEditor",
+    "rootNamespace": "",
     "references": [
-        "GUID:007db7f7a4c8f944990d71603a110f82"
+        "GUID:007db7f7a4c8f944990d71603a110f82",
+        "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5",
+        "GUID:478a2357cc57436488a56e564b08d223"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
     ],
@@ -13,5 +15,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }

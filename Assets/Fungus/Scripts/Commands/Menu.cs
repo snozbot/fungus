@@ -4,6 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -16,10 +19,19 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Menu : Command, ILocalizable, IBlockCaller
     {
+#if UNITY_LOCALIZATION
+        [Tooltip("Text to display on the menu button. Ignored if Localized Text is not empty.")]
+#else
         [Tooltip("Text to display on the menu button")]
+#endif
         [TextArea()]
         [SerializeField] protected string text = "Option Text";
-
+        
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for the menu button.")]
+        [SerializeField] protected LocalizedString localizedText;
+#endif
+        
         [Tooltip("Notes about the option text for other authors, localization, etc.")]
         [SerializeField] protected string description = "";
 
@@ -59,8 +71,12 @@ namespace Fungus
                     menuDialog.SetActive(true);
 
                     var flowchart = GetFlowchart();
+#if UNITY_LOCALIZATION
+                    string displayText = flowchart.SubstituteVariables(localizedText.IsEmpty ? text : localizedText.GetLocalizedString());
+#else
                     string displayText = flowchart.SubstituteVariables(text);
-
+#endif
+                    
                     menuDialog.AddOption(displayText, interactable, hideOption, targetBlock);
                 }
             
@@ -130,6 +146,15 @@ namespace Fungus
             // String id for Menu commands is MENU.<Localization Id>.<Command id>
             return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+#if UNITY_LOCALIZATION
+
+        public LocalizedString GetLocalizedStringComponent()
+        {
+            return localizedText;
+        }
+        
+#endif
 
         #endregion
 

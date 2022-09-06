@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: No Longer Home Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: No Longer Home Table
+  m_TableCollectionNameGuidString: abef67b4b76b84c25a1793a9fd122590
+  m_Entries:
+  - m_Id: 34522259456
+    m_Key: SAY.NLHLocalizationDemo.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230976
+    m_Key: MENU.NLHLocalizationDemo.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230977
+    m_Key: MENU.NLHLocalizationDemo.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34543230978
+    m_Key: SAY.NLHLocalizationDemo.23
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425280
+    m_Key: SAY.NLHLocalizationDemo.24
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425281
+    m_Key: MENU.NLHLocalizationDemo.25
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425282
+    m_Key: MENU.NLHLocalizationDemo.31
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425283
+    m_Key: MENU.NLHLocalizationDemo.30
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425284
+    m_Key: SAY.NLHLocalizationDemo.36
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425285
+    m_Key: SAY.NLHLocalizationDemo.38
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425286
+    m_Key: SAY.NLHLocalizationDemo.37
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425287
+    m_Key: SAY.NLHLocalizationDemo.32
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425288
+    m_Key: SAY.NLHLocalizationDemo.33
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425289
+    m_Key: SAY.NLHLocalizationDemo.34
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425290
+    m_Key: SAY.NLHLocalizationDemo.35
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425291
+    m_Key: SAY.NLHLocalizationDemo.39
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425292
+    m_Key: SAY.NLHLocalizationDemo.40
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425293
+    m_Key: SAY.NLHLocalizationDemo.41
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425294
+    m_Key: SAY.NLHLocalizationDemo.53
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425295
+    m_Key: MENU.NLHLocalizationDemo.54
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425296
+    m_Key: MENU.NLHLocalizationDemo.56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425297
+    m_Key: MENU.NLHLocalizationDemo.55
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425298
+    m_Key: SAY.NLHLocalizationDemo.57
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425299
+    m_Key: SAY.NLHLocalizationDemo.59
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425300
+    m_Key: SAY.NLHLocalizationDemo.58
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425301
+    m_Key: SAY.NLHLocalizationDemo.60
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425302
+    m_Key: SAY.NLHLocalizationDemo.61
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425303
+    m_Key: SAY.NLHLocalizationDemo.62
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425304
+    m_Key: SAY.NLHLocalizationDemo.63
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425305
+    m_Key: SAY.NLHLocalizationDemo.66
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425306
+    m_Key: SAY.NLHLocalizationDemo.65
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425307
+    m_Key: SAY.NLHLocalizationDemo.64
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34547425308
+    m_Key: SAY.NLHLocalizationDemo.70
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619584
+    m_Key: SAY.NLHLocalizationDemo.72
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619585
+    m_Key: SAY.NLHLocalizationDemo.75
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619586
+    m_Key: SAY.NLHLocalizationDemo.74
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619587
+    m_Key: SAY.NLHLocalizationDemo.73
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619588
+    m_Key: SAY.NLHLocalizationDemo.76
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619589
+    m_Key: SAY.NLHLocalizationDemo.77
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619590
+    m_Key: SAY.NLHLocalizationDemo.78
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619591
+    m_Key: MENU.NLHLocalizationDemo.79
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619592
+    m_Key: MENU.NLHLocalizationDemo.80
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619593
+    m_Key: SAY.NLHLocalizationDemo.81
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619594
+    m_Key: SAY.NLHLocalizationDemo.82
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619595
+    m_Key: SAY.NLHLocalizationDemo.83
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619596
+    m_Key: SAY.NLHLocalizationDemo.86
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619597
+    m_Key: SAY.NLHLocalizationDemo.87
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619598
+    m_Key: SAY.NLHLocalizationDemo.88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619599
+    m_Key: SAY.NLHLocalizationDemo.89
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619600
+    m_Key: CHARACTER.Ao
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34551619601
+    m_Key: CHARACTER.Bo
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 6614457707757830215
+  references:
+    version: 2
+    RefIds:
+    - rid: 6614457707757830215
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1638942221276

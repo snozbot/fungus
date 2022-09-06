@@ -370,7 +370,7 @@ namespace Fungus
                     }
                 }
 
-                string characterName = character.NameText;
+                string characterName = character.GetNameText();
 
                 if (characterName == "")
                 {

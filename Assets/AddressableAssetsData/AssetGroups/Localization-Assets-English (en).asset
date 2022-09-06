@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-English (en)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-English (en)
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 725973b9ba4df4461beedb07b6f96fe5
+  m_SerializeEntries:
+  - m_GUID: 9d82d8b87adef4dcd98d48f3e6a1d56c
+    m_Address: Bo_English
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+  - m_GUID: 86031c09c9aad4c309cff1c6744fbaab
+    m_Address: Fell asleep at your laptop again_English
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+  - m_GUID: 3439dafe12e3e4499b246cbc5eb12271
+    m_Address: This text is in_English
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 407f7689d9aa24dbbababb597bdff279, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 695be206e40d849f6ac4de16b8d558e4, type: 2}
+    - {fileID: 11400000, guid: 30c03faf0dadd496190a257e064aa219, type: 2}

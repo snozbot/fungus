@@ -10,6 +10,9 @@ namespace Fungus.EditorUtils
     public class MenuEditor : CommandEditor 
     {
         protected SerializedProperty textProp;
+#if UNITY_LOCALIZATION
+        protected SerializedProperty localizedTextProp;
+#endif
         protected SerializedProperty descriptionProp;
         protected SerializedProperty targetBlockProp;
         protected SerializedProperty hideIfVisitedProp;
@@ -22,6 +25,9 @@ namespace Fungus.EditorUtils
             base.OnEnable();
 
             textProp = serializedObject.FindProperty("text");
+#if UNITY_LOCALIZATION
+            localizedTextProp = serializedObject.FindProperty("localizedText");
+#endif
             descriptionProp = serializedObject.FindProperty("description");
             targetBlockProp = serializedObject.FindProperty("targetBlock");
             hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
@@ -40,7 +46,17 @@ namespace Fungus.EditorUtils
             
             serializedObject.Update();
             
+            Menu t = target as Menu;
+
+#if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(textProp);
+#else
+            string textTitle = "Text";
+            if (!t.GetLocalizedStringComponent().IsEmpty)
+                textTitle += " (IGNORED FOR LOCALIZED TEXT)";
+            EditorGUILayout.PropertyField(textProp, new GUIContent(textTitle, "Text to display on the menu button. Ignored if Localized Text is not empty."));
+            EditorGUILayout.PropertyField(localizedTextProp);
+#endif
 
             EditorGUILayout.PropertyField(descriptionProp);
 
@@ -53,7 +69,6 @@ namespace Fungus.EditorUtils
             if(targetBlockProp.objectReferenceValue == null && GUILayout.Button("+",GUILayout.MaxWidth(popupWidth)))
             {
                 var fw = EditorWindow.GetWindow<FlowchartWindow>();
-                var t = (Menu)target;
                 var activeFlowchart = t.GetFlowchart();
                 var newBlock = fw.CreateBlockSuppressSelect(activeFlowchart, t.ParentBlock._NodeRect.position - Vector2.down * 60);
                 targetBlockProp.objectReferenceValue = newBlock;

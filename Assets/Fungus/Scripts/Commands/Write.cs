@@ -2,6 +2,10 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Serialization;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -32,8 +36,17 @@ namespace Fungus
         [Tooltip("Text object to set text on. Text, Input Field and Text Mesh objects are supported.")]
         [SerializeField] protected GameObject textObject;
 
+#if UNITY_LOCALIZATION
+        [Tooltip("String value to assign to the text object. Ignored if textString is not empty.")]
+#else
         [Tooltip("String value to assign to the text object")]
+#endif
         [SerializeField] protected StringDataMulti text;
+
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for text")]
+        [SerializeField] protected LocalizedString localizedText;
+#endif
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
         [SerializeField] protected string description;
@@ -95,8 +108,12 @@ namespace Fungus
             }
 
             var flowchart = GetFlowchart();
+#if UNITY_LOCALIZATION
+            string newText = flowchart.SubstituteVariables(localizedText.IsEmpty ? text.Value : localizedText.GetLocalizedString());
+#else
             string newText = flowchart.SubstituteVariables(text.Value);
-
+#endif
+            
             if (!waitUntilFinished)
             {
                 StartCoroutine(writer.Write(newText, clearText, false, true, false, null, null));
@@ -154,6 +171,15 @@ namespace Fungus
             // String id for Write commands is WRITE.<Localization Id>.<Command id>
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+#if UNITY_LOCALIZATION
+        
+        public LocalizedString GetLocalizedStringComponent()
+        {
+            return localizedText;
+        }
+        
+#endif
 
         public override bool HasReference(Variable variable)
         {

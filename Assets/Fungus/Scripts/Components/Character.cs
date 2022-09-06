@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 using System.Globalization;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -14,9 +17,18 @@ namespace Fungus
     [ExecuteInEditMode]
     public class Character : MonoBehaviour, ILocalizable, IComparer<Character>
     {
+#if UNITY_LOCALIZATION
+        [Tooltip("Character name as displayed in Say Dialog. Ignored if nameString is not empty.")]
+#else
         [Tooltip("Character name as displayed in Say Dialog.")]
+#endif
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for the Character name.")]
+        [SerializeField] protected LocalizedString localizedNameText;
+#endif
+        
         [Tooltip("Color to display the character name in Say Dialog.")]
         [SerializeField] protected Color nameColor = Color.white;
 
@@ -215,7 +227,16 @@ namespace Fungus
             // String id for character names is CHARACTER.<Character Name>
             return "CHARACTER." + NameText;
         }
+        
+#if UNITY_LOCALIZATION
 
+        public LocalizedString GetLocalizedStringComponent()
+        {
+            return localizedNameText;
+        }
+
+#endif
+        
         #endregion
 
         protected virtual void OnValidate()
@@ -224,6 +245,16 @@ namespace Fungus
             {
                 portraits.Sort(PortraitUtil.PortraitCompareTo);
             }
+        }
+
+        public string GetNameText()
+        {
+#if UNITY_LOCALIZATION
+            return localizedNameText.IsEmpty ? nameText : localizedNameText.GetLocalizedString();
+#else
+            return nameText;
+#endif
+
         }
     }
 }

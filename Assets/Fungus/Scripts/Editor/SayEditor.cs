@@ -72,8 +72,14 @@ namespace Fungus.EditorUtils
         protected SerializedProperty characterProp;
         protected SerializedProperty portraitProp;
         protected SerializedProperty storyTextProp;
+#if UNITY_LOCALIZATION
+        protected SerializedProperty localizedStoryTextProp;
+#endif
         protected SerializedProperty descriptionProp;
         protected SerializedProperty voiceOverClipProp;
+#if UNITY_LOCALIZATION
+        protected SerializedProperty localizedVoiceOverClipProp;
+#endif
         protected SerializedProperty showAlwaysProp;
         protected SerializedProperty showCountProp;
         protected SerializedProperty extendPreviousProp;
@@ -90,8 +96,14 @@ namespace Fungus.EditorUtils
             characterProp = serializedObject.FindProperty("character");
             portraitProp = serializedObject.FindProperty("portrait");
             storyTextProp = serializedObject.FindProperty("storyText");
+#if UNITY_LOCALIZATION
+            localizedStoryTextProp = serializedObject.FindProperty("localizedStoryText");
+#endif
             descriptionProp = serializedObject.FindProperty("description");
             voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
+#if UNITY_LOCALIZATION
+            localizedVoiceOverClipProp = serializedObject.FindProperty("localizedVoiceOverClip");
+#endif
             showAlwaysProp = serializedObject.FindProperty("showAlways");
             showCountProp = serializedObject.FindProperty("showCount");
             extendPreviousProp = serializedObject.FindProperty("extendPrevious");
@@ -152,8 +164,16 @@ namespace Fungus.EditorUtils
                 }
             }
             
+#if !UNITY_LOCALIZATION
             EditorGUILayout.PropertyField(storyTextProp);
-
+#else
+            string storyTextTitle = "Story Text";
+            if (!t.GetLocalizedStringComponent().IsEmpty)
+                storyTextTitle += " (IGNORED FOR LOCALIZED STORY TEXT)";
+            EditorGUILayout.PropertyField(storyTextProp, new GUIContent(storyTextTitle));
+            EditorGUILayout.PropertyField(localizedStoryTextProp);
+#endif
+            
             EditorGUILayout.PropertyField(descriptionProp);
 
             EditorGUILayout.BeginHorizontal();
@@ -174,9 +194,20 @@ namespace Fungus.EditorUtils
             }
             
             EditorGUILayout.Separator();
-            
+
+#if UNITY_LOCALIZATION
+            if (t.LocalizedVoiceOverClip.IsEmpty)
+            {
+                EditorGUILayout.PropertyField(voiceOverClipProp, 
+                    new GUIContent("Voice Over Clip", "Voice over audio to play when the text is displayed"));
+            }
+            EditorGUILayout.PropertyField(localizedVoiceOverClipProp);
+#else
             EditorGUILayout.PropertyField(voiceOverClipProp, 
-                                          new GUIContent("Voice Over Clip", "Voice over audio to play when the text is displayed"));
+                new GUIContent("Voice Over Clip", "Voice over audio to play when the text is displayed"));
+#endif
+            
+            EditorGUILayout.Separator();
 
             EditorGUILayout.PropertyField(showAlwaysProp);
             

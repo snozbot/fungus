@@ -1,17 +1,31 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+#endif
 using UnityEngine.Serialization;
 
 namespace Fungus
 {
+ 
+#if UNITY_LOCALIZATION
+    /// <summary>
+    /// Set the active language.
+    /// </summary>
+    [CommandInfo("Narrative", 
+        "Set Language", 
+        "Set the active language.")]
+#else
     /// <summary>
     /// Set the active language for the scene. A Localization object with a localization file must be present in the scene.
     /// </summary>
     [CommandInfo("Narrative", 
                  "Set Language", 
                  "Set the active language for the scene. A Localization object with a localization file must be present in the scene.")]
+#endif
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class SetLanguage : Command
@@ -21,10 +35,24 @@ namespace Fungus
 
         #region Public members
 
+#if !UNITY_LOCALIZATION
         public static string mostRecentLanguage = "";
-
+#endif
+        
         public override void OnEnter()
         {
+#if UNITY_LOCALIZATION
+            if (string.IsNullOrWhiteSpace(_languageCode))
+            {
+                Debug.LogWarning($"SetLanguage's ({gameObject.name}.{itemId}) LanguageCode cannot be blank, skipping.");
+                Continue();
+                return;
+            }
+            
+            var locale = LocalizationSettings.AvailableLocales.GetLocale((string)_languageCode);
+            if (locale != LocalizationSettings.SelectedLocale) // don't set locale if its already set to prevent errors
+                LocalizationSettings.SelectedLocale = locale; 
+#else
             Localization localization = GameObject.FindObjectOfType<Localization>();
             if (localization != null)
             {
@@ -34,12 +62,18 @@ namespace Fungus
                 // use the same language in subsequent scenes.
                 mostRecentLanguage = _languageCode.Value;
             }
-
+#endif
+            
             Continue();
         }
 
         public override string GetSummary()
         {
+#if UNITY_LOCALIZATION
+            if (string.IsNullOrWhiteSpace(_languageCode))
+                return "Error: No LanguageCode specified";
+#endif
+            
             return _languageCode.Value;
         }
 

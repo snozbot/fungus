@@ -1,22 +1,62 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Text;
+using System.Text.RegularExpressions;
+#if UNITY_LOCALIZATION
+#if UNITY_EDITOR
+using UnityEditor.Localization;
+using UnityEditor.Localization.UI;
+using UnityEngine.Localization.Settings;
+#endif
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+#else
 using Ideafixxxer.CsvParser;
+using System.Collections;
+#endif
 
 namespace Fungus
 {
     /// <summary>
     /// Multi-language localization support.
     /// </summary>
+#if !UNITY_LOCALIZATION
     public class Localization : MonoBehaviour, ISubstitutionHandler
+#else // !UNITY_LOCALIZATION
+    public class Localization : MonoBehaviour
+#endif // UNITY_LOCALIZATION
     {
+        protected bool initialized;
+        
+        protected string notificationText = "";
+        
+#if UNITY_LOCALIZATION
+        [Tooltip("String table to export to.")]
+        [SerializeField] protected LocalizedStringTable stringTable;
+        [SerializeField] protected string defaultLanguageCode = "en";
+
+        [SerializeField] protected string toReplace, replaceWith;
+        
+        public LocalizedStringTable StringTable => stringTable;
+        
+        /// <summary>
+        /// Temp storage for a single item of text and its localizable component.
+        /// </summary>
+        protected class TextItem
+        {
+            public string text;
+            public ILocalizable localizable;
+        }
+        
+#endif // UNITY_5_4_OR_NEWER
+        
+#if !UNITY_LOCALIZATION
         /// <summary>
         /// Temp storage for a single item of standard text and its localizations.
         /// </summary>
@@ -26,28 +66,28 @@ namespace Fungus
             public string standardText = "";
             public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
         }
-
+        
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";
 
         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
-
+        
         protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
-
-        protected string notificationText = "";
-
-        protected bool initialized;
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
         #if UNITY_5_4_OR_NEWER
-        #else
+        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
+        {
+            LevelWasLoaded();
+        }
+        #else // UNITY_5_4_OR_NEWER
         public virtual void OnLevelWasLoaded(int level) 
         {
             LevelWasLoaded();
         }
-        #endif
+        #endif // !UNITY_5_4_OR_NEWER
 
         protected virtual void LevelWasLoaded()
         {
@@ -58,12 +98,7 @@ namespace Fungus
                 activeLanguage = SetLanguage.mostRecentLanguage;
             }
         }
-
-        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-        {
-            LevelWasLoaded();
-        }
-
+        
         protected virtual void OnEnable()
         {
             StringSubstituter.RegisterHandler(this);
@@ -79,6 +114,7 @@ namespace Fungus
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             #endif
         }
+#endif // !UNITY_LOCALIZATION
 
         protected virtual void Start()
         {
@@ -86,7 +122,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// String subsitution can happen during the Start of another component, so we
+        /// String substitution can happen during the Start of another component, so we
         /// may need to call Init() from other methods.
         /// </summary>
         protected virtual void Init()
@@ -96,6 +132,7 @@ namespace Fungus
                 return;
             }
 
+#if !UNITY_LOCALIZATION
             CacheLocalizeableObjects();
 
             if (localizationFile != null &&
@@ -103,10 +140,11 @@ namespace Fungus
             {
                 SetActiveLanguage(activeLanguage);
             }
-
+#endif // !UNITY_LOCALIZATION
             initialized = true;
         }
 
+#if !UNITY_LOCALIZATION
         // Build a cache of all the localizeable objects in the scene
         protected virtual void CacheLocalizeableObjects()
         {
@@ -246,8 +284,77 @@ namespace Fungus
                 }
             }
         }
+#else // !UNITY_LOCALIZATION
+        /// <summary>
+        /// Builds a dictionary of localizable text items in the scene.
+        /// </summary>
+        protected Dictionary<string, TextItem> FindTextItems()
+        {
+            Dictionary<string, TextItem> textItems = new Dictionary<string, TextItem>();
+
+            // Add localizable commands in same order as command list to make it
+            // easier to localise / edit standard text.
+            var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
+            for (int i = 0; i < flowcharts.Length; i++)
+            {
+                var flowchart = flowcharts[i];
+                var blocks = flowchart.GetComponents<Block>();
+
+                for (int j = 0; j < blocks.Length; j++)
+                {
+                    var block = blocks[j];
+                    var commandList = block.CommandList;
+                    for (int k = 0; k < commandList.Count; k++)
+                    {
+                        var command = commandList[k];
+                        ILocalizable localizable = command as ILocalizable;
+                        if (localizable != null)
+                        {
+                            textItems[localizable.GetStringId()] = new TextItem
+                            {
+                                text = localizable.GetStandardText(),
+                                localizable = localizable
+                            };
+                        }
+                    }
+                }
+            }
+
+            // Add everything else that's localizable (including inactive objects)
+            UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
+            for (int i = 0; i < objects.Length; i++)
+            {
+                var o = objects[i];
+                ILocalizable localizable = o as ILocalizable;
+                if (localizable != null)
+                {
+                    string stringId = localizable.GetStringId();
+                    if (textItems.ContainsKey(stringId))
+                    {
+                        // Already added
+                        continue;
+                    }
+                    
+                    textItems[localizable.GetStringId()] = new TextItem
+                    {
+                        text = localizable.GetStandardText(),
+                        localizable = localizable
+                    };
+                }
+            }
+
+            return textItems;
+        }
+#endif // UNITY_LOCALIZATION
 
         #region Public members
+
+        /// <summary>
+        /// Stores any notification message from export / import methods.
+        /// </summary>
+        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
+
+#if !UNITY_LOCALIZATION
 
         /// <summary>
         /// Looks up the specified string in the localized strings table.
@@ -278,11 +385,6 @@ namespace Fungus
         /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
         /// </summary>
         public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
-
-        /// <summary>
-        /// Stores any notification message from export / import methods.
-        /// </summary>
-        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
 
         /// <summary>
         /// Clears the cache of localizeable objects.
@@ -459,7 +561,7 @@ namespace Fungus
         /// </summary>
         public virtual bool PopulateTextProperty(string stringId, string newText)
         {
-            // Ensure that all localizeable objects have been cached
+            // Ensure that all localizable objects have been cached
             if (localizeableObjects.Count == 0)
             {
                 CacheLocalizeableObjects();
@@ -548,15 +650,181 @@ namespace Fungus
 
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
+#else // !UNITY_LOCALIZATION
 
+        public void ExportData()
+        {
+#if UNITY_EDITOR
+            int exportCount = 0;
+            if (stringTable.IsEmpty) return;
+            
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) return;
+
+            var textItems = FindTextItems();
+
+            // warn the user about overwriting data if there is data that will be overwritten
+            foreach (var kvp in textItems)
+            {
+                if (collection.SharedData.Contains(kvp.Key))
+                {
+                    if (!EditorUtility.DisplayDialog("Overwriting Existing Entries", "Found one or more existing entries that will be overwritten if you continue. Continue?", "Yes", "No"))
+                        return;
+                        
+                    break;
+                }
+            }
+
+            // add or modify items to table
+            foreach (var kvp in textItems)
+            {
+                // prevent adding the CommandCopyBuffer or a bug where a extra character name is added despite there not being one (ik this code could be problematic)
+                if (kvp.Key.Contains("CommandCopyBuffer") || kvp.Key.Equals("CHARACTER.Character Name")) continue;
+                
+                if (!collection.SharedData.Contains(kvp.Key))
+                {
+                    // create new entry
+                    table.AddEntry(kvp.Key, kvp.Value.text);
+                    
+                    // add comment to entry
+                    if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
+                        collection.SharedData.GetEntry(kvp.Key).Metadata.AddMetadata(new UnityEngine.Localization.Metadata.Comment{CommentText = kvp.Value.localizable.GetDescription()});
+                }
+                else
+                {
+                    // modify existing entry
+                    var entry = table.GetEntry(kvp.Key);
+                    entry.Value = kvp.Value.text;
+
+                    var sharedEntry = collection.SharedData.GetEntry(kvp.Key);
+
+                    // remove old comments
+                    var comments = sharedEntry.Metadata.GetMetadatas<UnityEngine.Localization.Metadata.Comment>();
+                    foreach (var comment in comments)
+                        sharedEntry.Metadata.RemoveMetadata(comment);
+                    
+                    // add comment to entry
+                    if (!string.IsNullOrWhiteSpace(kvp.Value.localizable.GetDescription()))
+                        sharedEntry.Metadata.AddMetadata(new UnityEngine.Localization.Metadata.Comment {CommentText = kvp.Value.localizable.GetDescription()});
+                }
+
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
+                localizedString.TableReference = stringTable.TableReference;
+                localizedString.TableEntryReference = kvp.Key;
+                
+                exportCount++;
+            }
+
+            // close and reopen the window to see the changes we made (shrug)
+            // bug: get window creates a new instance if one doesn't exist so it ALWAYS makes the localization table
+            // window pop up after export. i can't fix this because its part of the localization package.
+            var ltw = EditorWindow.GetWindow<LocalizationTablesWindow>();
+            if (ltw)
+            {
+                ltw.Close();
+                EditorApplication.ExecuteMenuItem("Window/Asset Management/Localization Tables");
+            }
+
+            notificationText = $"Exported {exportCount} text items";
+#endif // UNITY_EDITOR
+        }
+
+        public void ImportData()
+        {
+#if UNITY_EDITOR
+            int importCount = 0;
+
+            // make sure selected locale is set before doing anything
+            var locale = LocalizationSettings.AvailableLocales.GetLocale(defaultLanguageCode);
+            LocalizationSettings.SelectedLocale = locale; 
+            
+            foreach (var kvp in FindTextItems())
+            {
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
+
+                if (localizedString.IsEmpty) continue;
+                var collection = LocalizationEditorSettings.GetStringTableCollection(localizedString.TableReference);
+                var table = collection.GetTable(defaultLanguageCode) as StringTable;
+                if (table == null) continue;
+                var entry = table.GetEntry(localizedString.TableEntryReference.Key);
+                if (entry == null) continue;
+                
+                kvp.Value.localizable.SetStandardText(entry.GetLocalizedString());
+                importCount++;
+            }
+
+            notificationText = $"Imported {importCount} text items";
+#endif // UNITY_EDITOR
+        }
+
+        public void FixLocalizedStrings()
+        {
+#if UNITY_EDITOR
+            int fixedCount = 0;
+            if (stringTable.IsEmpty) return;
+            
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) return;
+
+            foreach (var kvp in FindTextItems())
+            {
+                var localizedString = kvp.Value.localizable.GetLocalizedStringComponent();
+
+                if (localizedString.TableReference != stringTable.TableReference ||
+                    localizedString.TableEntryReference != kvp.Key)
+                {
+                    localizedString.TableReference = stringTable.TableReference;
+                    localizedString.TableEntryReference = kvp.Key;
+                    fixedCount++;
+                }
+            }
+            
+            notificationText = $"Fixed {fixedCount} LocalizedString references";
+#endif // UNITY_EDITOR
+        }
+        
+        public void ReplaceKeyValues()
+        {
+#if UNITY_EDITOR
+            int replaceCount = 0;
+            if (stringTable.IsEmpty) return;
+
+            var collection = LocalizationEditorSettings.GetStringTableCollection(stringTable.TableReference);
+            var table = collection.GetTable(defaultLanguageCode) as StringTable;
+            if (table == null) return;
+
+            foreach (var kvp in table)
+            {
+                var entry = table.GetEntry(kvp.Key);
+
+                if (entry.Key.Contains(toReplace))
+                {
+                    entry.Key = entry.Key.Replace(toReplace, replaceWith);
+                    replaceCount++;
+                }
+            }
+            
+            // clear the variables cause we don't need them
+            toReplace = "";
+            replaceWith = "";
+
+            notificationText = $"Replaced {replaceCount} entries' key";
+#endif // UNITY_EDITOR
+        }
+        
+#endif // UNITY_LOCALIZATION
+        
         #endregion
 
+#if !UNITY_LOCALIZATION
         #region StringSubstituter.ISubstitutionHandler imlpementation
 
         public virtual bool SubstituteStrings(StringBuilder input)
         {
             // This method could be called from the Start method of another component, so we
-            // may need to initilize the localization system.
+            // may need to initialize the localization system.
             Init();
 
             // Instantiate the regular expression object.
@@ -571,7 +839,7 @@ namespace Fungus
                 Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
                 // Next look for matching localized string
-                string localizedString = Localization.GetLocalizedString(key);
+                string localizedString = GetLocalizedString(key);
                 if (localizedString != null)
                 {
                     input.Replace(match.Value, localizedString);
@@ -581,7 +849,8 @@ namespace Fungus
 
             return modified;
         }
-
+        
         #endregion
+#endif // !UNITY_LOCALIZATION
     }
 }

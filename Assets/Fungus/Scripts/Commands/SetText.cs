@@ -2,6 +2,9 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 using UnityEngine.UI;
 using UnityEngine.Serialization;
 
@@ -19,9 +22,18 @@ namespace Fungus
         [Tooltip("Text object to set text on. Can be a UI Text, Text Field or Text Mesh object.")]
         [SerializeField] protected GameObject targetTextObject;
         
+#if UNITY_LOCALIZATION
+        [Tooltip("String value to assign to the text object. Ignored if textString is not empty.")]
+#else
         [Tooltip("String value to assign to the text object")]
+#endif
         [FormerlySerializedAs("stringData")]
         [SerializeField] protected StringDataMulti text;
+        
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for text")]
+        [SerializeField] protected LocalizedString localizedText;
+#endif
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
         [SerializeField] protected string description;
@@ -31,7 +43,11 @@ namespace Fungus
         public override void OnEnter()
         {
             var flowchart = GetFlowchart();
+#if UNITY_LOCALIZATION
+            string newText = flowchart.SubstituteVariables(localizedText.IsEmpty ? text.Value : localizedText.GetLocalizedString());
+#else
             string newText = flowchart.SubstituteVariables(text.Value);
+#endif
             
             if (targetTextObject == null)
             {
@@ -108,6 +124,15 @@ namespace Fungus
             // String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
             return "SETTEXT." + GetFlowchartLocalizationId() + "." + itemId;
         }
+        
+#if UNITY_LOCALIZATION
+
+        public LocalizedString GetLocalizedStringComponent()
+        {
+            return localizedText;
+        }
+        
+#endif
 
         #endregion
 

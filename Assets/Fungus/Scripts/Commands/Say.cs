@@ -2,6 +2,10 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Serialization;
+#if UNITY_LOCALIZATION
+using UnityEngine.Localization;
+#endif
 
 namespace Fungus
 {
@@ -18,6 +22,11 @@ namespace Fungus
         [TextArea(5,10)]
         [SerializeField] protected string storyText = "";
 
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for story text.")]
+        [SerializeField] protected LocalizedString localizedStoryText;
+#endif
+        
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
         [SerializeField] protected string description = "";
 
@@ -27,8 +36,17 @@ namespace Fungus
         [Tooltip("Portrait that represents speaking character")]
         [SerializeField] protected Sprite portrait;
 
+#if UNITY_LOCALIZATION
+        [Tooltip("Voiceover audio to play when writing the text. Ignored if localizedVoiceOverClip not empty.")]
+#else
         [Tooltip("Voiceover audio to play when writing the text")]
+#endif
         [SerializeField] protected AudioClip voiceOverClip;
+        
+#if UNITY_LOCALIZATION
+        [Tooltip("Localization entry for voice over clip")]
+        [SerializeField] protected LocalizedAsset<AudioClip> localizedVoiceOverClip;
+#endif
 
         [Tooltip("Always show this Say text when the command is executed multiple times")]
         [SerializeField] protected bool showAlways = true;
@@ -69,6 +87,10 @@ namespace Fungus
         /// Portrait that represents speaking character.
         /// </summary>
         public virtual Sprite Portrait { get { return portrait; } set { portrait = value; } }
+        
+#if UNITY_LOCALIZATION
+        public virtual LocalizedAsset<AudioClip> LocalizedVoiceOverClip { get { return localizedVoiceOverClip;} }
+#endif
 
         /// <summary>
         /// Type this text in the previous dialog box.
@@ -110,8 +132,15 @@ namespace Fungus
             sayDialog.SetCharacter(character);
             sayDialog.SetCharacterImage(portrait);
 
+#if UNITY_LOCALIZATION
+            string displayText = localizedStoryText.IsEmpty ? storyText : localizedStoryText.GetLocalizedString();
+            AudioClip audioClip = localizedVoiceOverClip.IsEmpty ? voiceOverClip : localizedVoiceOverClip.LoadAsset();
+#else
             string displayText = storyText;
-
+            AudioClip audioClip = voiceOverClip;
+#endif
+            
+            
             var activeCustomTags = CustomTag.activeCustomTags;
             for (int i = 0; i < activeCustomTags.Count; i++)
             {
@@ -125,7 +154,7 @@ namespace Fungus
 
             string subbedText = flowchart.SubstituteVariables(displayText);
 
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
+            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, audioClip, delegate {
                 Continue();
             });
         }
@@ -186,15 +215,30 @@ namespace Fungus
         
         public virtual string GetStringId()
         {
+#if UNITY_LOCALIZATION
+            // String id for Say commands is SAY.<Localization Id>.<Command id>
+            // dec 6 2021: removed character name from id to prevent issues when changing the character name
+            string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId;
+#else
             // String id for Say commands is SAY.<Localization Id>.<Command id>.[Character Name]
             string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId + ".";
             if (character != null)
             {
                 stringId += character.NameText;
             }
+#endif
 
             return stringId;
         }
+        
+#if UNITY_LOCALIZATION
+
+        public LocalizedString GetLocalizedStringComponent()
+        {
+            return localizedStoryText;
+        }
+        
+#endif
 
         #endregion
     }

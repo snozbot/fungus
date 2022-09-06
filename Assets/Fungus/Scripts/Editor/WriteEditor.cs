@@ -13,6 +13,9 @@ namespace Fungus.EditorUtils
 
         protected SerializedProperty textObjectProp;
         protected SerializedProperty textProp;
+#if UNITY_LOCALIZATION
+        protected SerializedProperty localizedTextProp;
+#endif
         protected SerializedProperty descriptionProp;
         protected SerializedProperty clearTextProp;
         protected SerializedProperty textColorProp;
@@ -36,6 +39,9 @@ namespace Fungus.EditorUtils
 
             textObjectProp = serializedObject.FindProperty("textObject");
             textProp = serializedObject.FindProperty("text");
+#if UNITY_LOCALIZATION
+            localizedTextProp = serializedObject.FindProperty("localizedText");
+#endif
             descriptionProp = serializedObject.FindProperty("description");
             clearTextProp = serializedObject.FindProperty("clearText");
             textColorProp = serializedObject.FindProperty("textColor");
@@ -50,6 +56,9 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.PropertyField(textObjectProp);
             EditorGUILayout.PropertyField(textProp);
+#if UNITY_LOCALIZATION
+            EditorGUILayout.PropertyField(localizedTextProp);
+#endif
             EditorGUILayout.PropertyField(descriptionProp);
 
             EditorGUILayout.BeginHorizontal();
