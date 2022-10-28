@@ -14,10 +14,11 @@ namespace Fungus.EditorUtils
         protected SerializedProperty soundEffectProp;
         protected SerializedProperty portraitsProp;
         protected SerializedProperty portraitsFaceProp;
-        protected SerializedProperty descriptionProp;
+        protected SerializedProperty clickableCharacterProp;
+        protected SerializedProperty flowchartProp;
+        protected SerializedProperty execBlockProp;
         protected SerializedProperty setSayDialogProp;
-        protected SerializedProperty effectAudioSourceProp;
-        protected SerializedProperty voiceAudioSourceProp;
+        protected SerializedProperty descriptionProp;
 
         protected virtual void OnEnable()
         {
@@ -26,10 +27,11 @@ namespace Fungus.EditorUtils
             soundEffectProp = serializedObject.FindProperty ("soundEffect");
             portraitsProp = serializedObject.FindProperty ("portraits");
             portraitsFaceProp = serializedObject.FindProperty ("portraitsFace");
-            descriptionProp = serializedObject.FindProperty ("description");
+            clickableCharacterProp = serializedObject.FindProperty ("clickableCharacter");
+            flowchartProp = serializedObject.FindProperty ("flowchart");
+            execBlockProp = serializedObject.FindProperty ("executeBlock");
             setSayDialogProp = serializedObject.FindProperty("setSayDialog");
-            effectAudioSourceProp = serializedObject.FindProperty("effectAudioSource");
-            voiceAudioSourceProp = serializedObject.FindProperty("voiceAudioSource");
+            descriptionProp = serializedObject.FindProperty ("description");
         }
 
         public override void OnInspectorGUI() 
@@ -42,9 +44,29 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
             EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
-            EditorGUILayout.PropertyField(effectAudioSourceProp);
-            EditorGUILayout.PropertyField(voiceAudioSourceProp);
             EditorGUILayout.PropertyField(setSayDialogProp);
+            EditorGUILayout.PropertyField(clickableCharacterProp, new GUIContent("Clickable Character", "Set the character to be clickable"));
+
+            if(t.ClickableCharacter)
+            {
+                EditorGUILayout.PropertyField(flowchartProp, new GUIContent("Flowchart", "Set flowchart to execute block"));
+
+                Flowchart flowchart = null;
+                if (flowchartProp.objectReferenceValue == null)
+                {
+                    flowchart = t.SetFlowchartForClickable;
+                }
+                else
+                {
+                    flowchart = t.SetFlowchartForClickable as Flowchart;
+                }
+
+                BlockEditor.BlockField(execBlockProp,
+                                       new GUIContent("Target Block", "Block to call"), 
+                                       new GUIContent("<None>"), 
+                                       flowchart);
+            }
+
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
 
             if (t.Portraits != null &&
