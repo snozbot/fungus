@@ -1,9 +1,21 @@
-﻿using Object = System.Object;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using Object = System.Object;
+using DateTime = System.DateTime;
 
 namespace Fungus.LionManeSaveSys
 {
+    [System.Serializable]
     public abstract class SaveUnit: ISaveUnit
     {
+        /*** For more specific parts of the state that this unit holds. ***/
+
+        /*
+         * sfs
+         * */
+        public IList<SaveUnit> Subunits { get { return subunits; } }
+        protected List<SaveUnit> subunits = new List<SaveUnit>();
+
         protected Object contents;
         public Object Contents
         {
@@ -12,6 +24,20 @@ namespace Fungus.LionManeSaveSys
         }
 
         public abstract string TypeName { get; }
+
+        public virtual DateTime LastWritten
+        {
+            get { return savedDateTime.LastWritten; }
+            set { savedDateTime.LastWritten = value; }
+        }
+
+        protected SavedDateTime savedDateTime = new SavedDateTime();
+
+        public virtual void OnDeserialize()
+        {
+            savedDateTime.OnDeserialize();
+        }
+
     }
 
     /// <summary>
