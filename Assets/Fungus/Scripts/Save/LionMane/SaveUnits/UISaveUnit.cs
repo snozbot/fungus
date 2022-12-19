@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using DateTime = System.DateTime;
+﻿using UnityEngine;
+using TimeSpan = System.TimeSpan;
 
 namespace Fungus.LionManeSaveSys
 {
@@ -21,6 +20,19 @@ namespace Fungus.LionManeSaveSys
         [SerializeField]
         protected int slotNumber = -1;
 
+        public TimeSpan Playtime
+        {
+            get { return savedPlaytime.TimeSpan; }
+            set { savedPlaytime.TimeSpan = value; }
+        }
 
+        [SerializeField]
+        protected SavedTimeSpan savedPlaytime = new SavedTimeSpan();
+
+        public override void OnDeserialize()
+        {
+            base.OnDeserialize();
+            savedPlaytime.OnDeserialize();
+        }
     }
 }

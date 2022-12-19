@@ -18,8 +18,8 @@ namespace Fungus.LionManeSaveSys
 
         public virtual DateTime LastWritten
         {
-            get { return savedLastWritten.LastWritten; }
-            set { savedLastWritten.LastWritten = value; }
+            get { return savedLastWritten.DateTime; }
+            set { savedLastWritten.DateTime = value; }
         }
 
         [SerializeField]

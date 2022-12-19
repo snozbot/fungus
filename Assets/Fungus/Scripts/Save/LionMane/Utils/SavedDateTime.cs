@@ -8,21 +8,21 @@ namespace Fungus.LionManeSaveSys
     [System.Serializable]
     public class SavedDateTime: System.IEquatable<SavedDateTime>
     {
-        public virtual DateTime LastWritten
+        public virtual DateTime DateTime
         {
-            get { return lastWritten; }
+            get { return dateTime; }
             set
             {
-                lastWritten = value;
+                dateTime = value;
                 UpdateLastWrittenString();
             }
         }
         
-        protected DateTime lastWritten;
+        protected DateTime dateTime;
 
         protected virtual void UpdateLastWrittenString()
         {
-            lastWrittenString = lastWritten.ToString(roundTripFormat, Culture);
+            lastWrittenString = dateTime.ToString(roundTripFormat, Culture);
         }
 
         [SerializeField]
@@ -35,7 +35,11 @@ namespace Fungus.LionManeSaveSys
 
         public virtual void OnDeserialize()
         {
-            lastWritten = DateTime.Parse(lastWrittenString, Culture);
+            if (string.IsNullOrEmpty(lastWrittenString))
+                // Since the client may not want all save units to have any registered lastWritten dates
+                return;
+
+            dateTime = DateTime.Parse(lastWrittenString, Culture);
         }
 
         public virtual bool Equals(SavedDateTime other)

@@ -10,20 +10,39 @@ namespace SaveSystemTests
 {
     public class UISaveUnitTests : SaveSysPlayModeTest
     {
+        public override void SetUp()
+        {
+            base.SetUp();
+            PrepareTestSaveUnit();
+        }
+
+        protected virtual void PrepareTestSaveUnit()
+        {
+            testSaveUnit.LastWritten = DateTime.Now;
+            testSaveUnit.Playtime = new System.TimeSpan(12, 58, 29);
+
+            testUnitAsJson = JsonUtility.ToJson(testSaveUnit);
+
+            testUnitDeserialized = JsonUtility.FromJson<UISaveUnit>(testUnitAsJson);
+            testUnitDeserialized.OnDeserialize();
+        }
+
+        protected UISaveUnit testSaveUnit = new UISaveUnit();
+        protected string testUnitAsJson;
+        protected UISaveUnit testUnitDeserialized;
+
         // A Test behaves as an ordinary method
         [Test]
-        public void SerializedCorrectly()
+        public void SerializedLastWrittenDateCorrectly()
         {
-            // Use the Assert class to test conditions
-            UISaveUnit saveUnit = new UISaveUnit();
-            saveUnit.LastWritten = DateTime.Now;
+            bool correct = testSaveUnit.LastWritten.Equals(testUnitDeserialized.LastWritten);
+            Assert.IsTrue(correct);
+        }
 
-            string asJson = JsonUtility.ToJson(saveUnit);
-
-            UISaveUnit deserialized = JsonUtility.FromJson<UISaveUnit>(asJson);
-            deserialized.OnDeserialize();
-
-            bool correct = saveUnit.Equals(deserialized);
+        [Test]
+        public void SerializedPlaytimeCorrectly()
+        {
+            bool correct = testSaveUnit.Playtime.Equals(testUnitDeserialized.Playtime);
             Assert.IsTrue(correct);
         }
 
