@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Fungus.LionManeSaveSys;
 
-namespace Fungus
+namespace Fungus.LionManeSaveSys
 {
     /** Contains the stuff meant to be shown in the Save UI. 
      * Implements the stuff most often seen in such user interfaces.**/
-    public class UISaveUnit : ISaveUnit<UISaveUnit>
+    [System.Serializable]
+    public class UISaveUnit : SaveUnit
     {
-        public object Contents => this;
-
-        public string TypeName => "UISaveUnit";
-
-        UISaveUnit ISaveUnit<UISaveUnit>.Contents => this;
+        public override string TypeName => "UISaveUnit";
 
         public virtual bool HasSlotNumberAssigned {  get { return SlotNumber >= 0; } }
         public virtual int SlotNumber

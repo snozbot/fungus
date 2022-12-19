@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DateTime = System.DateTime;
 using System.Globalization;
 
 namespace Fungus.LionManeSaveSys
 {
     /** Provides a more convenient way to save date times in SaveUnits **/
+    [System.Serializable]
     public class SavedDateTime: System.IEquatable<SavedDateTime>
     {
         public virtual DateTime LastWritten
@@ -32,7 +31,7 @@ namespace Fungus.LionManeSaveSys
 
         protected static string roundTripFormat = "O";
 
-        protected CultureInfo Culture = CultureInfo.CurrentUICulture;
+        protected static CultureInfo Culture = CultureInfo.CurrentUICulture;
 
         public virtual void OnDeserialize()
         {
