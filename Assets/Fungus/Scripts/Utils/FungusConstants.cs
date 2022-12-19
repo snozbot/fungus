@@ -51,29 +51,13 @@ namespace Fungus
         public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
 
         /// <summary>
-        /// The prefix for auto saves
+        /// The default name of the Input EventSystem, stored in the resources folder.
         /// </summary>
-        public const string AutoSavePrefix = "autosave_";
-
-        /// <summary>
-        /// The prefix for auto saves
-        /// </summary>
-        public const string SlotSavePrefix = "slot_";
-
-        /// <summary>
-        /// Current version of the save system
-        /// </summary>
-        public const int CurrentSaveGameDataVersion = 2;
-
-        /// <summary>
-        /// Current version of the save system
-        /// </summary>
-        public const int CurrentProfileDataVersion = 1;
-
-        public const string SaveDescKey = "SaveDesc";
-
-        public const string SceneNameKey = "SceneName";
-
-        public static string StorageDirectory { get; private set; } = Application.persistentDataPath + "/Fungus/";
+        public const string EventSystemPrefabName =
+#if ENABLE_INPUT_SYSTEM
+            "Prefabs/EventSystem_NewInputSystem";
+#else
+            "Prefabs/EventSystem";
+#endif
     }
 }
