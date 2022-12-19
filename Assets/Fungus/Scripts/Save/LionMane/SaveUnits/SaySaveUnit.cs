@@ -4,10 +4,8 @@ using System.Collections.Generic;
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public class SaySaveUnit : ICommandSaveUnit<SaySaveUnit>, System.IEquatable<SaySaveUnit>
+    public class SaySaveUnit : SaveUnit, ICommandSaveUnit, System.IEquatable<SaySaveUnit>
     {
-        public SaySaveUnit Contents => this;
-        object ISaveUnit.Contents => this;
 
         public int ExecutionCount
         {
@@ -30,7 +28,7 @@ namespace Fungus.LionManeSaveSys
             set { wasExecuting = value; }
         }
 
-        public string TypeName => "SayCommand";
+        public override string TypeName { get; set; } = "SayCommand";
 
         [SerializeField]
         bool wasExecuting;

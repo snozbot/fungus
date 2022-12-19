@@ -6,11 +6,8 @@ namespace Fungus.LionManeSaveSys
     /// <summary>
     /// Stores the states of Flowchart Blocks
     /// </summary>
-    public class BlockSaveUnit : ISaveUnit<BlockSaveUnit>
+    public class BlockSaveUnit : SaveUnit
     {
-        public BlockSaveUnit Contents => this;
-        object ISaveUnit.Contents => this;
-
         /// <summary>
         /// Unique identifier for the Block this stores the state of.
         /// </summary>
@@ -71,7 +68,7 @@ namespace Fungus.LionManeSaveSys
             set { executionCount = value; }
         }
 
-        public string TypeName => "Block";
+        public override string TypeName { get; set; } = "Block";
 
         [SerializeField]
         int executionCount;

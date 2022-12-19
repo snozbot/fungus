@@ -5,12 +5,9 @@ using UnityEngine;
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public class CommandSaveUnit : ISaveUnit<CommandSaveUnit>
+    public class CommandSaveUnit : SaveUnit
     {
-        public CommandSaveUnit Contents => this;
-        object ISaveUnit.Contents => this;
-
-        public string TypeName => "Command";
+        public override string TypeName { get; set; } = "Command";
 
         [SerializeField]
         int indexInBlock; // Index 0 = first block, index 3 = fourth block, etc

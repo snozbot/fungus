@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using DateTime = System.DateTime;
 
 namespace Fungus.LionManeSaveSys
 {
@@ -8,7 +9,7 @@ namespace Fungus.LionManeSaveSys
     [System.Serializable]
     public class UISaveUnit : SaveUnit
     {
-        public override string TypeName => "UISaveUnit";
+        public override string TypeName { get; set; } = "UI";
 
         public virtual bool HasSlotNumberAssigned {  get { return SlotNumber >= 0; } }
         public virtual int SlotNumber
@@ -19,6 +20,7 @@ namespace Fungus.LionManeSaveSys
 
         [SerializeField]
         protected int slotNumber = -1;
+
 
     }
 }
