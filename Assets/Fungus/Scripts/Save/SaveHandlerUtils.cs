@@ -12,7 +12,7 @@ namespace Fungus
         public static SaveData CreateSaveData(ISaveHandler saveHandler, string saveName, string saveDesc, int version)
         {
             var sd = new SaveData(saveName,
-                new StringPair() { key = FungusConstants.SaveDescKey, val = saveDesc })
+                new StringPair() { key = SaveSysConstants.SaveDescKey, val = saveDesc })
             {
                 version = version
             };

@@ -60,7 +60,7 @@ namespace Fungus
 
         public string GetCurrentUserProfileDirectory()
         {
-            return Path.GetFullPath(FungusConstants.StorageDirectory + CurrentUserProfileName + "/");
+            return Path.GetFullPath(SaveSysConstants.StorageDirectory + CurrentUserProfileName + "/");
         }
 
         public string GetCurrentUserProfileFileName()
@@ -115,7 +115,7 @@ namespace Fungus
 
         private string GetLastUserFile()
         {
-            return Path.GetFullPath(FungusConstants.StorageDirectory + LastUserDataFileName);
+            return Path.GetFullPath(SaveSysConstants.StorageDirectory + LastUserDataFileName);
         }
 
         [System.Serializable]
