@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public struct SaySaveUnit : ICommandSaveUnit<SaySaveUnit>, System.IEquatable<SaySaveUnit>
+    public class SaySaveUnit : ICommandSaveUnit<SaySaveUnit>, System.IEquatable<SaySaveUnit>
     {
         public SaySaveUnit Contents => this;
         object ISaveUnit.Contents => this;

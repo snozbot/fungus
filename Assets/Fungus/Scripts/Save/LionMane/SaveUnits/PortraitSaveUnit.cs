@@ -8,7 +8,7 @@ namespace Fungus.LionManeSaveSys
     /// to be able to restore portraits to what they should be upon load.
     /// </summary>
     [System.Serializable]
-    public struct PortraitSaveUnit : System.IEquatable<PortraitSaveUnit>, ISaveUnit<PortraitSaveUnit>
+    public class PortraitSaveUnit : System.IEquatable<PortraitSaveUnit>, ISaveUnit<PortraitSaveUnit>
     {
         public PortraitSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
@@ -122,6 +122,10 @@ namespace Fungus.LionManeSaveSys
             }
 
             this.stageName = FindStageNameFor(charState);
+        }
+
+        public PortraitSaveUnit()
+        {
         }
 
         public void SetFrom(Character character)

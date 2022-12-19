@@ -3,7 +3,7 @@ using Type = System.Type;
 
 namespace Fungus.LionManeSaveSys
 {
-    public struct VariableSaveUnit : ISaveUnit<VariableSaveUnit>
+    public class VariableSaveUnit : ISaveUnit<VariableSaveUnit>
     {
         public VariableSaveUnit Contents => this;
         object ISaveUnit.Contents => this;

@@ -3,7 +3,7 @@
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public struct TransformSaveUnit : ISaveUnit<TransformSaveUnit>
+    public class TransformSaveUnit : ISaveUnit<TransformSaveUnit>
     {
         public TransformSaveUnit Contents => this;
         object ISaveUnit.Contents => this;

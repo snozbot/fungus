@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public struct CommandSaveUnit : ISaveUnit<CommandSaveUnit>
+    public class CommandSaveUnit : ISaveUnit<CommandSaveUnit>
     {
         public CommandSaveUnit Contents => this;
         object ISaveUnit.Contents => this;

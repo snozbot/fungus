@@ -6,7 +6,7 @@ namespace Fungus.LionManeSaveSys
     /// <summary>
     /// Stores the states of Flowchart Blocks
     /// </summary>
-    public struct BlockSaveUnit : ISaveUnit<BlockSaveUnit>
+    public class BlockSaveUnit : ISaveUnit<BlockSaveUnit>
     {
         public BlockSaveUnit Contents => this;
         object ISaveUnit.Contents => this;
