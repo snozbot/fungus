@@ -89,7 +89,7 @@ namespace Fungus
         /// <returns></returns>
         public List<SaveGameMetaData> CollectAutoSaves()
         {
-            return SaveFileManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
+            return SaveFileManager.SaveMetas.Where(x => x.saveName.StartsWith(SaveSysConstants.AutoSavePrefix))
                 .OrderBy(x => x.lastWritten.Ticks).ToList();
         }
 
@@ -99,8 +99,8 @@ namespace Fungus
         /// <returns></returns>
         public List<SaveGameMetaData> CollectUserSaves()
         {
-            return SaveFileManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.SlotSavePrefix))
-                .OrderBy(x => System.Convert.ToInt32(x.saveName.Substring(FungusConstants.SlotSavePrefix.Length))).ToList();
+            return SaveFileManager.SaveMetas.Where(x => x.saveName.StartsWith(SaveSysConstants.SlotSavePrefix))
+                .OrderBy(x => System.Convert.ToInt32(x.saveName.Substring(SaveSysConstants.SlotSavePrefix.Length))).ToList();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Fungus
         {
             SaveFileManager.DeleteSave(SaveFileManager.SaveMetas.IndexOf(meta));
 
-            if (replaceIfSlot && meta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
+            if (replaceIfSlot && meta.saveName.StartsWith(SaveSysConstants.SlotSavePrefix))
             {
                 SaveFileManager.SaveMetas.Add(new SaveGameMetaData() { saveName = meta.saveName });
 
@@ -157,7 +157,7 @@ namespace Fungus
 
         public bool LoadSlot(int index)
         {
-            var saveIndex = SaveFileManager.SaveNameToIndex(FungusConstants.SlotSavePrefix + index.ToString());
+            var saveIndex = SaveFileManager.SaveNameToIndex(SaveSysConstants.SlotSavePrefix + index.ToString());
 
             if (saveIndex < 0)
                 return false;
@@ -175,7 +175,7 @@ namespace Fungus
             {
                 if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null) //even with leading zeros ends with should match
                 {
-                    SaveFileManager.SaveMetas.Add(new SaveGameMetaData() { saveName = FungusConstants.SlotSavePrefix + i.ToString() });
+                    SaveFileManager.SaveMetas.Add(new SaveGameMetaData() { saveName = SaveSysConstants.SlotSavePrefix + i.ToString() });
                 }
             }
 
@@ -184,7 +184,7 @@ namespace Fungus
 
         public void ReplaceSave(SaveGameMetaData meta, string newSavePointDescription)
         {
-            if (!IsSavingAllowed || meta.saveName.StartsWith(FungusConstants.AutoSavePrefix))
+            if (!IsSavingAllowed || meta.saveName.StartsWith(SaveSysConstants.AutoSavePrefix))
                 return;
 
             DeleteSave(meta);
@@ -192,7 +192,7 @@ namespace Fungus
             SaveFileManager.Save(
                 meta.saveName,
                 newSavePointDescription,
-                meta.saveName.StartsWith(FungusConstants.SlotSavePrefix) ? FungusConstants.SlotSavePrefix : string.Empty);
+                meta.saveName.StartsWith(SaveSysConstants.SlotSavePrefix) ? SaveSysConstants.SlotSavePrefix : string.Empty);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace Fungus
             if (!IsSavingAllowed)
                 return;
 
-            SaveFileManager.Save(FungusConstants.AutoSavePrefix + saveName, savePointDescription, FungusConstants.AutoSavePrefix);
+            SaveFileManager.Save(SaveSysConstants.AutoSavePrefix + saveName, savePointDescription, SaveSysConstants.AutoSavePrefix);
 
             //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
             if (NumberOfAutoSaves >= 0)
@@ -258,7 +258,7 @@ namespace Fungus
 
             string formatString = "D" + NumberOfSlotSaves.ToString().Length.ToString();
 
-            SaveFileManager.Save(FungusConstants.SlotSavePrefix + index.ToString(formatString), savePointDescription, FungusConstants.SlotSavePrefix);
+            SaveFileManager.Save(SaveSysConstants.SlotSavePrefix + index.ToString(formatString), savePointDescription, SaveSysConstants.SlotSavePrefix);
             return true;
         }
 

@@ -190,7 +190,7 @@ namespace Fungus
             if (saveButton != null)
             {
                 saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && saveManager.IsSavingAllowed;
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(SaveSysConstants.SlotSavePrefix) && saveManager.IsSavingAllowed;
             }
         }
 
@@ -275,7 +275,7 @@ namespace Fungus
             if (selectedSaveSlot != null)
             {
                 if (selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(SaveSysConstants.SlotSavePrefix))
                 {
                     saveManager.ReplaceSave(selectedSaveSlot.LinkedMeta, AutoSave.TimeStampDesc);
                     PlayClickSound();

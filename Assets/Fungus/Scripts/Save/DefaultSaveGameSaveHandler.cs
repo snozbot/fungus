@@ -13,7 +13,7 @@ namespace Fungus
                 new MenuSaveDataItemSerializer());
         }
 
-        public override int CurrentExpectedVersion => FungusConstants.CurrentSaveGameDataVersion;
+        public override int CurrentExpectedVersion => SaveSysConstants.CurrentSaveGameDataVersion;
 
         public DefaultSaveGameSaveHandler()
         {

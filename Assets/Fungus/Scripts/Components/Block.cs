@@ -542,6 +542,20 @@ namespace Fungus
             return -1;
         }
 
+        public virtual IList<TCommand> GetCommandsOfType<TCommand>() where TCommand: Fungus.Command
+        {
+            IList<TCommand> commandsFound = new List<TCommand>();
+
+            for (int i = 0; i < this.commandList.Count; i++)
+            {
+                var currentCommand = this.commandList[i];
+                if (currentCommand is TCommand)
+                    commandsFound.Add(currentCommand as TCommand);
+            }
+
+            return commandsFound;
+        }
+
         #endregion
     }
 }

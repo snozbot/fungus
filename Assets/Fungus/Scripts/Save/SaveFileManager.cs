@@ -97,7 +97,7 @@ namespace Fungus
             if (savePointData == null)
                 return false;
 
-            var sceneName = savePointData.stringPairs.GetOrDefault(FungusConstants.SceneNameKey);
+            var sceneName = savePointData.stringPairs.GetOrDefault(SaveSysConstants.SceneNameKey);
 
             if (string.IsNullOrEmpty(sceneName))
                 return false;
@@ -167,7 +167,7 @@ namespace Fungus
 
             var saveData = CurrentSaveHandler.CreateSaveData(saveName, savePointDescription);
 
-            saveData.stringPairs.Add(FungusConstants.SceneNameKey, SceneManager.GetActiveScene().name);
+            saveData.stringPairs.Add(SaveSysConstants.SceneNameKey, SceneManager.GetActiveScene().name);
 
             var savePointDataJSON = CurrentSaveHandler.EncodeToJSON(saveData);
 
@@ -203,7 +203,7 @@ namespace Fungus
                 {
                     fileLocation = fileLoc,
                     saveName = save.saveName,
-                    description = save.stringPairs.GetOrDefault(FungusConstants.SaveDescKey),
+                    description = save.stringPairs.GetOrDefault(SaveSysConstants.SaveDescKey),
                     lastWritten = save.LastWritten,
                 });
             }

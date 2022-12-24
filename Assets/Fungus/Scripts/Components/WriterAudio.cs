@@ -106,7 +106,7 @@ namespace Fungus
         {
             if (playingVoiceover)
             {
-                return lastUsedAudioSource.clip.length - lastUsedAudioSource.time;
+                return targetAudioSource.isPlaying ? targetAudioSource.clip.length - targetAudioSource.time : 0f;
             }
             else
             {

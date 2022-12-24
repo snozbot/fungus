@@ -789,6 +789,7 @@ namespace Fungus
 
             if (clear)
             {
+                NotifyEnd(false);
                 textAdapter.Text = "";
             }
 
@@ -816,7 +817,7 @@ namespace Fungus
 
             if (go != null)
             {
-                iTween.ShakePosition(go, axis, time);
+                LeanTweenHelpers.ShakePosition(go.transform, axis, new Vector2(30,60), time);
             }
         }
         
@@ -1009,10 +1010,11 @@ namespace Fungus
 
         public virtual void OnNextLineEvent()
         {
-            inputFlag = true;
+            
 
-            if (isWriting)
+            if (isWriting || isWaitingForInput)
             {
+                inputFlag = true;
                 NotifyInput();
             }
         }

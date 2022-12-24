@@ -20,3 +20,4 @@ Logs/*
 .vscode/launch.json
 CodeCoverage
 Builds
+.vsconfig
