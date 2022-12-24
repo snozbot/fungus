@@ -59,7 +59,10 @@ namespace SaveSystemTests
 
             string readFromFile = File.ReadAllText(path);
 
-            bool correct = byteArrAsString.Equals(readFromFile);
+            UISaveUnit deserializedFromReadJSON = JsonUtility.FromJson<UISaveUnit>(readFromFile);
+            deserializedFromReadJSON.OnDeserialize();
+
+            bool correct = deserializedFromReadJSON.Equals(testSaveUnit);
             Assert.IsTrue(correct);
 
         }
