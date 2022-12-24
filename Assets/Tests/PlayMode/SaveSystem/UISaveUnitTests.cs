@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Fungus.LionManeSaveSys;
 using DateTime = System.DateTime;
+using System.IO;
+using Encoding = System.Text.Encoding;
 
 namespace SaveSystemTests
 {
@@ -22,29 +24,50 @@ namespace SaveSystemTests
             testSaveUnit.Playtime = new System.TimeSpan(12, 58, 29);
 
             testUnitAsJson = JsonUtility.ToJson(testSaveUnit);
+            testUnitAsByteArray = Encoding.UTF8.GetBytes(testUnitAsJson);
 
-            testUnitDeserialized = JsonUtility.FromJson<UISaveUnit>(testUnitAsJson);
-            testUnitDeserialized.OnDeserialize();
+            testUnitDeserializedFromBaseJson = JsonUtility.FromJson<UISaveUnit>(testUnitAsJson);
+            testUnitDeserializedFromBaseJson.OnDeserialize();
         }
 
         protected UISaveUnit testSaveUnit = new UISaveUnit();
         protected string testUnitAsJson;
-        protected UISaveUnit testUnitDeserialized;
+        protected byte[] testUnitAsByteArray;
+        protected UISaveUnit testUnitDeserializedFromBaseJson;
 
         // A Test behaves as an ordinary method
         [Test]
-        public void SerializedLastWrittenDateCorrectly()
+        public void SerializedLastWrittenDateCorrectly_BaseJSON()
         {
-            bool correct = testSaveUnit.LastWritten.Equals(testUnitDeserialized.LastWritten);
+            bool correct = testSaveUnit.LastWritten.Equals(testUnitDeserializedFromBaseJson.LastWritten);
             Assert.IsTrue(correct);
         }
 
         [Test]
-        public void SerializedPlaytimeCorrectly()
+        public void SerializedPlaytimeCorrectly_BaseJSON()
         {
-            bool correct = testSaveUnit.Playtime.Equals(testUnitDeserialized.Playtime);
+            bool correct = testSaveUnit.Playtime.Equals(testUnitDeserializedFromBaseJson.Playtime);
             Assert.IsTrue(correct);
         }
+
+        [Test]
+        public virtual void SavedToFileCorrectly_NoEncap_ByteArr()
+        {
+            string byteArrAsString = Encoding.UTF8.GetString(testUnitAsByteArray);
+            string path = Path.Combine(savePath, uiSaveUnitOnlyFile);
+            File.WriteAllText(path, byteArrAsString);
+
+            string readFromFile = File.ReadAllText(path);
+
+            bool correct = byteArrAsString.Equals(readFromFile);
+            Assert.IsTrue(correct);
+
+        }
+
+        protected string savePath = Path.Combine(Application.dataPath, "Tests",
+            "Resources", "SaveFiles");
+
+        protected string uiSaveUnitOnlyFile = "UIUnitOnly.sav";
 
     }
 }
