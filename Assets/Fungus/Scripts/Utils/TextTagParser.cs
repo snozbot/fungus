@@ -210,33 +210,69 @@ namespace Fungus
         public static string GetTagHelp()
         {
             return "" +
-                "\t{b} Bold Text {/b}\n" + 
-                "\t{i} Italic Text {/i}\n" +
-                "\t{color=red} Color Text (color){/color}\n" +
-                "\t{size=30} Text size {/size}\n" +
-                "\n" +
-                "\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
-                "\t{w}, {w=0.5} Wait (seconds)\n" +
-                "\t{wi} Wait for input\n" +
-                "\t{wc} Wait for input and clear\n" +
-                "\t{wvo} Wait for voice over line to complete\n" +
-                "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
-                "\t{c} Clear\n" +
-                "\t{x} Exit, advance to the next command without waiting for input\n" +
-                "\t{link=id}link text{/link} <link=id>link text</link>\n" +
-                "\n" +
-                "\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
-                "\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +
-                "\t{punch=10,0.5} Punch screen (intensity,time)\n" +
-                "\t{flash=0.5} Flash screen (duration)\n" +
-                "\n" +
-                "\t{audio=AudioObjectName} Play Audio Once\n" +
-                "\t{audioloop=AudioObjectName} Play Audio Loop\n" +
-                "\t{audiopause=AudioObjectName} Pause Audio\n" +
-                "\t{audiostop=AudioObjectName} Stop Audio\n" +
-                "\n" +
-                "\t{m=MessageName} Broadcast message\n" +
-                "\t{$VarName} Substitute variable";
+               "\t{b} Bold Text {/b}\n" +
+               "\t{i} Italic Text {/i}\n" +
+               "\t{color=red} Color Text (color){/color}\n" +
+               "\t{size=30} Text size {/size}\n" +
+               "\n" +
+               "\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
+               "\t{w}, {w=0.5} Wait (seconds)\n" +
+               "\t{wi} Wait for input\n" +
+               "\t{wc} Wait for input and clear\n" +
+               "\t{wvo} Wait for voice over line to complete\n" +
+               "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
+               "\t{c} Clear\n" +
+               "\t{x} Exit, advance to the next command without waiting for input\n" +
+               "\n" +
+               "\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
+               "\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +
+               "\t{punch=10,0.5} Punch screen (intensity,time)\n" +
+               "\t{flash=0.5} Flash screen (duration)\n" +
+               "\n" +
+               "\t{audio=AudioObjectName} Play Audio Once\n" +
+               "\t{audioloop=AudioObjectName} Play Audio Loop\n" +
+               "\t{audiopause=AudioObjectName} Pause Audio\n" +
+               "\t{audiostop=AudioObjectName} Stop Audio\n" +
+               "\n" +
+               "\t{m=MessageName} Broadcast message\n" +
+               "\t{$VarName} Substitute variable\n" +
+               "\n" +
+               "\t-------- Text Mesh Pro Tags --------\n" +
+               "\t<align=\"right\"> Right </align> <align=\"center\"> Center </align> <align=\"left\"> Left </align>\n" +
+               "\t<color=\"red\"> Red </color> <color=#005500> Dark Green </color>\n" +
+               "\t<alpha=#88> 88 </alpha>\n" +
+               "\t<i> Italic text </i>\n" +
+               "\t<b> Bold text </b>\n" +
+               "\t<cspace=1em> Character spacing </cspace>\n" +
+               "\t<font=\"FontName\"> Change font </font>\n" +
+               "\t<font=\"FontName\" material=\"MaterialName\"> Change font and material </font>\n" +
+               "\t<indent=15%> Indentation </indent>\n" +
+               "\t<line-height=100%> Line height </line-height>\n" +
+               "\t<line-indent=15%> Line indentation </line-indent>\n" +
+               "\t{link=id}link text{/link} <link=id>link text</link>\n" +
+               "\t<lowercase> Lowercase </lowercase>\n" +
+               "\t<uppercase> Uppercase </uppercase>\n" +
+               "\t<smallcaps> Smallcaps </smallcaps>\n" +
+               "\t<margin=5em> Margin </margin>\n" +
+               "\t<mark=#ffff00aa> Mark (Highlight) </mark>\n" +
+               "\t<mspace=2.75em> Monospace </mspace>\n" +
+               "\t<noparse> <b> </noparse>\n" +
+               "\t<nobr> Non-breaking spaces </nobr>\n" +
+               "\t<page> Page break\n" +
+               "\t<size=50%> Font size </size>\n" +
+               "\t<space=5em> Horizontal space\n" +
+               "\t<space=5em> Horizontal space\n" +
+               "\t<sprite=\"AssetName\" index=0> Sprite\n" +
+               "\t<s> Strikethrough </s>\n" +
+               "\t<u> Underline </u>\n" +
+               "\t<style=\"StyleName\"> Styles </style>\n" +
+               "\t<sub> Subscript </sub>\n" +
+               "\t<sup> Superscript </sup>\n" +
+               "\t<voffset=1em> Vertical offset </voffset>\n" +
+               "\t<width=60%> Text width </width>\n" +
+               "\n" +
+               "\n" + // extra space is to fix the vertical sizing the help box at default inspector width
+               "\n";
         }
 
         /// <summary>
