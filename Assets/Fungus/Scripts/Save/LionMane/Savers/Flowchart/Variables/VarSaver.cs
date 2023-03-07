@@ -33,7 +33,7 @@ namespace Fungus.LionManeSaveSys
             }
         }
 
-        public virtual ISaveUnit<VariableSaveUnit> CreateSaveFrom(Variable input)
+        public virtual VariableSaveUnit CreateSaveFrom(Variable input)
         {
             var newSaveUnit = new VariableSaveUnit(input);
             SetUpContentsFor(input, ref newSaveUnit);
@@ -72,14 +72,14 @@ namespace Fungus.LionManeSaveSys
             return input is Variable;
         }
 
-        public virtual IList<ISaveUnit<VariableSaveUnit>> CreateSavesFrom(IList<Variable> inputs)
+        public virtual IList<VariableSaveUnit> CreateSavesFrom(IList<Variable> inputs)
         {
-            IList<ISaveUnit<VariableSaveUnit>> result = new ISaveUnit<VariableSaveUnit>[inputs.Count];
+            IList<VariableSaveUnit> result = new VariableSaveUnit[inputs.Count];
 
             for (int i = 0; i < inputs.Count; i++)
             {
                 Variable currentVar = inputs[i];
-                ISaveUnit<VariableSaveUnit> newSaveUnit = CreateSaveFrom(currentVar);
+                VariableSaveUnit newSaveUnit = CreateSaveFrom(currentVar);
                 result[i] = newSaveUnit;
             }
 

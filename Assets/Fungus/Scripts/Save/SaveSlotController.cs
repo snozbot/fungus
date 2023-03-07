@@ -13,14 +13,6 @@ namespace Fungus
     [RequireComponent(typeof(RectTransform))]
     public class SaveSlotController : MonoBehaviour, ISelectHandler
     {
-        [Tooltip("Displays the number for this slot.")]
-        [SerializeField] protected Text nameText = null;
-
-        [Tooltip("Displays the description for this slot.")]
-        [SerializeField] protected Text descText = null;
-
-        [Tooltip("To display time save was created at.")]
-        [SerializeField] protected Text timeStampText = null;
 
         [SerializeField] protected Button ourButton;
         public virtual Button OurButton { get { return ourButton; } }
@@ -44,7 +36,8 @@ namespace Fungus
 
             if (saveCont == null)
             {
-                Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
+                // The line below is a bit misleading; it doesn't execute based on clicking
+                //Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
             }
         }
 
@@ -67,12 +60,13 @@ namespace Fungus
             saveCont.SetSelectedSlot(this);
         }
 
+        public virtual void RefreshDisplay()
+        {
+            UpdateViews();
+        }
+
         protected virtual void UpdateViews()
         {
-            //nameText.text = ourMeta.saveName;
-            //descText.text = ourMeta.description;
-            //timeStampText.text = ourMeta.GetReadableTime();
-
             // Pass the metadata to the views, so they can do their thing with it.
             slotViews = GetComponentsInChildren<ISaveSlotView>();
             for (int i = 0; i < slotViews.Length; i++)
@@ -82,9 +76,20 @@ namespace Fungus
             }
         }
 
-        public virtual void RefreshDisplay()
+        /// <summary>
+        /// Returns a view object of the specified type registered under this controller. Returns null
+        /// if no such object exists.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public virtual T GetView<T>() where T: class, ISaveSlotView
         {
-            UpdateViews();
+            foreach (var view in slotViews)
+            {
+                if (view is T)
+                    return view as T;
+            }
+
+            return null;
         }
     }
 }

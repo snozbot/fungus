@@ -1,4 +1,5 @@
 ﻿using Object = System.Object;
+using System.Collections.Generic;
 
 namespace Fungus.LionManeSaveSys
 {
@@ -7,14 +8,10 @@ namespace Fungus.LionManeSaveSys
     /// </summary>
     public interface ISaveUnit
     {
-        Object Contents { get; }
         string TypeName { get; }
+        IList<ISaveUnit> Subunits { get; }
     }
 
-    public interface ISaveUnit<TContents> : ISaveUnit
-    {
-        new TContents Contents { get; }
-    }
 
     public interface ICommandSaveUnit : ISaveUnit
     {
@@ -26,6 +23,6 @@ namespace Fungus.LionManeSaveSys
         bool WasExecuting { get; }
     }
 
-    public interface ICommandSaveUnit<TContents> : ICommandSaveUnit, ISaveUnit<TContents>
+    public interface ICommandSaveUnit<TContents> : ICommandSaveUnit
     { }
 }

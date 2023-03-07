@@ -13,6 +13,12 @@ namespace Fungus
     {
         [SerializeField] protected Text textField = null;
 
+        public virtual string Text
+        {
+            get { return textField.text; }
+            set { textField.text = value; }
+        }
+
         public override void Refresh()
         {
             UpdateText();

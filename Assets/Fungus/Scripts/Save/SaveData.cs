@@ -10,7 +10,7 @@ namespace Fungus
     [System.Serializable]
     public class SaveData
     {
-        public int version = FungusConstants.CurrentSaveGameDataVersion;
+        public int version = SaveSysConstants.CurrentSaveGameDataVersion;
         public string saveName;
         public StringPairList saveDataItems;
         public StringPairList stringPairs;

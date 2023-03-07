@@ -125,7 +125,7 @@ namespace Fungus
 
                 if(GUILayout.Button("Open save file directory"))
                 {
-                    Application.OpenURL(FungusConstants.StorageDirectory);
+                    Application.OpenURL(SaveSysConstants.StorageDirectory);
                 }
 
                 // Save the preferences

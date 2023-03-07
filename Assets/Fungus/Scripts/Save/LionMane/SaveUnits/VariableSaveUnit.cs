@@ -3,10 +3,8 @@ using Type = System.Type;
 
 namespace Fungus.LionManeSaveSys
 {
-    public struct VariableSaveUnit : ISaveUnit<VariableSaveUnit>
+    public class VariableSaveUnit : SaveUnit
     {
-        public VariableSaveUnit Contents => this;
-        object ISaveUnit.Contents => this;
 
         /// <summary>
         /// Name of the Flowchart variable
@@ -23,10 +21,10 @@ namespace Fungus.LionManeSaveSys
         /// <summary>
         /// Name of the Flowchart variable's type
         /// </summary>
-        public string TypeName
+        public override string TypeName
         {
             get { return typeName; }
-            private set { typeName = value; }
+            set { typeName = value; }
         }
 
         [SerializeField]
@@ -61,8 +59,9 @@ namespace Fungus.LionManeSaveSys
             this.typeName = this.type.Name;
         }
 
-        public void OnDeserialize()
+        public override void OnDeserialize()
         {
+            base.OnDeserialize();
             this.Type = Type.GetType(typeName);
         }
 

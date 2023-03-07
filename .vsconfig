@@ -1,6 +1,6 @@
-﻿{
+{
   "version": "1.0",
-  "components": [
+  "components": [ 
     "Microsoft.VisualStudio.Workload.ManagedGame"
   ]
-}
+} 

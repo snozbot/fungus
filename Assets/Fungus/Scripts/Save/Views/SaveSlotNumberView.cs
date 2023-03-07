@@ -10,8 +10,12 @@ namespace Fungus
     /// </summary>
     public class SaveSlotNumberView : SlotTextView
     {
+        public virtual string Prefix { get { return prefix; } }
+
         [Tooltip("This is shown right before the slot number.")]
         [SerializeField] protected string prefix = "Save #";
+
+        public virtual string Postfix { get { return postfix; } }
 
         [Tooltip("This is shown right after the slot number.")]
         [SerializeField] protected string postfix = "";
@@ -30,9 +34,10 @@ namespace Fungus
         {
             // This doesn't really need to know anything about the save data tied to the slot;
             // it gets the number based on where it is in the holder.
-            int slotNumber = controller.transform.GetSiblingIndex();
-            toDisplay = string.Concat("", prefix, slotNumber, postfix);
+            toDisplay = string.Concat("", prefix, SlotNumber, postfix);
         }
+
+        public virtual int SlotNumber { get { return controller.transform.GetSiblingIndex(); } }
 
         protected string toDisplay = "";
     }

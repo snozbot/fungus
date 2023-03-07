@@ -3,11 +3,8 @@
 namespace Fungus.LionManeSaveSys
 {
     [System.Serializable]
-    public struct TransformSaveUnit : ISaveUnit<TransformSaveUnit>
+    public class TransformSaveUnit : SaveUnit
     {
-        public TransformSaveUnit Contents => this;
-        object ISaveUnit.Contents => this;
-
         public string Name
         {
             get { return name; }
@@ -41,7 +38,7 @@ namespace Fungus.LionManeSaveSys
             set { rotation = value; }
         }
 
-        public string TypeName => "Transform";
+        public override string TypeName { get; set; } = "Transform";
 
         [SerializeField]
         private Quaternion rotation;

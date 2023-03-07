@@ -17,6 +17,8 @@ namespace SaveSystemTests
         [SetUp]
         public virtual void SetUp()
         {
+            if (string.IsNullOrEmpty(PathToScene))
+                return;
             scenePrefab = Resources.Load<GameObject>(PathToScene);
             sceneObj = Object.Instantiate<GameObject>(scenePrefab);
         }
@@ -24,6 +26,8 @@ namespace SaveSystemTests
         [TearDown]
         public virtual void Teardown()
         {
+            if (string.IsNullOrEmpty(PathToScene))
+                return;
             Object.Destroy(sceneObj.gameObject);
         }
     }

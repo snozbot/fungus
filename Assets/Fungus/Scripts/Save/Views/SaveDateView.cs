@@ -13,21 +13,25 @@ namespace Fungus
     /// </summary>
     public class SaveDateView : SlotTextView
     {
-        public virtual string StandardFormat
+        /// <summary>
+        /// The format this view is supposed to display the date in. The valid ones are those
+        /// officially recognized and documented by Microsoft.
+        /// </summary>
+        public virtual string Format
         {
-            get { return standardFormat; }
+            get { return format; }
             set
             {
                 if (string.IsNullOrEmpty(value))
                     NullOrEmptyFormatAlert();
                 else
-                    standardFormat = value;
+                    format = value;
             }
         }
 
         [SerializeField]
-        [Tooltip("The standard format this will display the date in. The default is G.")]
-        private string standardFormat = "G";
+        [Tooltip("The format this will display the date in. The default is G.")]
+        private string format = "G";
 
         // See here for examples: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
 
@@ -49,7 +53,7 @@ namespace Fungus
             if (this.HasValidDate)
             {
                 date = SaveData.lastWritten;
-                readableDate = date.ToString(StandardFormat, localCulture);
+                readableDate = date.ToString(Format, localCulture);
             }
             else
             {
@@ -62,6 +66,7 @@ namespace Fungus
             get { return this.HasSaveData && SaveData.lastWritten != default(DateTime); }
         }
 
+        public virtual DateTime Date { get { return date; } protected set { date = value; } }
         protected DateTime date;
         protected string readableDate = "";
         protected CultureInfo localCulture = CultureInfo.CurrentUICulture;
