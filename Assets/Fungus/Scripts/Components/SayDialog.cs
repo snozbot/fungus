@@ -14,6 +14,17 @@ namespace Fungus
     /// </summary>
     public class SayDialog : MonoBehaviour
     {
+        [Header("Character and story character limits")]
+        [Tooltip("Character limit of the dialog character name.")]
+        [SerializeField] public int characterNameLimit = 42;
+
+        [Tooltip("Character limit of the dialog story text.")]
+        [SerializeField] public int storyTextLimit = 166;
+
+        [Tooltip("Character limit of the dialog story text if a portrait is selected")]
+        [SerializeField] public int portraitStoryTextLimit = 120;
+
+        [Header("Say Dialog attributes")]
         [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
 
@@ -285,6 +296,40 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Returns a SayDialog by searching for an active one or getting data from the default prefab. Does not create a SayDialog
+        /// </summary>
+        public static SayDialog GetActiveSayDialog()
+        {
+            if (ActiveSayDialog == null)
+            {
+                SayDialog sd = null;
+
+                // Use first active Say Dialog in the scene (if any)
+                if (activeSayDialogs.Count > 0)
+                {
+                    sd = activeSayDialogs[0];
+                }
+
+                if (sd != null)
+                {
+                    ActiveSayDialog = sd;
+                }
+
+                if (ActiveSayDialog == null)
+                {
+                    // Get the say dialog data from the prefab, do not spawn it.
+                    SayDialog prefab = Resources.Load<SayDialog>("Prefabs/SayDialog");
+                    if (prefab != null)
+                    {
+                        ActiveSayDialog = prefab;
+                    }
+                }
+            }
+
+            return ActiveSayDialog;
+        }
+
+        /// <summary>
         /// Stops all active portrait tweens.
         /// </summary>
         public static void StopPortraitTweens()
@@ -370,7 +415,7 @@ namespace Fungus
                     }
                 }
 
-                string characterName = character.NameText;
+                string characterName = character.NameText.Truncate(characterNameLimit, "<color=red><!></color>"); // truncate if needed.
 
                 if (characterName == "")
                 {
@@ -545,6 +590,13 @@ namespace Fungus
 
             // Kill any active write coroutine
             StopAllCoroutines();
+        }
+
+        public void OnValidate()
+        {
+            // This ensures the portrait text limit is not greater than the normal text limit; in no case
+            // will the portrait text limit be larger than the story text.
+            portraitStoryTextLimit = Mathf.Clamp(portraitStoryTextLimit, portraitStoryTextLimit, storyTextLimit);
         }
 
         #endregion

@@ -56,6 +56,12 @@ namespace Fungus
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
         [SerializeField] protected SayDialog setSayDialog;
 
+        // character limits properties.
+        [SerializeField] protected int storyMaxLength = 0;
+        [SerializeField] protected string sayDialogName = string.Empty;
+        
+        protected int characterNameMaxLength = 0;
+
         protected int executionCount;
 
         #region Public members
@@ -107,7 +113,10 @@ namespace Fungus
 
             sayDialog.SetActive(true);
 
-            sayDialog.SetCharacter(character);
+            //maintain max length for truncating if needed
+            storyMaxLength = portrait != null ? sayDialog.portraitStoryTextLimit : sayDialog.storyTextLimit;
+
+            sayDialog.SetCharacter(character); //sayDialog will truncate character name if it deems it necessary.
             sayDialog.SetCharacterImage(portrait);
 
             string displayText = storyText;
@@ -125,7 +134,8 @@ namespace Fungus
 
             string subbedText = flowchart.SubstituteVariables(displayText);
 
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
+            // truncate story text if it's too long. Truncate using subbedText so markers don't count.
+            sayDialog.Say(subbedText.Truncate(storyMaxLength, "<color=red><color=red><!></color></color>"), !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
                 Continue();
             });
         }
@@ -133,15 +143,55 @@ namespace Fungus
         public override string GetSummary()
         {
             string namePrefix = "";
+            string error = string.Empty;
+            var flowchart = GetFlowchart();
+
+            //get SayDialog data
+            // for some reason, initialising sayDialog as null results in it getting the wrong dialog or being null, hence why GetActiveSayDialog() is called twice.
+            // not sure if this is something weird, but not calling GetActiveSayDialog() here can result in weird behaviour.
+            var sayDialog = SayDialog.GetActiveSayDialog();
+
+            if (setSayDialog != null)
+            {
+                SayDialog.ActiveSayDialog = setSayDialog;
+            }
+
             if (character != null) 
             {
                 namePrefix = character.NameText + ": ";
+                if (character.SetSayDialog != null) SayDialog.ActiveSayDialog = character.SetSayDialog;
             }
             if (extendPrevious)
             {
                 namePrefix = "EXTEND" + ": ";
             }
-            return namePrefix + "\"" + storyText + "\"";
+
+            //reassign based on above changes. 
+            sayDialog = SayDialog.GetActiveSayDialog();
+            sayDialogName = sayDialog.name; //assign to be displayed in editor using SayEditor
+
+            storyMaxLength = portrait != null ? sayDialog.portraitStoryTextLimit : sayDialog.storyTextLimit;
+            characterNameMaxLength = sayDialog.characterNameLimit;
+
+            string _storyText = flowchart.SubstituteVariables(storyText).SterilizeString();
+
+            if (storyMaxLength != 0 && _storyText.Length > storyMaxLength)
+            {
+                error = "Error: Story text too large to fit in SayDialog: " + sayDialog.name + ", " + _storyText.Length + " / " + storyMaxLength;
+            }
+
+            //character name errors are a little more problematic, so any story errors will be overridden so the character name can be taken care of.
+            if (character != null)
+            {
+                if (characterNameMaxLength != 0 && character.NameText.Length > characterNameMaxLength)
+                {
+                    error = "Error: Character name \"" + character.NameText.Truncate(characterNameMaxLength, "<color=red><!></color>") + "\" too large to fit in SayDialog: " + ", " + 
+                            character.NameText.Length + " / " + characterNameMaxLength;
+                }
+            }
+
+            if (error != string.Empty) return error;
+            else return error + namePrefix + "\"" + storyText.Truncate(92) + "\""; //truncate story text so it's easier to see.
         }
 
         public override Color GetButtonColor()
