@@ -3,21 +3,28 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using IEnumerator = System.Collections.IEnumerator;
 
 namespace Fungus
 {
     /// <summary>
     /// Waits for period of time before executing the next command in the block.
     /// </summary>
-    [CommandInfo("Flow", 
-                 "Wait", 
-                 "Waits for period of time before executing the next command in the block.")]
+    [CommandInfo("Flow",
+                 "Wait",
+                 "Waits for a duration (in seconds) before executing the next command in the block. Can be made interruptable based on player input.")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class Wait : Command
     {
-        [Tooltip("Duration to wait for")]
+        [Tooltip("Duration to wait (in seconds)")]
         [SerializeField] protected FloatData _duration = new FloatData(1);
+
+        [Tooltip("Whether or not the wait can be cancelled/interrupted")]
+        [SerializeField] protected BooleanData interruptable;
+
+        [Tooltip("These can cancel the wait if interruptable is true")]
+        [SerializeField] protected StringData[] inputAxes;
 
         protected virtual void OnWaitComplete()
         {
@@ -28,7 +35,53 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            Invoke ("OnWaitComplete", _duration.Value);
+            if (interruptable)
+            {
+                UpdateFrameInfo();
+                StartCoroutine(ApplyInterruptableWait());
+            }
+            else
+                Invoke(waitCompleteFuncName, _duration.Value);
+        }
+
+        protected static string waitCompleteFuncName = "OnWaitComplete";
+
+        protected virtual void UpdateFrameInfo()
+        {
+            // When we want to allow cancelling, we need to apply the wait on a frame-based basis
+            frameRate = (int)(1f / Time.deltaTime);
+            framesToWait = (int)(frameRate * _duration);
+            framesPassed = 0;
+        }
+
+        int frameRate, framesToWait, framesPassed;
+
+        protected virtual IEnumerator ApplyInterruptableWait()
+        {
+            while (framesPassed < framesToWait)
+            {
+                if (this.ShouldCancelWait())
+                {
+                    break;
+                }
+
+                yield return null;
+                framesPassed++;
+            }
+
+            OnWaitComplete();
+        }
+
+        protected virtual bool ShouldCancelWait()
+        {
+            // This assumes allowWaitCancelling is true
+            foreach (string inputAxis in inputAxes)
+            {
+                if (Input.GetAxis(inputAxis) != 0)
+                    return true;
+            }
+
+            return false;
         }
 
         public override string GetSummary()
