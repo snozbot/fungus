@@ -44,6 +44,9 @@ namespace Fungus
         [SerializeField]
         protected bool waitUntilFinished = true;
 
+        [Tooltip("Disable target object when tween is finished finished.")]
+        [SerializeField] protected bool disableOnFinished = false;
+
         [HideInInspector] protected LTDescr ourTween;
 
         protected virtual void OnTweenComplete()
@@ -64,9 +67,19 @@ namespace Fungus
                 LeanTween.cancel(_targetObject.Value);
             }
 
+            _targetObject.Value.SetActive(true); //enable object if disabled; no point in tweening a disabled object.
+
             ourTween = ExecuteTween();
 
             ourTween.setEase(easeType);
+
+            if (disableOnFinished)
+            {
+                if(ourTween != null)
+                {
+                    Invoke(nameof(DisableObject), _duration);
+                }
+            }
 
             if (waitUntilFinished)
             {
@@ -79,6 +92,11 @@ namespace Fungus
             {
                 Continue();
             }
+        }
+
+        protected virtual void DisableObject()
+        {
+            _targetObject.gameObjectVal.SetActive(false);
         }
 
         public override string GetSummary()
