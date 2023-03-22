@@ -152,6 +152,8 @@ namespace Fungus
 #endif
 
             Vector3 cameraDelta = swipeCamera.ScreenToViewportPoint(delta);
+			cameraDelta.x = cameraDelta.x * swipeCamera.rect.width + swipeCamera.rect.x;
+			cameraDelta.y = cameraDelta.y * swipeCamera.rect.height + swipeCamera.rect.y;
             cameraDelta.x *= -2f * swipeSpeedMultiplier;
             cameraDelta.y *= -2f * swipeSpeedMultiplier;
             cameraDelta.z = 0f;
