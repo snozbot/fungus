@@ -806,7 +806,15 @@ namespace Fungus.EditorUtils
             {
                 if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
                 {
+                    var flochartWindow = EditorGUIUtility.currentViewWidth;
+                    
                     GUI.Box(selectionBox, "", GUI.skin.FindStyle("SelectionRect"));
+
+                    if(Event.current.mousePosition.x >= flochartWindow)
+                    {
+                        selectionBox.size = -Vector2.zero;
+                        Repaint();
+                    }
                 }
             }
 
