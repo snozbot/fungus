@@ -463,7 +463,49 @@ namespace Fungus
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, bool waitForVO, AudioClip voiceOverClip, Action onComplete)
         {
-            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, onComplete));
+            // A little setup so that listeners know when this starts and stops doing its thing
+            SayDialogEventArgs args = From(text, clearPrevious, waitForInput, 
+                fadeWhenDone, stopVoiceover, waitForVO, 
+                voiceOverClip, onComplete);
+            SayDialogSignals.SignalStart(args);
+
+            System.Action onCompleteWrapped = OnCompleteWithEndSignaling(onComplete, args);
+
+            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, 
+                stopVoiceover, waitForVO, voiceOverClip, onCompleteWrapped));
+        }
+
+        protected virtual SayDialogEventArgs From(string text, bool clearPrevious, bool waitForInput,
+            bool fadeWhenDone, bool stopVoiceover, bool waitForVO,
+            AudioClip voiceOverClip, System.Action onComplete)
+        {
+            SayDialogEventArgs args = new SayDialogEventArgs()
+            {
+                SayDialog = this,
+                Writer = this.writer,
+                TextToWrite = text,
+                ClearPrevious = clearPrevious,
+                WaitForInput = waitForInput,
+                FadeWhenDone = fadeWhenDone,
+                StopVoiceover = stopVoiceover,
+                WaitForVO = waitForVO,
+                VoiceOverClip = voiceOverClip,
+                OnComplete = onComplete
+            };
+
+            return args;
+        }
+
+        protected virtual System.Action OnCompleteWithEndSignaling(System.Action baseOnComplete,
+        SayDialogEventArgs args)
+        {
+            System.Action onCompleteWrapped = () =>
+            {
+                SayDialogSignals.SignalEnd(args);
+                baseOnComplete();
+            };
+
+            return onCompleteWrapped;
         }
 
         /// <summary>
