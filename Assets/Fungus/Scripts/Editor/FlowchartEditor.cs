@@ -23,6 +23,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty hideCommandsProp;
         protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty luaBindingNameProp;
+		protected SerializedProperty removeFoundUnusedVariablesProp;
 
         protected Texture2D addTexture;
 
@@ -47,6 +48,7 @@ namespace Fungus.EditorUtils
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
+			removeFoundUnusedVariablesProp = serializedObject.FindProperty("removeFoundUnusedVariables");
 
             addTexture = FungusEditorResources.AddSmall;
 
@@ -72,6 +74,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(showLineNumbersProp);
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(luaBindingNameProp);
+			EditorGUILayout.PropertyField(removeFoundUnusedVariablesProp);
 
             // Show list of commands to hide in Add Command menu
             //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
@@ -99,6 +102,22 @@ namespace Fungus.EditorUtils
 
             //Show the variables in the flowchart inspector
             GUILayout.Space(20);
+			
+			if (GUILayout.Button(new GUIContent("Check for Unused Variables", "Checks for unused variables and removes them if 'remove unused variables' is enabled."))) 
+			{
+                Undo.RecordObject(flowchart, "Check for Unused Variables " + flowchart.name);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                flowchart.CheckForUnusedVariables();
+                EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+            }
+
+            if (GUILayout.Button(new GUIContent("Error Check", "Checks for mistakes in the flowchart."))) 
+			{
+                Undo.RecordObject(flowchart, "Error Check " + flowchart.name);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                flowchart.ErrorCheck();
+                EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
+            }
 
             DrawVariablesGUI(false, Mathf.FloorToInt(EditorGUIUtility.currentViewWidth) - VariableListAdaptor.ReorderListSkirts);
 

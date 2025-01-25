@@ -48,7 +48,7 @@ namespace Fungus
         [SerializeField] protected List<Command> selectedCommands = new List<Command>();
 
         [HideInInspector]
-        [SerializeField] protected List<Variable> variables = new List<Variable>();
+        [SerializeField] public List<Variable> variables = new List<Variable>();
 
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
@@ -1367,7 +1367,77 @@ namespace Fungus
                 }
             }
         }
+		
+		[SerializeField] public bool removeFoundUnusedVariables;
 
+		public void CheckForUnusedVariables() 
+		{
+			bool _foundUnusedVariable = false;
+
+			List<string> _returnValueNames = new List<string>();
+			_returnValueNames.Clear();
+
+			Block[] _array = GetComponents<Block>();
+
+			foreach (Block _block in _array) 
+			{
+				foreach (Command _command in _block.CommandList) 
+				{
+					//check for unused variables
+					try {
+						if (_command.GetReturnValueName()[0] != null) 
+						{
+							for (int i = 0; i < _command.GetReturnValueName().Count; i++) 
+							{
+								if (!_returnValueNames.Contains(_command.GetReturnValueName()[i])) 
+								{
+									_returnValueNames.Add(_command.GetReturnValueName()[i]);
+								}
+							}
+						}
+					} catch { }
+				}
+
+				//print out any unused variables found and remove them from the flowchart
+				for (int i = 0; i < variables.Count; i++) 
+				{
+					if (!_returnValueNames.Contains(variables[i].key)) 
+					{
+						_foundUnusedVariable = true;
+
+						if (removeFoundUnusedVariables) 
+						{
+							Debug.LogWarning(variables[i].key + " seems to be an unused variable. Removing...");
+							Variables.Remove(variables[i]);
+						} 
+						else 
+						{
+							Debug.LogWarning(variables[i].key + " seems to be an unused variable!");
+						}
+					}
+				}
+
+				if (!_foundUnusedVariable) 
+				{
+					Debug.Log("No unused variables found!");
+				}
+			}
+		}
+
+		public void ErrorCheck() 
+		{
+			Block[] _block = GetComponents<Block>();
+
+			for (int i = 0; i < _block.Length; i++) 
+			{
+				foreach (Command _command in _block[i].CommandList) 
+				{
+					_command.ErrorCheck();
+				}
+
+				_block[i].ColourBlocks();
+			}
+		}
         #endregion
 
         #region IStringSubstituter implementation

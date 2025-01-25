@@ -136,7 +136,11 @@ namespace Fungus
             if (character != null) 
             {
                 namePrefix = character.NameText + ": ";
-            }
+            } 
+			else 
+			{
+                return "Error: character null!";
+			}
             if (extendPrevious)
             {
                 namePrefix = "EXTEND" + ": ";

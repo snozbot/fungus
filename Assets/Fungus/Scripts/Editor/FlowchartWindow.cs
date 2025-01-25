@@ -875,6 +875,18 @@ namespace Fungus.EditorUtils
                 {
                     CenterFlowchart();
                 }
+				
+				//Draw unused variables check button
+				if (GUILayout.Button("Check for Unused Variables", EditorStyles.toolbarButton))
+                {
+					flowchart.CheckForUnusedVariables();
+				}
+
+				//Draw error check button
+				if (GUILayout.Button("Check for Errors", EditorStyles.toolbarButton))
+                {
+					flowchart.ErrorCheck();
+                }
 
                 GUILayout.FlexibleSpace();
 
